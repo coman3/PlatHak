@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatHak.Server", "PlatHak.Server\PlatHak.Server.csproj", "{8A6682D6-A9BC-4B2F-B4A2-37254C0E9FCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{BDF9B797-444C-4817-9B54-901E04A1CE9E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{F9AF2377-8AE4-415B-8934-A1FE1F5ADD74}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{1CB6BC6B-C70E-4A5F-B26D-E5ACF1FCC9CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatHak.Common.Network", "PlatHak.Common.Network\PlatHak.Common.Network.csproj", "{D66BD451-2EA5-49E3-9F69-1D02A88DCF85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatHak.Server.Network", "PlatHak.Server.Network\PlatHak.Server.Network.csproj", "{A56EE6F0-8840-419C-8190-0FEE322CB9E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatHak.Client.Common", "PlatHak.Client.Common\PlatHak.Client.Common.csproj", "{09D11D0C-E00F-4365-B0EB-92C151DD1C48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatHak.Client", "PlatHak.Client\PlatHak.Client.csproj", "{17144B22-BAB7-4151-A4EE-661CD496AF30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatHak.Game", "PlatHak.Game\PlatHak.Game.csproj", "{8C54DB0C-C7BE-40DB-A685-21160B540546}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8A6682D6-A9BC-4B2F-B4A2-37254C0E9FCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A6682D6-A9BC-4B2F-B4A2-37254C0E9FCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A6682D6-A9BC-4B2F-B4A2-37254C0E9FCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A6682D6-A9BC-4B2F-B4A2-37254C0E9FCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D66BD451-2EA5-49E3-9F69-1D02A88DCF85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D66BD451-2EA5-49E3-9F69-1D02A88DCF85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D66BD451-2EA5-49E3-9F69-1D02A88DCF85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D66BD451-2EA5-49E3-9F69-1D02A88DCF85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A56EE6F0-8840-419C-8190-0FEE322CB9E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A56EE6F0-8840-419C-8190-0FEE322CB9E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A56EE6F0-8840-419C-8190-0FEE322CB9E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A56EE6F0-8840-419C-8190-0FEE322CB9E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09D11D0C-E00F-4365-B0EB-92C151DD1C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09D11D0C-E00F-4365-B0EB-92C151DD1C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09D11D0C-E00F-4365-B0EB-92C151DD1C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09D11D0C-E00F-4365-B0EB-92C151DD1C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17144B22-BAB7-4151-A4EE-661CD496AF30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17144B22-BAB7-4151-A4EE-661CD496AF30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17144B22-BAB7-4151-A4EE-661CD496AF30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17144B22-BAB7-4151-A4EE-661CD496AF30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C54DB0C-C7BE-40DB-A685-21160B540546}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C54DB0C-C7BE-40DB-A685-21160B540546}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C54DB0C-C7BE-40DB-A685-21160B540546}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C54DB0C-C7BE-40DB-A685-21160B540546}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8A6682D6-A9BC-4B2F-B4A2-37254C0E9FCC} = {BDF9B797-444C-4817-9B54-901E04A1CE9E}
+		{D66BD451-2EA5-49E3-9F69-1D02A88DCF85} = {1CB6BC6B-C70E-4A5F-B26D-E5ACF1FCC9CF}
+		{A56EE6F0-8840-419C-8190-0FEE322CB9E2} = {BDF9B797-444C-4817-9B54-901E04A1CE9E}
+		{09D11D0C-E00F-4365-B0EB-92C151DD1C48} = {F9AF2377-8AE4-415B-8934-A1FE1F5ADD74}
+		{17144B22-BAB7-4151-A4EE-661CD496AF30} = {F9AF2377-8AE4-415B-8934-A1FE1F5ADD74}
+		{8C54DB0C-C7BE-40DB-A685-21160B540546} = {F9AF2377-8AE4-415B-8934-A1FE1F5ADD74}
+	EndGlobalSection
+EndGlobal

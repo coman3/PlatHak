@@ -1,0 +1,93 @@
+﻿<Window x:Class="PlatHak.Client.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PlatHak.Client"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="400" Width="600" Closing="MainWindow_OnClosing">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="120"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="260"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="1" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="9*"/>
+                <ColumnDefinition Width="16*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="12*"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="11*"/>
+            </Grid.RowDefinitions>
+            <TextBox x:Name="TextBoxUsername" TextChanged="TextBoxUsername_OnTextChanged" Grid.Column="1" Grid.Row="1" Text="" Margin="2"/>
+            <PasswordBox x:Name="TextBoxPassword" Grid.Column="1" Grid.Row="2" Margin="2"/>
+            <Label Content="Username" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="1"/>
+            <Label Content="Password" HorizontalAlignment="Right" Grid.Column="0" Grid.Row="2"/>
+            <Button Click="ButtonStart_OnClick" x:Name="ButtonStart" Content="Start" Grid.Column="1" Grid.Row="3" VerticalAlignment="Bottom" Margin="5" HorizontalAlignment="Right" Width="75"/>
+
+        </Grid>
+        <Label Content="PlatHak" HorizontalAlignment="Right" VerticalAlignment="Bottom" FontFamily="OCR A Std" Grid.Row="0" Grid.Column="0" FontSize="48" Height="68" Width="252"/>
+        <Grid x:Name="GridConfig" Visibility="Hidden" Grid.Column="1">
+            <TabControl >
+                <TabItem BorderBrush="Black" BorderThickness="1" Header="Server" Background="White" Width="100">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="97*"/>
+                            <ColumnDefinition Width="157*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <Label Height="28" Margin="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Server Address"/>
+                            <Label Height="28" Margin="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content=""/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <TextBox x:Name="TextBoxServerAddress" TextChanged="TextBoxServerAddress_OnTextChanged" Height="28" Margin="2" Text="ws://127.0.0.1:3344" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+                            <CheckBox x:Name="CheckBoxServerSpectator" Checked="CheckBoxServerSpectator_OnChecked" Height="28" Margin="2" IsChecked="False" VerticalAlignment="Center" HorizontalAlignment="Left" >Is Spectating</CheckBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+                <TabItem BorderBrush="Black" BorderThickness="1" Header="Client" Background="White" Width="100">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="97*"/>
+                            <ColumnDefinition Width="157*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <Label Height="28" Margin="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content="Vertical Sync"/>
+                            <Label Height="28" Margin="2" HorizontalAlignment="Right" VerticalAlignment="Center" Content=""/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+
+                            <CheckBox x:Name="CheckBoxClientVSync" Height="28" Margin="2" 
+                                      IsChecked="True"  IsEnabled="False" 
+                                      VerticalAlignment="Center" HorizontalAlignment="Left"
+                                      ToolTipService.ShowOnDisabled="True"
+                                      ToolTipService.HorizontalOffset="-200"
+                                      ToolTip="Forced Enabled due to performance. Without this value enabled, the client would run at 4000 fps (Massive CPU + GPU usage)."
+                                      Checked="CheckBoxClientVSync_OnChecked">
+
+                                Wait for V-Sync
+                            </CheckBox>
+                            <CheckBox x:Name="CheckBoxClientFullscreen" Height="28" Margin="2" 
+                                      IsChecked="False"
+                                      VerticalAlignment="Center" HorizontalAlignment="Left" Checked="CheckBoxClientFullscreen_OnChecked" >
+
+                                Full screen
+                            </CheckBox>
+                        </StackPanel>
+                    </Grid>
+                </TabItem>
+
+            </TabControl>
+        </Grid>
+        <Label Content="Copyright © coman3 - 2016" HorizontalAlignment="Right" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" FontSize="7" Height="18" />
+        <Label Content="http://coman3.me/" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="0" FontSize="7" Height="18" />
+        <Button x:Name="ButtonSettings" Click="ButtonSettings_OnClick" Content="Show Config"  HorizontalAlignment="Right" Margin="10" VerticalAlignment="Top" Width="75" Background="{x:Null}" BorderBrush="Black"/>
+    </Grid>
+</Window>

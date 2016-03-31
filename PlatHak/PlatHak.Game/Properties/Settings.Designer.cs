@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PlatHak.Game.Properties
+namespace PlatHack.Game.Properties
 {
 
 

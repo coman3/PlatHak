@@ -1,5 +1,6 @@
 ﻿using PlatHak.Client.Common.Config;
-using PlatHak.Game;
+using PlatHak.Common;
+using PlayHak.Client.Network;
 using SharpDX.Mathematics.Interop;
 
 namespace PlatHack.Game
@@ -18,12 +19,17 @@ namespace PlatHack.Game
             Username = username;
             Password = password;
             Configuration = config;
-            MyGame = new MyGame
+            MyGame = new MyGame(new WebSocketClientConfig
+            {
+                ServerAddress =  server,
+                Username = username,
+                PasswordHash = password.ToMd5()
+            })
             {
                 SceneColor = new RawColor4(255, 255, 255, 255)
             
             };
-            MyGame.Run(config);
+            MyGame.Run(Configuration);
             
 
         }

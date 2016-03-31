@@ -16,6 +16,7 @@ namespace PlatHak.Client.Common
         private readonly GameTime _clock = new GameTime();
         private FormWindowState _currentFormWindowState;
         private bool _disposed;
+        private bool _closing;
         private Form _form;
         private float _frameAccumulator;
         private int _frameCount;
@@ -58,11 +59,15 @@ namespace PlatHak.Client.Common
         {
             if (disposeManagedResources)
             {
-                if (_form != null)
-                    _form.Dispose();
+                _form?.Dispose();
             }
         }
 
+        public void Close()
+        {
+            _closing = true;
+
+        }
         /// <summary>
         /// Return the Handle to display to.
         /// </summary>
@@ -158,6 +163,7 @@ namespace PlatHak.Client.Common
             BeginRun();
             RenderLoop.Run(_form, () =>
             {
+                if (_closing) Dispose();
                 if (isFormClosed)
                 {
                     return;

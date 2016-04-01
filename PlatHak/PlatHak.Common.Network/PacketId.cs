@@ -7,15 +7,11 @@ namespace PlatHak.Common.Network
     {
         Handshake,
         Error,
-        MultiPacket,
-
-        CreateObject,
-        DeleteObject,
-        MoveObject,
-
-        
-        Input,
+        Multi,
         Event,
-        Login
+        Login,
+
+
+        MouseMove
     }
 }

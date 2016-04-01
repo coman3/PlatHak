@@ -77,7 +77,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawers\Game.cs" />
+    <Compile Include="Drawers\Menus\MainMenu.cs" />
+    <Compile Include="Drawers\Menus\Drawers\MainMenuBackground.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Helpers.cs" />
+    <Compile Include="Interfaces\IDrawSurface.cs" />
+    <Compile Include="Interfaces\GameSurface.cs" />
+    <Compile Include="Interfaces\IInitializedSurface.cs" />
+    <Compile Include="Interfaces\IInputSurface.cs" />
+    <Compile Include="Interfaces\IPacketReciverSurface.cs" />
+    <Compile Include="Interfaces\IUpdatedSurface.cs" />
+    <Compile Include="Interfaces\MenuSurface.cs" />
+    <Compile Include="Interfaces\Surface.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -120,6 +132,17 @@
       <Project>{36AE90A6-AC21-4EF1-B920-6FC343E85F2F}</Project>
       <Name>PlayHak.Client.Network</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Blank.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\ButtonSheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\ParalaxBackground_0.gif">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

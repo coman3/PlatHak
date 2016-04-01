@@ -8,7 +8,7 @@ namespace PlatHak.Common.Network
     public class MultiPacket : Packet
     {
         public List<Packet> Packets { get; set; }
-        public MultiPacket(params Packet[] packets) : base(PacketId.MultiPacket)
+        public MultiPacket(params Packet[] packets) : base(PacketId.Multi)
         {
             Packets = packets?.ToList() ?? new List<Packet>();
         }

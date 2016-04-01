@@ -24,11 +24,7 @@ namespace PlatHack.Game
                 ServerAddress =  server,
                 Username = username,
                 PasswordHash = password.ToMd5()
-            })
-            {
-                SceneColor = new RawColor4(255, 255, 255, 255)
-            
-            };
+            });
             MyGame.Run(Configuration);
             
 

@@ -56,6 +56,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -68,14 +69,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Packets\CreateObjectPacket.cs" />
-    <Compile Include="Packets\DeleteObjectPacket.cs" />
     <Compile Include="Packets\ErrorPacket.cs" />
     <Compile Include="Packets\EventPacket.cs" />
     <Compile Include="Packets\HandshakePacket.cs" />
-    <Compile Include="Packets\InputPacket.cs" />
     <Compile Include="Packets\LoginPacket.cs" />
-    <Compile Include="Packets\MoveObjectPacket.cs" />
+    <Compile Include="Packets\MouseMovePacket.cs" />
     <Compile Include="Packets\MultiPacket.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="PacketId.cs" />

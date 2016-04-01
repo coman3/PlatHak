@@ -17,7 +17,7 @@ namespace PlatHak.Client.Common
         private FormWindowState _currentFormWindowState;
         private bool _disposed;
         private bool _closing;
-        private Form _form;
+        protected RenderForm Form { get; private set; }
         private float _frameAccumulator;
         private int _frameCount;
         private GameConfiguration _gameConfiguration;
@@ -59,7 +59,7 @@ namespace PlatHak.Client.Common
         {
             if (disposeManagedResources)
             {
-                _form?.Dispose();
+                Form?.Dispose();
             }
         }
 
@@ -73,7 +73,7 @@ namespace PlatHak.Client.Common
         /// </summary>
         protected IntPtr DisplayHandle
         {
-            get { return _form.Handle; }
+            get { return Form.Handle; }
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace PlatHak.Client.Common
         /// </summary>
         /// <param name="config"></param>
         /// <returns></returns>
-        protected virtual Form CreateForm(GameConfiguration config)
+        protected virtual RenderForm CreateForm(GameConfiguration config)
         {
             return new RenderForm(config.Title)
             {
@@ -126,42 +126,42 @@ namespace PlatHak.Client.Common
         public void Run(GameConfiguration gameConfiguration)
         {
             _gameConfiguration = gameConfiguration ?? new GameConfiguration();
-            _form = CreateForm(_gameConfiguration);
-            _form.Closed += (_,args) => OnGameClosed?.Invoke();
-            _form.Closing += (_, args) => OnGameClosing?.Invoke();
+            Form = CreateForm(_gameConfiguration);
+            Form.Closed += (_,args) => OnGameClosed?.Invoke();
+            Form.Closing += (_, args) => OnGameClosing?.Invoke();
             Initialize(_gameConfiguration);
 
             bool isFormClosed = false;
             bool formIsResizing = false;
 
-            _form.MouseClick += HandleMouseClick;
-            _form.KeyDown += HandleKeyDown;
-            _form.KeyUp += HandleKeyUp;
-            _form.Resize += (o, args) =>
+            Form.MouseClick += HandleMouseClick;
+            Form.KeyDown += HandleKeyDown;
+            Form.KeyUp += HandleKeyUp;
+            Form.Resize += (o, args) =>
             {
 
-                if (_form.WindowState != _currentFormWindowState)
+                if (Form.WindowState != _currentFormWindowState)
                 {
                     HandleResize(o, args);
                 }
 
-                _currentFormWindowState = _form.WindowState;
+                _currentFormWindowState = Form.WindowState;
             };
 
-            _form.ResizeBegin += (o, args) => { formIsResizing = true; };
-            _form.ResizeEnd += (o, args) =>
+            Form.ResizeBegin += (o, args) => { formIsResizing = true; };
+            Form.ResizeEnd += (o, args) =>
             {
                 formIsResizing = false;
                 HandleResize(o, args);
             };
 
-            _form.Closed += (o, args) => { isFormClosed = true; };
+            Form.Closed += (o, args) => { isFormClosed = true; };
 
             LoadContent();
 
             _clock.Start();
             BeginRun();
-            RenderLoop.Run(_form, () =>
+            RenderLoop.Run(Form, () =>
             {
                 if (_closing) Dispose();
                 if (isFormClosed)
@@ -237,7 +237,7 @@ namespace PlatHak.Client.Common
         /// </summary>
         public void Exit()
         {
-            _form.Close();
+            Form.Close();
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace PlatHak.Client.Common
 
         protected System.Drawing.Size RenderingSize
         {
-            get { return _form.ClientSize; }
+            get { return Form.ClientSize; }
         }
 
         /// <summary>
@@ -265,7 +265,7 @@ namespace PlatHak.Client.Common
             {
                 FramePerSecond = _frameCount/_frameAccumulator;
 
-                _form.Text = _gameConfiguration.Title + " - FPS: " + FramePerSecond;
+                Form.Text = _gameConfiguration.Title + " - FPS: " + FramePerSecond;
                 _frameAccumulator = 0.0f;
                 _frameCount = 0;
             }
@@ -320,7 +320,7 @@ namespace PlatHak.Client.Common
 
         private void HandleResize(object sender, EventArgs e)
         {
-            if (_form.WindowState == FormWindowState.Minimized)
+            if (Form.WindowState == FormWindowState.Minimized)
             {
                 return;
             }

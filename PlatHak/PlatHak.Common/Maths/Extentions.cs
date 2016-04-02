@@ -1,5 +1,5 @@
 ﻿using Box2DX.Common;
-
+using System;
 namespace PlatHak.Common.Maths
 {
     public static class Extentions
@@ -11,7 +11,7 @@ namespace PlatHak.Common.Maths
 
         public static Rotation GetRotation(this XForm xform)
         {
-            return new Rotation(xform.Position.GetVector2(), xform.R.GetAngle());
+            return new Rotation(xform.Position.GetVector2(), xform.R.GetAngle() * (float)(180 / System.Math.PI));
         }
     }
 }

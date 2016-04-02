@@ -19,14 +19,14 @@ namespace PlatHak.Client.Common.Objects
 
         public override void OnDraw(RenderTarget target, GameTime time)
         {
-            //target.Transform = Rotation.Matrix3X2;
-            //target.DrawRectangle(new RectangleF(Posistion.X, Posistion.Y, 100, 100), brush);
-            //target.Transform = Matrix3x2.Identity;
+            target.Transform = Rotation.Matrix3X2;
+            target.DrawRectangle(new RectangleF(Posistion.X, Posistion.Y, 10, 10), brush);
+            target.Transform = Matrix3x2.Identity;
         }
 
         public override void OnInitialize(RenderTarget target, Factory factory)
         {
-            //brush = new SolidColorBrush(target, new RawColor4(255, 0, 0, 255)); 
+            brush = new SolidColorBrush(target, new RawColor4(255, 0, 0, 255)); 
         }
     }
 }

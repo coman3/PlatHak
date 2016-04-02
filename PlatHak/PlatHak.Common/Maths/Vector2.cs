@@ -1,7 +1,7 @@
 ﻿using System;
 using SharpDX.Mathematics.Interop;
 
-namespace PlatHak.Common
+namespace PlatHak.Common.Maths
 {
     [Serializable]
     public struct Vector2
@@ -13,18 +13,16 @@ namespace PlatHak.Common
         public static readonly Vector2 Left = new Vector2(-1, 0);
         public static readonly Vector2 Right = new Vector2(1, 0);
 
-        public int X { get; set; }
-        public int Y { get; set; }
+        public float X { get; set; }
+        public float Y { get; set; }
 
-        public Vector2(int x, int y)
+        public RawVector2 RawVector2 => new RawVector2(X, Y);
+
+        public Vector2(float x, float y)
         {
             X = x;
             Y = y;
         }
 
-        public RawVector2 ToRawVector2()
-        {
-            return new RawVector2(X, Y);
-        }
     }
 }

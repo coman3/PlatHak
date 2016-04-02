@@ -23,7 +23,7 @@ namespace PlatHak.Client.Common
                 RenderTarget2D = new RenderTarget(Factory2D, surface,
                                                   new RenderTargetProperties(new PixelFormat(Format.Unknown, AlphaMode.Premultiplied)));
             }
-            RenderTarget2D.AntialiasMode = AntialiasMode.Aliased;
+            RenderTarget2D.AntialiasMode = AntialiasMode.PerPrimitive;
 
             FactoryDWrite = new SharpDX.DirectWrite.Factory();
 

@@ -1,7 +1,7 @@
 ﻿using PlatHak.Client.Common.Helpers;
 using SharpDX.Direct2D1;
 
-namespace PlatHack.Game
+namespace PlatHak.Client.Common.Interfaces
 {
     public interface IDrawSurface
     {

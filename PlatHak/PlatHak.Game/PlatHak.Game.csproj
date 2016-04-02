@@ -36,6 +36,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Box2DX, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Box2DX.2.0.2.0\lib\net40\Box2DX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ChipmunkSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ChipmunkSharp.Windows.7.0.0.0\lib\net40\ChipmunkSharp.dll</HintPath>
       <Private>True</Private>
@@ -60,6 +64,10 @@
       <HintPath>..\packages\SharpDX.DXGI.3.0.2\lib\net45\SharpDX.DXGI.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SharpDX.Mathematics, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpDX.Mathematics.3.0.2\lib\net45\SharpDX.Mathematics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SharpDX.XInput, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.XInput.3.0.2\lib\net45\SharpDX.XInput.dll</HintPath>
       <Private>True</Private>
@@ -77,19 +85,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawers\Game.cs" />
-    <Compile Include="Drawers\Menus\MainMenu.cs" />
-    <Compile Include="Drawers\Menus\Drawers\MainMenuBackground.cs" />
+    <Compile Include="Surfaces\Games\Game.cs" />
+    <Compile Include="Surfaces\GameSurface.cs" />
+    <Compile Include="Surfaces\Menus\MainMenu.cs" />
+    <Compile Include="Surfaces\Menus\Drawers\MainMenuBackground.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="Interfaces\IDrawSurface.cs" />
-    <Compile Include="Interfaces\GameSurface.cs" />
-    <Compile Include="Interfaces\IInitializedSurface.cs" />
-    <Compile Include="Interfaces\IInputSurface.cs" />
-    <Compile Include="Interfaces\IPacketReciverSurface.cs" />
-    <Compile Include="Interfaces\IUpdatedSurface.cs" />
-    <Compile Include="Interfaces\MenuSurface.cs" />
-    <Compile Include="Interfaces\Surface.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -120,6 +121,10 @@
       <Project>{09d11d0c-e00f-4365-b0eb-92c151dd1c48}</Project>
       <Name>PlatHak.Client.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Client.Parts\PlatHak.Client.Parts.csproj">
+      <Project>{0F3C70EE-788D-4FF7-8C3F-4FFE5B037968}</Project>
+      <Name>PlatHak.Client.Parts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlatHak.Common.Network\PlatHak.Common.Network.csproj">
       <Project>{D66BD451-2EA5-49E3-9F69-1D02A88DCF85}</Project>
       <Name>PlatHak.Common.Network</Name>
@@ -135,9 +140,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Blank.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Content\ButtonSheet.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\ParalaxBackground_0.gif">

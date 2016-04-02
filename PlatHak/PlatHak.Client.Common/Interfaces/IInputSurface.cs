@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlatHack.Game
+namespace PlatHak.Client.Common.Interfaces
 {
     public interface IInputSurface
     {

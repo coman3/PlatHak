@@ -1,6 +1,6 @@
 ﻿using PlatHak.Client.Common.Helpers;
 
-namespace PlatHack.Game
+namespace PlatHak.Client.Common.Interfaces
 {
     public interface IUpdatedSurface
     {

@@ -1,6 +1,6 @@
 ﻿using PlatHak.Common.Network;
 
-namespace PlatHack.Game
+namespace PlatHak.Client.Common.Interfaces
 {
     public interface IPacketReciverSurface
     {

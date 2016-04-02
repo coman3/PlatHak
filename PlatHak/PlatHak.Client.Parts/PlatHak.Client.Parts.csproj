@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{09D11D0C-E00F-4365-B0EB-92C151DD1C48}</ProjectGuid>
+    <ProjectGuid>{0F3C70EE-788D-4FF7-8C3F-4FFE5B037968}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlatHak.Client.Common</RootNamespace>
-    <AssemblyName>PlatHak.Client.Common</AssemblyName>
+    <RootNamespace>PlatHak.Client.Parts</RootNamespace>
+    <AssemblyName>PlatHak.Client.Parts</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,38 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Box2DX, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box2DX.2.0.2.0\lib\net40\Box2DX.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SharpDX, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.3.0.2\lib\net45\SharpDX.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SharpDX.Desktop, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.Desktop.3.0.2\lib\net45\SharpDX.Desktop.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX.Direct2D1, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.Direct2D1.3.0.2\lib\net45\SharpDX.Direct2D1.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpDX.Direct3D11, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.Direct3D11.3.0.2\lib\net45\SharpDX.Direct3D11.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SharpDX.DXGI, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.DXGI.3.0.2\lib\net45\SharpDX.DXGI.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpDX.Mathematics, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpDX.Mathematics.3.0.2\lib\net45\SharpDX.Mathematics.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -70,33 +52,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameConfiguration.cs" />
-    <Compile Include="Game.cs" />
-    <Compile Include="Game2D.cs" />
-    <Compile Include="Game3D.cs" />
-    <Compile Include="GameTime.cs" />
-    <Compile Include="Interfaces\IDrawSurface.cs" />
-    <Compile Include="Interfaces\IInitializedSurface.cs" />
-    <Compile Include="Interfaces\IInputSurface.cs" />
-    <Compile Include="Interfaces\IPacketReciverSurface.cs" />
-    <Compile Include="Interfaces\IPhysicsSurface.cs" />
-    <Compile Include="Interfaces\IUpdatedSurface.cs" />
-    <Compile Include="Interfaces\MenuSurface.cs" />
-    <Compile Include="Interfaces\Surface.cs" />
-    <Compile Include="Objects\BoxPhysicsObject.cs" />
-    <Compile Include="Objects\CirclePhysicsObject.cs" />
-    <Compile Include="Objects\GameObject.cs" />
-    <Compile Include="Objects\PhysicsObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RenderPart.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PlatHak.Common.Network\PlatHak.Common.Network.csproj">
-      <Project>{d66bd451-2ea5-49e3-9f69-1d02a88dcf85}</Project>
-      <Name>PlatHak.Common.Network</Name>
+    <ProjectReference Include="..\PlatHak.Client.Common\PlatHak.Client.Common.csproj">
+      <Project>{09d11d0c-e00f-4365-b0eb-92c151dd1c48}</Project>
+      <Name>PlatHak.Client.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
       <Project>{91F15F8B-A8EA-455C-8889-6BA78852F8E7}</Project>

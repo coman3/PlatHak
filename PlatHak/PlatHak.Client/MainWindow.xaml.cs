@@ -14,7 +14,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using PlatHak.Client.Common;
-using PlatHak.Client.Common.Config;
 
 namespace PlatHak.Client
 {

@@ -4,8 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using PlatHak.Client.Common.Config;
-using PlatHak.Client.Common.Helpers;
 using SharpDX.Windows;
 
 

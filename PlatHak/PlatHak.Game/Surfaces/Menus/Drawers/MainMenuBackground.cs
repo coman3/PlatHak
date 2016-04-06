@@ -1,20 +1,22 @@
-﻿using System;
-using PlatHak.Client.Common.Helpers;
+﻿using PlatHak.Client.Common;
 using PlatHak.Client.Common.Interfaces;
-using SharpDX;
 using SharpDX.Direct2D1;
-using SharpDX.Mathematics.Interop;
 using RectangleF = PlatHak.Common.Maths.RectangleF;
 
-namespace PlatHack.Game.Surfaces
+namespace PlatHack.Game.Surfaces.Menus
 {
     public class MainMenuBackground : IDrawSurface, IInitializedSurface, IUpdatedSurface
     {
         public Bitmap ParalaxBackground { get; set; }
-        public RectangleF Screen { get; set; }
+        public RectangleF ViewPort { get; set; }
+
+        public MainMenuBackground(RectangleF viewPort)
+        {
+            ViewPort = viewPort;
+        }
         public void Draw(RenderTarget target, GameTime time)
         {
-            target.DrawBitmap(ParalaxBackground, Screen.RawRectangleF, 1, BitmapInterpolationMode.Linear, Screen.RawRectangleF);
+            target.DrawBitmap(ParalaxBackground, ViewPort.RawRectangleF, 1, BitmapInterpolationMode.Linear, ViewPort.RawRectangleF);
         }
 
         public void OnUpdate(GameTime time)
@@ -23,10 +25,9 @@ namespace PlatHack.Game.Surfaces
         }
 
 
-        public void OnInitialize(RenderTarget target, Factory factory)
+        public void OnInitialize(RenderTarget target, Factory factory, SharpDX.DirectWrite.Factory factoryDr)
         {
             ParalaxBackground = Helpers.GetContent(target, "ParalaxBackground_0.gif");
-            Screen = new RectangleF(0, 0, target.Size.Width, target.Size.Height);
         }
     }
 }

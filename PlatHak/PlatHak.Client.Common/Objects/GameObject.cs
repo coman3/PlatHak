@@ -1,5 +1,4 @@
-﻿using PlatHak.Client.Common.Helpers;
-using PlatHak.Client.Common.Interfaces;
+﻿using PlatHak.Client.Common.Interfaces;
 using PlatHak.Common.Maths;
 using SharpDX;
 using SharpDX.Direct2D1;
@@ -48,6 +47,6 @@ namespace PlatHak.Client.Common.Objects
         }
 
         public abstract void OnDraw(RenderTarget target, GameTime time);
-        public abstract void OnInitialize(RenderTarget target, Factory factory);
+        public abstract void OnInitialize(RenderTarget target, Factory factory, SharpDX.DirectWrite.Factory factoryDr);
     }
 }

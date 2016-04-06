@@ -1,4 +1,4 @@
-﻿namespace PlatHak.Client.Common.Config
+﻿namespace PlatHak.Client.Common
 {
     public class GameConfiguration
     {

@@ -85,6 +85,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Surfaces\Dragables\CircleDragItem.cs" />
     <Compile Include="Surfaces\Games\Game.cs" />
     <Compile Include="Surfaces\GameSurface.cs" />
     <Compile Include="Surfaces\Menus\MainMenu.cs" />
@@ -146,6 +147,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

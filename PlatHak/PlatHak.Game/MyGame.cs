@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 using PlatHak.Client.Common;
-using PlatHak.Client.Common.Config;
-using PlatHak.Client.Common.Helpers;
 using PlatHak.Client.Common.Interfaces;
 using PlatHak.Common.Maths;
 using PlayHak.Client.Network;
@@ -13,7 +11,7 @@ using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
 using SharpDX.Mathematics.Interop;
 using SharpDX.Windows;
-using MainMenu = PlatHack.Game.Surfaces.MainMenu;
+using MainMenu = PlatHack.Game.Surfaces.Menus.MainMenu;
 
 namespace PlatHack.Game
 {
@@ -22,9 +20,11 @@ namespace PlatHack.Game
         public WebSocketClient Client { get; set; }
         private TextFormat CommonTextFormat { get; set; }
         private Brush CommonForgroundBrush { get; set; }
-
+        public RawColor4 SceneColor { get; set; }
         public List<Surface> Surfaces { get; set; }
-        public Surface SelectedSurface { get; set; }
+        public Surface[] SelectedSurfaces { get; set; }
+
+
         public MyGame(WebSocketClientConfig config)
         {
             Client = new WebSocketClient(config);
@@ -32,12 +32,20 @@ namespace PlatHack.Game
             Client.OnDisconnect += Client_OnDisconnect;
             Client.OpenConnection();
             Surfaces = new List<Surface>();
+            SceneColor = new RawColor4(0, 0, 0 ,255);
         }
 
         private void LoadSurfaces()
         {
-            //Surfaces.Add(new MainMenu());
-            Surfaces.Add(new Surfaces.Game(this));
+            Surfaces.Add(new SplitSurface(
+                new RectangleF(0, 0, Config.Width, Config.Height), 
+                new MainMenu(new RectangleF(0, 0, Config.Width/6f, Config.Height)),
+                new Surfaces.Games.Game(new RectangleF(Config.Width/6f, 0, Config.Width - Config.Width/6f, Config.Height), this))
+            );
+            
+            
+
+            SelectedSurfaces = Surfaces.ToArray();
         }
 
         private void Client_OnDisconnect(WebSocketEventArgs args)
@@ -58,46 +66,54 @@ namespace PlatHack.Game
             form.MouseMove += Form_MouseMove;
             form.MouseDown += Form_MouseDown;
             form.MouseUp += Form_MouseUp;
+            form.MouseWheel += Form_MouseWheel;
             return form;
+        }
+        
+        private void Form_MouseWheel(object sender, MouseEventArgs e)
+        {
+            foreach (var selectedSurface in SelectedSurfaces.OfType<IInputSurface>())
+            {
+                var inputValue = InputValue.ScrollWheelValue;
+
+                var inputArgs = new InputEventArgs(InputType.Mouse, inputValue, e.Delta);
+                selectedSurface?.OnInput(inputArgs);
+            }
         }
 
         private void Form_MouseUp(object sender, MouseEventArgs e)
         {
-            if (SelectedSurface.IsInputSurface)
+            foreach (var selectedSurface in SelectedSurfaces.OfType<IInputSurface>())
             {
-                var init = SelectedSurface as IInputSurface;
                 var inputValue = InputValue.LeftMouse;
-
-                if(e.Button.HasFlag(MouseButtons.Right)) inputValue = InputValue.RightMouse;
+                if (e.Button.HasFlag(MouseButtons.Right)) inputValue = InputValue.RightMouse;
                 if (e.Button.HasFlag(MouseButtons.Middle)) inputValue = InputValue.ScrollWheel;
 
                 var inputArgs = new InputEventArgs(InputType.Mouse, inputValue, 0);
-                init?.OnInput(inputArgs);
+                selectedSurface?.OnInput(inputArgs);
             }
         }
 
         private void Form_MouseDown(object sender, MouseEventArgs e)
         {
-            if (SelectedSurface.IsInputSurface)
+            foreach (var selectedSurface in SelectedSurfaces.OfType<IInputSurface>())
             {
-                var init = SelectedSurface as IInputSurface;
                 var inputValue = InputValue.LeftMouse;
-
                 if (e.Button.HasFlag(MouseButtons.Right)) inputValue = InputValue.RightMouse;
                 if (e.Button.HasFlag(MouseButtons.Middle)) inputValue = InputValue.ScrollWheel;
 
                 var inputArgs = new InputEventArgs(InputType.Mouse, inputValue, 1);
-                init?.OnInput(inputArgs);
+                selectedSurface?.OnInput(inputArgs);
+
             }
         }
 
         private void Form_MouseMove(object sender, MouseEventArgs e)
         {
-            if (SelectedSurface.IsInputSurface)
+            foreach (var selectedSurface in SelectedSurfaces.OfType<IInputSurface>())
             {
-                var init = SelectedSurface as IInputSurface;
                 var inputArgs = new InputEventArgs(InputType.Mouse, InputValue.MouseMove, e.X, e.Y);
-                init?.OnInput(inputArgs);
+                selectedSurface?.OnInput(inputArgs);
             }
         }
 
@@ -106,12 +122,9 @@ namespace PlatHack.Game
             base.Initialize(demoConfiguration);
             LoadSurfaces();
             if (Surfaces == null || Surfaces.Count == 0) throw new InvalidOperationException("No Surfaces Defined.");
-            SelectedSurface = Surfaces.First();
-
-            if (SelectedSurface.IsInitializedSurface)
+            foreach (var selectedSurface in SelectedSurfaces)
             {
-                var init = SelectedSurface as IInitializedSurface;
-                init?.OnInitialize(RenderTarget2D, Factory2D);
+                selectedSurface?.OnInitialize(RenderTarget2D, Factory2D, FactoryDWrite);
             }
 
         }
@@ -125,20 +138,22 @@ namespace PlatHack.Game
 
         protected override void Update(GameTime time)
         {
-            if (SelectedSurface.IsUpdatedSurface)
+            foreach (var selectedSurface in SelectedSurfaces.OfType<IUpdatedSurface>())
             {
-                var init = SelectedSurface as IUpdatedSurface;
-                init?.OnUpdate(time);
+                selectedSurface?.OnUpdate(time);
             }
         }
 
         protected override void Draw(GameTime time)
         {
-            SelectedSurface?.Draw(RenderTarget2D, time);
+            RenderTarget2D.Clear(SceneColor);
+            foreach (var selectedSurface in SelectedSurfaces)
+            {
+                selectedSurface?.Draw(RenderTarget2D, time);
+            }
 
             if (Client.HandshakeFinished) RenderTarget2D.DrawText("Handshake Success!", CommonTextFormat, new RawRectangleF(10, 10, 300, 300), CommonForgroundBrush);
             if (Client.LoginFinished) RenderTarget2D.DrawText("Login Success!", CommonTextFormat, new RawRectangleF(10, 30, 300, 300), CommonForgroundBrush);
-
         }
         
     }

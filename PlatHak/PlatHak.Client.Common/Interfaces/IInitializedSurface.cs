@@ -4,6 +4,6 @@ namespace PlatHak.Client.Common.Interfaces
 {
     public interface IInitializedSurface
     {
-        void OnInitialize(RenderTarget target, Factory factory);
+        void OnInitialize(RenderTarget target, Factory factory, SharpDX.DirectWrite.Factory factoryDr);
     }
 }

@@ -1,5 +1,4 @@
-﻿using PlatHak.Client.Common.Helpers;
-using SharpDX.Direct2D1;
+﻿using SharpDX.Direct2D1;
 
 namespace PlatHak.Client.Common.Interfaces
 {

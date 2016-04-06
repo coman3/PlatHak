@@ -1,5 +1,4 @@
-﻿using PlatHak.Client.Common.Config;
-using SharpDX;
+﻿using SharpDX;
 using SharpDX.Direct2D1;
 using SharpDX.DXGI;
 using AlphaMode = SharpDX.Direct2D1.AlphaMode;

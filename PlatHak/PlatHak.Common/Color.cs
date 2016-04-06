@@ -1,4 +1,5 @@
 ﻿using System;
+using SharpDX.Mathematics.Interop;
 
 namespace PlatHak.Common
 {
@@ -16,6 +17,11 @@ namespace PlatHak.Common
             G = g;
             B = b;
             Alpha = alpha;
+        }
+
+        public RawColor4 ToRawColor4()
+        {
+            return new RawColor4(R, G, B, Alpha);
         }
     }
 }

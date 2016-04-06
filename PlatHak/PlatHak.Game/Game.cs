@@ -1,4 +1,4 @@
-﻿using PlatHak.Client.Common.Config;
+﻿using PlatHak.Client.Common;
 using PlatHak.Common;
 using PlayHak.Client.Network;
 using SharpDX.Mathematics.Interop;

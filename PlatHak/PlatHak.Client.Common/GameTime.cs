@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
 
-namespace PlatHak.Client.Common.Helpers
+namespace PlatHak.Client.Common
 {
     public class GameTime
     {

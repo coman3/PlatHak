@@ -1,11 +1,11 @@
-﻿using PlatHak.Common.Maths;
+﻿using Box2DX.Collision;
+using Box2DX.Dynamics;
+using PlatHak.Common.Maths;
 
 namespace PlatHak.Client.Common.Interfaces
 {
     public interface IPhysicsSurface
     {
-        RectangleF BoundingBox { get; }
-        
-        
+        Body Body { get; }
     }
 }

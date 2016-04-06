@@ -75,6 +75,8 @@
     <Compile Include="Game2D.cs" />
     <Compile Include="Game3D.cs" />
     <Compile Include="GameTime.cs" />
+    <Compile Include="Interfaces\DragItem.cs" />
+    <Compile Include="Interfaces\IDragableSurfaceObjects.cs" />
     <Compile Include="Interfaces\IDrawSurface.cs" />
     <Compile Include="Interfaces\IInitializedSurface.cs" />
     <Compile Include="Interfaces\IInputSurface.cs" />
@@ -82,11 +84,13 @@
     <Compile Include="Interfaces\IPhysicsSurface.cs" />
     <Compile Include="Interfaces\IUpdatedSurface.cs" />
     <Compile Include="Interfaces\MenuSurface.cs" />
+    <Compile Include="Interfaces\SplitSurface.cs" />
     <Compile Include="Interfaces\Surface.cs" />
     <Compile Include="Objects\BoxPhysicsObject.cs" />
     <Compile Include="Objects\CirclePhysicsObject.cs" />
     <Compile Include="Objects\GameObject.cs" />
     <Compile Include="Objects\PhysicsObject.cs" />
+    <Compile Include="Objects\PolygonPhysicsObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

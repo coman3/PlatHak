@@ -69,14 +69,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Packets\ChunkPacket.cs" />
+    <Compile Include="Packets\ChunkRequestPacket.cs" />
     <Compile Include="Packets\ErrorPacket.cs" />
     <Compile Include="Packets\EventPacket.cs" />
     <Compile Include="Packets\HandshakePacket.cs" />
     <Compile Include="Packets\LoginPacket.cs" />
-    <Compile Include="Packets\MouseMovePacket.cs" />
-    <Compile Include="Packets\MultiPacket.cs" />
     <Compile Include="Packet.cs" />
     <Compile Include="PacketId.cs" />
+    <Compile Include="Packets\MoveRequest.cs" />
+    <Compile Include="Packets\PlayerMovePacket.cs" />
+    <Compile Include="Packets\PlayerPacket.cs" />
+    <Compile Include="Packets\UpdateGameTile.cs" />
+    <Compile Include="Packets\WorldPacket.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

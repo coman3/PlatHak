@@ -41,8 +41,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="User.cs" />
+    <Compile Include="WorldManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlatHak.Common.Network\PlatHak.Common.Network.csproj">
+      <Project>{d66bd451-2ea5-49e3-9f69-1d02a88dcf85}</Project>
+      <Name>PlatHak.Common.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
+      <Project>{91F15F8B-A8EA-455C-8889-6BA78852F8E7}</Project>
+      <Name>PlatHak.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Server.Network\PlatHak.Server.Network.csproj">
+      <Project>{A56EE6F0-8840-419C-8190-0FEE322CB9E2}</Project>
+      <Name>PlatHak.Server.Network</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

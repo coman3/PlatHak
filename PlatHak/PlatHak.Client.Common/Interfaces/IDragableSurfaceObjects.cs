@@ -3,7 +3,7 @@ using PlatHak.Common.Maths;
 
 namespace PlatHak.Client.Common.Interfaces
 {
-    public interface IDragableSurface
+    public interface IDragableSurface : ISurface
     {
         void OnDropItem(Vector2 posistion, DragItem item);
     }

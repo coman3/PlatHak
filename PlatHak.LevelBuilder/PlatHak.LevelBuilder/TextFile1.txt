@@ -1,0 +1,68 @@
+﻿LevelGrid.Width = LevelWidth * BlockSize * 10;
+            LevelGrid.Height = LevelHeight * BlockSize * 10;
+            for (int cx = 0; cx < 10; cx++)
+            {
+                for (int x = 0; x < LevelWidth; x++)
+                {
+                    LevelGrid.ColumnDefinitions.Add(new ColumnDefinition
+                    {
+                        Width = new GridLength(BlockSize * LevelWidth, GridUnitType.Pixel),
+                    });
+                }
+                for (int y = 0; y < LevelHeight; y++)
+                {
+                    LevelGrid.RowDefinitions.Add(new RowDefinition
+                    {
+                        Height = new GridLength(BlockSize * LevelHeight, GridUnitType.Pixel),
+                    });
+                }
+            }
+            var random = new Random();
+            for (byte cx = 0; cx < 10; cx++)
+            {
+                for (byte cy = 0; cy < 10; cy++)
+                {
+                    var grid = new Grid
+                    {
+                        Width = LevelWidth * BlockSize,
+                        Height = LevelHeight * BlockSize
+                    };
+
+                    for (int x = 0; x < LevelWidth; x++)
+                    {
+                        grid.ColumnDefinitions.Add(new ColumnDefinition
+                        {
+                            Width = new GridLength(BlockSize, GridUnitType.Pixel),
+                        });
+                    }
+                    for (int y = 0; y < LevelHeight; y++)
+                    {
+                        grid.RowDefinitions.Add(new RowDefinition
+                        {
+                            Height = new GridLength(BlockSize, GridUnitType.Pixel),
+                        });
+                    }
+
+                    var brush =
+                        new SolidColorBrush(Color.FromRgb(Convert.ToByte(random.Next(25, 255)), Convert.ToByte(random.Next(25, 255)), Convert.ToByte(random.Next(25, 255))));
+                    for (int x = 0; x < LevelWidth; x++)
+                    {
+                        for (int y = 0; y < LevelHeight; y++)
+                        {
+                            var rect = new Rectangle()
+                            {
+                                Stroke = brush,
+                                HorizontalAlignment = HorizontalAlignment.Stretch,
+                                VerticalAlignment = VerticalAlignment.Stretch,
+                                StrokeThickness = 1,
+                            };
+                            Grid.SetColumn(rect, x);
+                            Grid.SetRow(rect, y);
+                            grid.Children.Add(rect);
+                        }
+                    }
+                    Grid.SetColumn(grid, cx);
+                    Grid.SetRow(grid, cy);
+                    LevelGrid.Children.Add(grid);
+                }
+            }

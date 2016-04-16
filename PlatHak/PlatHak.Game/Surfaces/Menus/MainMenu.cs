@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using PlatHack.Game.Surfaces.Dragables;
 using PlatHak.Client.Common;
 using PlatHak.Client.Common.Interfaces;
 using PlatHak.Client.Common.Objects;
@@ -31,17 +30,7 @@ namespace PlatHack.Game.Surfaces.Menus
                 }
                 else
                 {
-                    OnDrop?.Invoke(this, new CircleDragItem(new CirclePhysicsObjectDef
-                    {
-                        Density = 1,
-                        Radius = 50,
-                        Posistion = MousePosistion,
-                        ShapeDebugColor = new Color(0, 0, 255, 255),
-                        AllowSleep = true,
-                        Friction = 0.1f,
-                        LinearDamping = 0,
-                        Restitution = 0.3f
-                    }));
+                    OnDrop?.Invoke(this, null);
                 }
             }
         }
@@ -53,13 +42,13 @@ namespace PlatHack.Game.Surfaces.Menus
 
         public override void Construct()
         {
-            DrawSurfaces.Add(new MainMenuBackground(ViewPort));
+            Surfaces.Add(new MainMenuBackground(ViewPort));
             
         }
 
         public void OnUpdate(GameTime time)
         {
-            foreach (var update in DrawSurfaces.OfType<IUpdatedSurface>())
+            foreach (var update in Surfaces.OfType<IUpdatedSurface>())
             {
                 update?.OnUpdate(time);
             }
@@ -67,7 +56,7 @@ namespace PlatHack.Game.Surfaces.Menus
 
         public override void OnInitialize(RenderTarget target, Factory factory, SharpDX.DirectWrite.Factory factoryDr)
         {
-            DrawSurfaces.Add(new ButtonRenderPart(new RectangleF(10, 200, this.ViewPort.Width - 20, 35), "Button 1", 2,
+            Surfaces.Add(new ButtonRenderPart(new RectangleF(10, 200, this.ViewPort.Width - 20, 35), "Button 1", 2,
                 new SolidColorBrush(target, SharpDX.Color.Black), new SolidColorBrush(target, SharpDX.Color.White)));
             base.OnInitialize(target, factory, factoryDr);
         }

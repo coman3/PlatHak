@@ -36,10 +36,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Box2DX, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box2DX.2.0.2.0\lib\net40\Box2DX.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="ChipmunkSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ChipmunkSharp.Windows.7.0.0.0\lib\net40\ChipmunkSharp.dll</HintPath>
       <Private>True</Private>
@@ -85,7 +81,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Surfaces\Dragables\CircleDragItem.cs" />
     <Compile Include="Surfaces\Games\Game.cs" />
     <Compile Include="Surfaces\GameSurface.cs" />
     <Compile Include="Surfaces\Menus\MainMenu.cs" />
@@ -147,7 +142,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Surfaces\Dragables\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

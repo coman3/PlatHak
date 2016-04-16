@@ -49,7 +49,7 @@ namespace PlatHak.Common.Maths
             var bottom = Bottom + margin;
             var left = Left - margin;
             var right = Right + margin;
-            return point.X > left && point.X < right && point.Y > top && point.Y < bottom;
+            return point.X >= left && point.X <= right && point.Y >= top && point.Y <= bottom;
         }
 
     }

@@ -8,7 +8,7 @@ namespace PlayHak.Client.Network
     {
         private readonly WebSocket _socket;
         private WebSocketClientConfig _config;
-
+        
         public event WebSocketClientDelgates.OnConnect OnConnect;
         public event WebSocketClientDelgates.OnDisconnect OnDisconnect;
         public event WebSocketClientDelgates.OnError OnError;
@@ -18,6 +18,7 @@ namespace PlayHak.Client.Network
 
         public bool HandshakeFinished { get; set; }
         public bool LoginFinished { get; set; }
+        public string Username => _config.Username;
         public WebSocketClient(WebSocketClientConfig config)
         {
             _config = config;

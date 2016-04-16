@@ -7,11 +7,15 @@ namespace PlatHak.Common.Network
     {
         Handshake,
         Error,
-        Multi,
         Event,
         Login,
 
-
-        MouseMove
+        World,
+        UpdateGridItem,
+        Player,
+        Chunk,
+        PlayerMove,
+        MoveRequest,
+        ChunkRequest
     }
 }

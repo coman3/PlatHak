@@ -1,6 +1,5 @@
 ﻿using System;
 using PlatHak.Common.Network;
-using PlatHak.Server.Common;
 using SuperWebSocket;
 
 namespace PlatHak.Server.Network
@@ -22,6 +21,7 @@ namespace PlatHak.Server.Network
 
         public override void HandleLogin(LoginPacket packet)
         {
+            Username = packet.Username;
             LoginFinished = true;
             Send(new EventPacket(EventType.LoginSuccess));
         }
@@ -29,7 +29,7 @@ namespace PlatHak.Server.Network
         public override bool HandlePacket(Packet packet)
         {
             Console.WriteLine(SessionId + " Sent: " + packet.Id);
-            return true;
+            return false;
         }
     }
 }

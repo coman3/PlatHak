@@ -90,8 +90,8 @@ namespace PlatHak.Client
                 Resizeable = false,
                 WaitVerticalBlanking = Properties.Settings.Default.Client_Vsync,
                 IsFullscreen = Properties.Settings.Default.Client_Fullscreen,
-                Height = Properties.Settings.Default.Client_Fullscreen ? (int)SystemParameters.PrimaryScreenHeight : 768,
-                Width = Properties.Settings.Default.Client_Fullscreen ? (int)SystemParameters.PrimaryScreenWidth : 1024,
+                Height = Properties.Settings.Default.Client_Fullscreen ? (int)SystemParameters.PrimaryScreenHeight : 960,
+                Width = Properties.Settings.Default.Client_Fullscreen ? (int)SystemParameters.PrimaryScreenWidth : 1920,
             });
         }
     }

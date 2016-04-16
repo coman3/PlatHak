@@ -1,0 +1,21 @@
+﻿<Window x:Class="PlatHak.LevelBuilder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PlatHak.LevelBuilder"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="118*"/>
+            <ColumnDefinition Width="399*"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer x:Name="ScrollViewer" Grid.Column="1" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible">
+            <Grid x:Name="LevelGrid">
+                
+            </Grid>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

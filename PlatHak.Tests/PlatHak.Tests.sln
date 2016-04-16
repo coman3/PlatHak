@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatHak.Tests", "PlatHak.Tests\PlatHak.Tests.csproj", "{9D276865-FEEE-449C-A89C-4EDBDB6DB2F7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Flowcode", "Flowcode", "{63DDD499-2B65-448E-879C-7E15AE232AD1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatHak.FlowCode", "PlatHak.FlowCode\PlatHak.FlowCode.csproj", "{9A182FDF-4BB2-40E0-AFDE-23E7174F544D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlayHak.FlowCode.Tests", "PlayHak.FlowCode.Tests\PlayHak.FlowCode.Tests.csproj", "{4866A804-8586-471F-B5A3-2CA21044455E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D276865-FEEE-449C-A89C-4EDBDB6DB2F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D276865-FEEE-449C-A89C-4EDBDB6DB2F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D276865-FEEE-449C-A89C-4EDBDB6DB2F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D276865-FEEE-449C-A89C-4EDBDB6DB2F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A182FDF-4BB2-40E0-AFDE-23E7174F544D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A182FDF-4BB2-40E0-AFDE-23E7174F544D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A182FDF-4BB2-40E0-AFDE-23E7174F544D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A182FDF-4BB2-40E0-AFDE-23E7174F544D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4866A804-8586-471F-B5A3-2CA21044455E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4866A804-8586-471F-B5A3-2CA21044455E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4866A804-8586-471F-B5A3-2CA21044455E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4866A804-8586-471F-B5A3-2CA21044455E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A182FDF-4BB2-40E0-AFDE-23E7174F544D} = {63DDD499-2B65-448E-879C-7E15AE232AD1}
+		{4866A804-8586-471F-B5A3-2CA21044455E} = {63DDD499-2B65-448E-879C-7E15AE232AD1}
+	EndGlobalSection
+EndGlobal

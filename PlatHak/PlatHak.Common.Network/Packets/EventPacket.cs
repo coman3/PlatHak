@@ -15,5 +15,6 @@ namespace PlatHak.Common.Network
     public enum EventType
     {
         LoginSuccess,
+        ClientLoaded
     }
 }

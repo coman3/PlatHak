@@ -2,7 +2,7 @@
 
 namespace PlatHak.Client.Common.Interfaces
 {
-    public interface IInputSurface
+    public interface IInputSurface : ISurface
     {
         void OnInput(InputEventArgs args);
     }

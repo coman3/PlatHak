@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using PlatHak.Client.Common;
 using PlatHak.Client.Common.Interfaces;
 using PlatHak.Common.Maths;
+using PlatHak.Common.Network;
 using PlayHak.Client.Network;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
@@ -24,25 +25,30 @@ namespace PlatHack.Game
         public List<Surface> Surfaces { get; set; }
         public Surface[] SelectedSurfaces { get; set; }
 
-
         public MyGame(WebSocketClientConfig config)
         {
             Client = new WebSocketClient(config);
             Client.OnError += Client_OnError;
             Client.OnDisconnect += Client_OnDisconnect;
             Client.OpenConnection();
+            Client.OnPacketRecived += Client_OnPacketRecived;
             Surfaces = new List<Surface>();
+            SelectedSurfaces = new Surface[0];
             SceneColor = new RawColor4(0, 0, 0 ,255);
+        }
+
+
+        private void Client_OnPacketRecived(PacketEventArgs<Packet> args)
+        {
+            foreach (var selectedSurface in SelectedSurfaces.OfType<IPacketReciverSurface>())
+            {
+                selectedSurface.OnPacketRecived(args.Packet);
+            }
         }
 
         private void LoadSurfaces()
         {
-            Surfaces.Add(new SplitSurface(
-                new RectangleF(0, 0, Config.Width, Config.Height), 
-                new MainMenu(new RectangleF(0, 0, Config.Width/6f, Config.Height)),
-                new Surfaces.Games.Game(new RectangleF(Config.Width/6f, 0, Config.Width - Config.Width/6f, Config.Height), this))
-            );
-            
+            Surfaces.Add(new Surfaces.Games.Game(new RectangleF(0, 0, Config.Width, Config.Height), this));
             
 
             SelectedSurfaces = Surfaces.ToArray();
@@ -67,9 +73,33 @@ namespace PlatHack.Game
             form.MouseDown += Form_MouseDown;
             form.MouseUp += Form_MouseUp;
             form.MouseWheel += Form_MouseWheel;
+            form.KeyDown += Form_KeyDown;
+            form.KeyUp += Form_KeyUp;
             return form;
         }
-        
+
+        private void Form_KeyUp(object sender, KeyEventArgs e)
+        {
+            foreach (var selectedSurface in SelectedSurfaces.OfType<IInputSurface>())
+            {
+                var inputValue = InputValue.KeyUp;
+
+                var inputArgs = new InputEventArgs(InputType.Keyboard, inputValue, (int)e.KeyCode);
+                selectedSurface?.OnInput(inputArgs);
+            }
+        }
+
+        private void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            foreach (var selectedSurface in SelectedSurfaces.OfType<IInputSurface>())
+            {
+                var inputValue = InputValue.KeyDown;
+
+                var inputArgs = new InputEventArgs(InputType.Keyboard, inputValue, (int)e.KeyCode);
+                selectedSurface?.OnInput(inputArgs);
+            }
+        }
+
         private void Form_MouseWheel(object sender, MouseEventArgs e)
         {
             foreach (var selectedSurface in SelectedSurfaces.OfType<IInputSurface>())
@@ -126,7 +156,8 @@ namespace PlatHack.Game
             {
                 selectedSurface?.OnInitialize(RenderTarget2D, Factory2D, FactoryDWrite);
             }
-
+            
+            
         }
 
         protected override void LoadContent()
@@ -142,7 +173,14 @@ namespace PlatHack.Game
             {
                 selectedSurface?.OnUpdate(time);
             }
+            if (Client.LoginFinished && Client.HandshakeFinished && !WarnedOfLoad)
+            {
+                Client.Send(new EventPacket(EventType.ClientLoaded));
+                WarnedOfLoad = true;
+            }
         }
+
+        public bool WarnedOfLoad { get; set; }
 
         protected override void Draw(GameTime time)
         {

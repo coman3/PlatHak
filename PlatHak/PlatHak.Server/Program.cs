@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PlatHak.Common.World;
 using PlatHak.Server.Network;
 using SuperSocket.SocketBase.Config;
 
@@ -10,25 +11,15 @@ namespace PlatHak.Server
 {
     class Program
     {
-        public static WebSocketServer Server { get; set; }
+        public static Server Server { get; set; }
+        
         static void Main(string[] args)
         {
-            Server = new WebSocketServer(new ServerConfig
-            {
-                Port = 3344
-            });
-            Server.OnLogOutput += Server_OnLogOutput;
-            Server.Start();
-
+            Server = new Server(args);
             while (true)
             {
-                Console.ReadLine();
+                Server.ProcessCommand(Console.ReadLine());
             }
-        }
-
-        private static void Server_OnLogOutput(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 }

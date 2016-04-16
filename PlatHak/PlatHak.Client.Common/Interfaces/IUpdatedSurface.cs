@@ -1,6 +1,6 @@
 ﻿namespace PlatHak.Client.Common.Interfaces
 {
-    public interface IUpdatedSurface
+    public interface IUpdatedSurface : ISurface
     {
         void OnUpdate(GameTime time);
     }

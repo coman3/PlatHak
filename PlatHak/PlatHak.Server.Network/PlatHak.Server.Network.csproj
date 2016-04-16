@@ -55,6 +55,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -71,6 +72,7 @@
     <Compile Include="Server\WebSocketServer.cs" />
     <Compile Include="Server\Arguments\WebSocketServerErrorArgs.cs" />
     <Compile Include="Server\WebSocketServerDelegates.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="UserClient.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -82,9 +84,9 @@
       <Project>{D66BD451-2EA5-49E3-9F69-1D02A88DCF85}</Project>
       <Name>PlatHak.Common.Network</Name>
     </ProjectReference>
-    <ProjectReference Include="..\PlatHak.Server.Common\PlatHak.Server.Common.csproj">
-      <Project>{ADCE51A2-331F-4E5F-94D2-BA92CD3BABFF}</Project>
-      <Name>PlatHak.Server.Common</Name>
+    <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
+      <Project>{91F15F8B-A8EA-455C-8889-6BA78852F8E7}</Project>
+      <Name>PlatHak.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -31,7 +31,7 @@ namespace PlatHak.Client.Common.Interfaces
 
         public override void OnInitialize(RenderTarget target, Factory factory, SharpDX.DirectWrite.Factory factoryDr)
         {
-            foreach (var drawSurface in DrawSurfaces)
+            foreach (var drawSurface in Surfaces)
             {
                 var init = drawSurface as IInitializedSurface;
                 init?.OnInitialize(target, factory, factoryDr);

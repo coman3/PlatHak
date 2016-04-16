@@ -12,6 +12,7 @@ namespace PlatHak.Server.Network
         public delegate void OnLogOutput(string message);
         public delegate UserClient OnClientConnect(WebSocketSession session);
         public delegate void OnClientLoginHandshakeSuccess(UserClient session);
+        public delegate void OnClientLoaded(UserClient session);
 
         public delegate void OnPacketReceived(UserClient client, Packet packet);
 

@@ -2,7 +2,7 @@
 
 namespace PlatHak.Client.Common.Interfaces
 {
-    public interface IPacketReciverSurface
+    public interface IPacketReciverSurface : ISurface
     {
         void OnPacketRecived(Packet packet);
     }

@@ -2,7 +2,7 @@
 
 namespace PlatHak.Client.Common.Interfaces
 {
-    public interface IDrawSurface
+    public interface IDrawSurface : ISurface
     {
         void Draw(RenderTarget target, GameTime time);
     }

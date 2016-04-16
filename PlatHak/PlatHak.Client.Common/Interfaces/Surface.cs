@@ -8,7 +8,7 @@ namespace PlatHak.Client.Common.Interfaces
 {
     public abstract class Surface : IDrawSurface, IInitializedSurface
     {
-        public List<IDrawSurface> DrawSurfaces { get; set; }
+        public List<ISurface> Surfaces { get; set; }
         public RectangleF ViewPort { get; set; }
         public bool IsUpdatedSurface => (this as IUpdatedSurface) != null;
         public bool IsDragableSurface => (this as IDragableSurface) != null;
@@ -19,12 +19,16 @@ namespace PlatHak.Client.Common.Interfaces
         protected Surface(RectangleF viewPort)
         {
             ViewPort = viewPort;
-            DrawSurfaces = new List<IDrawSurface>();
+            Surfaces = new List<ISurface>();
         }
 
         public virtual void Draw(RenderTarget target, GameTime time)
         {
-            DrawSurfaces.ForEach(x=> x?.Draw(target, time));
+            foreach (var result in Surfaces.OfType<IDrawSurface>())
+            {
+                result?.Draw(target, time);    
+            }
+            
         }
 
         public abstract void OnInitialize(RenderTarget target, Factory factory, SharpDX.DirectWrite.Factory factoryDr);

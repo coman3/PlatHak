@@ -21,6 +21,7 @@ namespace PlatHak.Server.Network
         public event WebSocketServerDelegates.OnClientConnect OnClientConnect;
         public event WebSocketServerDelegates.OnPacketReceived OnPacketReceived;
         public event WebSocketServerDelegates.OnClientLoginHandshakeSuccess OnClientLoginHandshakeSuccess;
+        public event WebSocketServerDelegates.OnClientLoaded OnClientLoaded;
 
         public WebSocketServer(IServerConfig config)
         {
@@ -44,6 +45,14 @@ namespace PlatHak.Server.Network
                 {
                     ServerStart();
                 }
+            }
+        }
+
+        public void Broadcast(Packet packet)
+        {
+            foreach (var userClient in UserClients)
+            {
+                userClient.Send(packet);
             }
         }
 
@@ -86,26 +95,38 @@ namespace PlatHak.Server.Network
             if (userClient == null) return; //Client is not within UserClients
 
             var packet = Packet.FromBytes(value);
-
-            if (userClient.HandshakeFinished && userClient.LoginFinished)
+            Console.WriteLine(session.SessionID + ": " + packet);
+            //Handle packet if we have already handled handshake and login (and the client is loaded)
+            if (userClient.HandshakeFinished && userClient.LoginFinished && userClient.ClientLoaded)
             {
                 if (!userClient.HandlePacket(packet))
                 {
                     OnPacketReceived?.Invoke(userClient, packet);
-                    return;
                 }
-                HandlePacket(session, packet);
                 return;
             }
+            //Handle handshake
             if (!userClient.HandshakeFinished && packet is HandshakePacket)
             {
                 userClient.HandleHandshake(packet.Cast<HandshakePacket>());
+                return;
             }
-            else if (userClient.HandshakeFinished && !userClient.LoginFinished && packet is LoginPacket)
+            
+            //Handle Login
+            if (userClient.HandshakeFinished && !userClient.LoginFinished && packet is LoginPacket)
             {
                 userClient.HandleLogin(packet.Cast<LoginPacket>());
-                OnClientLoginHandshakeSuccess?.Invoke(userClient);
                 Log("User Logged In!");
+                OnClientLoginHandshakeSuccess?.Invoke(userClient);
+                return;
+            }
+            if (userClient.HandshakeFinished && userClient.LoginFinished && packet is EventPacket)
+            {
+                if (packet.Cast<EventPacket>().EventType == EventType.ClientLoaded)
+                {
+                    userClient.ClientLoaded = true;
+                    OnClientLoaded?.Invoke(userClient);
+                }
             }
         }
 

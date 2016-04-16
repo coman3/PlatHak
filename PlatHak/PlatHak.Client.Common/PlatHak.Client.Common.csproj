@@ -30,10 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Box2DX, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Box2DX.2.0.2.0\lib\net40\Box2DX.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="SharpDX, Version=3.0.2.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpDX.3.0.2\lib\net45\SharpDX.dll</HintPath>
       <Private>True</Private>
@@ -81,16 +77,12 @@
     <Compile Include="Interfaces\IInitializedSurface.cs" />
     <Compile Include="Interfaces\IInputSurface.cs" />
     <Compile Include="Interfaces\IPacketReciverSurface.cs" />
-    <Compile Include="Interfaces\IPhysicsSurface.cs" />
+    <Compile Include="Interfaces\ISurface.cs" />
     <Compile Include="Interfaces\IUpdatedSurface.cs" />
     <Compile Include="Interfaces\MenuSurface.cs" />
     <Compile Include="Interfaces\SplitSurface.cs" />
     <Compile Include="Interfaces\Surface.cs" />
-    <Compile Include="Objects\BoxPhysicsObject.cs" />
-    <Compile Include="Objects\CirclePhysicsObject.cs" />
     <Compile Include="Objects\GameObject.cs" />
-    <Compile Include="Objects\PhysicsObject.cs" />
-    <Compile Include="Objects\PolygonPhysicsObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

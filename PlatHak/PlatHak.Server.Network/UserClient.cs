@@ -1,6 +1,6 @@
 ﻿using System;
 using PlatHak.Common.Network;
-using PlatHak.Server.Common;
+using PlatHak.Common.World;
 using SuperWebSocket;
 
 namespace PlatHak.Server.Network
@@ -9,9 +9,12 @@ namespace PlatHak.Server.Network
     {
         public bool LoginFinished { get; set; }
         public bool HandshakeFinished { get; set; }
+        public bool ClientLoaded { get; set; }
 
         public Guid Id => new Guid(SessionId);
         public string SessionId => Session.SessionID;
+        public string Username { get; set; }
+        public Player Player { get; set; }
 
         private WebSocketSession Session { get; set; }
 
@@ -24,6 +27,11 @@ namespace PlatHak.Server.Network
         {
             var packetData = packet.ToBytes();
             Session.Send(packetData, 0, packetData.Length);
+        }
+
+        public void Send(byte[] packet)
+        {
+            Session.Send(packet, 0, packet.Length);
         }
 
         /// <summary>

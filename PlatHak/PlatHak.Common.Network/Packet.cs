@@ -14,7 +14,7 @@ namespace PlatHak.Common.Network
     [Serializable]
     public abstract class Packet : IPacket
     {
-        public PacketId Id { get; set; }
+        [NonSerialized] public PacketId Id;
         protected Packet(PacketId id)
         {
             Id = id;

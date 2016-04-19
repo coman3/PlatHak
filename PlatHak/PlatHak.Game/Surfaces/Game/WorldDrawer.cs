@@ -75,6 +75,7 @@ namespace PlatHack.Game.Surfaces.Game
                         offset.Y,
                         chunkPixelWidth,
                         chunkPixelHeight);
+                    //TODO: Improve OnScreen Check
                     if (!ViewPort.Contains(rectChunk.TopLeft) && !ViewPort.Contains(rectChunk.BottomRight) &&
                         !ViewPort.Contains(rectChunk.TopRight) && !ViewPort.Contains(rectChunk.BottomLeft)) continue;
                     if (chunk == null) continue;
@@ -108,12 +109,26 @@ namespace PlatHack.Game.Surfaces.Game
                         target.DrawBitmap(Water, rectBlock.RawRectangleF, 1, BitmapInterpolationMode.NearestNeighbor);
                         continue;
                     }
+                    //TODO: Improve OnScreen Check
                     if (!ViewPort.Contains(rectBlock.TopLeft) && !ViewPort.Contains(rectBlock.BottomRight) &&
                         !ViewPort.Contains(rectBlock.TopRight) && !ViewPort.Contains(rectBlock.BottomLeft))
                         continue;
                     var brush = block == blockIn ? SolidColorBrushGreen : (playersBlockIn.Contains(block) ? SolidColorBrushBlue : SolidColorBrush);
-                    target.DrawBitmap(Grass, rectBlock.RawRectangleF, 1, BitmapInterpolationMode.NearestNeighbor);
-                    target.DrawRectangle(rectBlock.RawRectangleF, brush);
+                    
+                    if (block == blockIn)
+                    {
+                        target.FillRectangle(rectBlock.RawRectangleF, SolidColorBrushGreen);
+                    }
+                    else if (playersBlockIn.Contains(block))
+                    {
+                        target.FillRectangle(rectBlock.RawRectangleF, SolidColorBrushBlue);
+                    }
+                    else
+                    {
+                        target.DrawBitmap(Grass, rectBlock.RawRectangleF, 1, BitmapInterpolationMode.NearestNeighbor);
+                        target.DrawRectangle(rectBlock.RawRectangleF, brush);
+                    }
+                    
 
                 }
             }
@@ -125,7 +140,7 @@ namespace PlatHack.Game.Surfaces.Game
             SolidColorBrushGreen = new SolidColorBrush(target, SharpDX.Color.Green);
             SolidColorBrushBlue = new SolidColorBrush(target, SharpDX.Color.Blue);
             SolidColorBrushRed = new SolidColorBrush(target, SharpDX.Color.Red);
-            Grass = Helpers.GetContent(target, "grass.png");
+            Grass = Helpers.GetContent(target, "Grass.png");
             Water = Helpers.GetContent(target, "Water.png");
             DefaultFont = new TextFormat(factoryDr, "Courier New", 8)
             {

@@ -21,6 +21,16 @@ namespace PlatHack.Game.Surfaces.Game
         
         private TextFormat CommonTextFormat { get; set; }
         private Brush CommonForgroundBrush { get; set; }
+        private bool _sentLoaded;
+        public override void OnUpdate(GameTime time)
+        {
+            base.OnUpdate(time);
+            if (!_sentLoaded && Client.HandshakeFinished && Client.LoginFinished)
+            {
+                Client.Send(new EventPacket(EventType.ClientLoaded));
+                _sentLoaded = true;
+            }
+        }
 
         public override void OnPacketRecived(Packet packet)
         {
@@ -102,7 +112,6 @@ namespace PlatHack.Game.Surfaces.Game
             CommonForgroundBrush = new SolidColorBrush(target, new RawColor4(255, 255, 255, 75));
 
             base.OnInitialize(target, factory, factoryDr);
-            Client.Send(new EventPacket(EventType.ClientLoaded));
         }
 
         public Game(RectangleF viewPort, WebSocketClient client, RenderTarget renderTarget, Factory factory, SharpDX.DirectWrite.Factory directWriteFactory) : base(viewPort, client, renderTarget, factory, directWriteFactory)

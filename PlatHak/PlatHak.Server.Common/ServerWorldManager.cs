@@ -135,19 +135,20 @@ namespace PlatHak.Server.Common
             packet.DoIfIsType<MoveRequest>(request =>
             {
                 var multiplyer = request.State ? 1 : 0;
+                var speed = 128;
                 switch (request.MoveType)
                 {
                     case MoveType.Right:
-                        client.Player.Velocity = new VectorInt2(16 * multiplyer, client.Player.Velocity.Y);
+                        client.Player.Velocity = new VectorInt2(speed * multiplyer, client.Player.Velocity.Y);
                         break;
                     case MoveType.Left:
-                        client.Player.Velocity = new VectorInt2(-16 * multiplyer, client.Player.Velocity.Y);
+                        client.Player.Velocity = new VectorInt2(-speed * multiplyer, client.Player.Velocity.Y);
                         break;
                     case MoveType.Down:
-                        client.Player.Velocity = new VectorInt2(client.Player.Velocity.X, 16 * multiplyer);
+                        client.Player.Velocity = new VectorInt2(client.Player.Velocity.X, speed * multiplyer);
                         break;
                     case MoveType.Up:
-                        client.Player.Velocity = new VectorInt2(client.Player.Velocity.X, -16 * multiplyer);
+                        client.Player.Velocity = new VectorInt2(client.Player.Velocity.X, -speed * multiplyer);
                         break;
                 }
                 Server.Broadcast(new PlayerMovePacket(client.Player.Username, client.Player.Velocity));

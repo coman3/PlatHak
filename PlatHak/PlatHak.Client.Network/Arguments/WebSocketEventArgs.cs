@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlayHak.Client.Network
+namespace PlatHak.Client.Network
 {
     public class WebSocketEventArgs : EventArgs
     {

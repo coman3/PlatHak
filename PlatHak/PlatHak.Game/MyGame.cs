@@ -5,9 +5,9 @@ using System.Linq;
 using System.Windows.Forms;
 using PlatHak.Client.Common;
 using PlatHak.Client.Common.Interfaces;
+using PlatHak.Client.Network;
 using PlatHak.Common.Maths;
 using PlatHak.Common.Network;
-using PlayHak.Client.Network;
 using SharpDX.Direct2D1;
 using SharpDX.DirectWrite;
 using SharpDX.Mathematics.Interop;
@@ -48,7 +48,7 @@ namespace PlatHack.Game
 
         private void LoadSurfaces()
         {
-            Surfaces.Add(new Surfaces.Games.Game(new RectangleF(0, 0, Config.Width, Config.Height), this));
+            Surfaces.Add(new Surfaces.Game.Game(new RectangleF(0, 0, Config.Width, Config.Height), Client, RenderTarget2D, Factory2D, FactoryDWrite));
             
 
             SelectedSurfaces = Surfaces.ToArray();

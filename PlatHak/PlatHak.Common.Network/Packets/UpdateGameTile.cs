@@ -19,13 +19,13 @@ namespace PlatHak.Common.Network
         /// <summary>
         /// new new GridItem
         /// </summary>
-        public World.GridItem GridItem { get; set; }
+        public World.Block Block { get; set; }
 
-        public UpdateGridItem(VectorInt2 chunkPosistion, VectorInt2 blockPosistion, GridItem gridItem) : this()
+        public UpdateGridItem(VectorInt2 chunkPosistion, VectorInt2 blockPosistion, Block block) : this()
         {
             ChunkPosistion = chunkPosistion;
             BlockPosistion = blockPosistion;
-            GridItem = gridItem;
+            Block = block;
         }
         private UpdateGridItem() : base(PacketId.UpdateGridItem)
         {

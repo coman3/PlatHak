@@ -6,8 +6,8 @@ namespace PlatHak.Common.Network
     [Serializable]
     public class ChunkPacket : Packet
     {
-        public WorldGrid Chunk { get; set; }
-        public ChunkPacket(WorldGrid chunk) : base(PacketId.Chunk)
+        public Chunk Chunk { get; set; }
+        public ChunkPacket(Chunk chunk) : base(PacketId.Chunk)
         {
             Chunk = chunk;
         }

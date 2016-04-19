@@ -7,8 +7,8 @@
     <ProjectGuid>{36AE90A6-AC21-4EF1-B920-6FC343E85F2F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PlayHak.Client.Network</RootNamespace>
-    <AssemblyName>PlayHak.Client.Network</AssemblyName>
+    <RootNamespace>PlatHak.Client.Network</RootNamespace>
+    <AssemblyName>PlatHak.Client.Network</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

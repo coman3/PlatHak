@@ -1,4 +1,4 @@
-namespace PlayHak.Client.Network
+namespace PlatHak.Client.Network
 {
     public struct WebSocketClientConfig
     {

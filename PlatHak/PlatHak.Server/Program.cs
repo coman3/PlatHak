@@ -18,7 +18,7 @@ namespace PlatHak.Server
             Server = new Server(args);
             while (true)
             {
-                Server.ProcessCommand(Console.ReadLine());
+                Console.ReadLine();
             }
         }
     }

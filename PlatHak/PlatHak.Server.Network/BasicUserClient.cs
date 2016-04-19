@@ -28,7 +28,7 @@ namespace PlatHak.Server.Network
 
         public override bool HandlePacket(Packet packet)
         {
-            Console.WriteLine(SessionId + " Sent: " + packet.Id);
+            Console.WriteLine(SessionId + " Sent: " + packet.GetType());
             return false;
         }
     }

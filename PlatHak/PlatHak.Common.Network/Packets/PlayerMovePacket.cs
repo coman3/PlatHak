@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.AccessControl;
 using PlatHak.Common.Maths;
 
 namespace PlatHak.Common.Network
@@ -7,12 +8,12 @@ namespace PlatHak.Common.Network
     public class PlayerMovePacket : Packet
     {
         public string Username { get; set; }
-        public VectorInt2 NewPosistion { get; set; }
-
-        public PlayerMovePacket(string username, VectorInt2 newPosistion) : base(PacketId.PlayerMove)
+        public VectorInt2 NewVelocity { get; set; }
+        public VectorInt2 ServerPosistion { get; set; }
+        public PlayerMovePacket(string username, VectorInt2 newVelocity) : base(PacketId.PlayerMove)
         {
             Username = username;
-            NewPosistion = newPosistion;
+            NewVelocity = newVelocity;
         }
     }
 }

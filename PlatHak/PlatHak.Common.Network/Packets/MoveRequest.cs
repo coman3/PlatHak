@@ -6,11 +6,19 @@ namespace PlatHak.Common.Network
     [Serializable]
     public class MoveRequest : Packet
     {
-        public bool Accepted { get; set; }
-        public VectorInt2 NewPosistion { get; set; }
-        
+        public MoveType MoveType { get; set; }
+        //If the player is requesing to move(true) or to stop moving(false) in that direction
+        public bool State { get; set; }
         public MoveRequest() : base(PacketId.MoveRequest)
         {
         }
+    }
+
+    public enum MoveType
+    {
+        Up,
+        Down,
+        Left,
+        Right
     }
 }

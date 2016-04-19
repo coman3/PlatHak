@@ -1,7 +1,7 @@
 ﻿using PlatHak.Common.Network;
 using WebSocket4Net;
 
-namespace PlayHak.Client.Network
+namespace PlatHak.Client.Network
 {
     public class PacketEventArgs<T> : WebSocketEventArgs where T : Packet 
     {

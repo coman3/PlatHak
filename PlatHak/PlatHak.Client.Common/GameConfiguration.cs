@@ -5,7 +5,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="GameConfiguration"/> class.
         /// </summary>
-        public GameConfiguration() : this("SharpDX Demo") { }
+        public GameConfiguration() : this("PlatHak") { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GameConfiguration"/> class.

@@ -16,11 +16,16 @@ namespace PlatHak.Common.Maths
         public float X { get; set; }
         public float Y { get; set; }
         public RawVector2 RawVector2 => new RawVector2(X, Y);
-
+        public VectorInt2 VectorInt2 => new VectorInt2((int) X, (int) Y);
         public Vector2(float x, float y)
         {
             X = x;
             Y = y;
+        }
+
+        public float Distance(Vector2 point2)
+        {
+            return (float) Math.Sqrt(Math.Pow(X - point2.X, 2) + Math.Pow(Y - point2.Y, 2));
         }
 
         #region Operators

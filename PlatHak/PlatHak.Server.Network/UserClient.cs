@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Bson;
+using PlatHak.Common.Maths;
 using PlatHak.Common.Network;
 using PlatHak.Common.World;
+using SuperSocket.SocketBase;
 using SuperWebSocket;
 
 namespace PlatHak.Server.Network
@@ -15,12 +19,14 @@ namespace PlatHak.Server.Network
         public string SessionId => Session.SessionID;
         public string Username { get; set; }
         public Player Player { get; set; }
+        public ClientConfig ClientConfig { get; set; }
 
         private WebSocketSession Session { get; set; }
-
+        public List<VectorInt2> SentChunks { get; set; }
         protected UserClient(WebSocketSession session)
         {
             Session = session;
+            SentChunks = new List<VectorInt2>();
         }
 
         public void Send(Packet packet)
@@ -32,6 +38,11 @@ namespace PlatHak.Server.Network
         public void Send(byte[] packet)
         {
             Session.Send(packet, 0, packet.Length);
+        }
+
+        public void Close(CloseReason reason = CloseReason.InternalError)
+        {
+            Session.Close(reason);
         }
 
         /// <summary>
@@ -50,5 +61,15 @@ namespace PlatHak.Server.Network
         /// <param name="packet">the packet received from this <see cref="Session"/></param>
         /// <returns>true if the packet was handled, false if you wish the server to call the event <see cref="WebSocketServer.OnPacketReceived"/></returns>
         public abstract bool HandlePacket(Packet packet);
+    }
+
+    public class ClientConfig
+    {
+        public Size WindowSize { get; set; }
+
+        public ClientConfig(Size windowSize)
+        {
+            WindowSize = windowSize;
+        }
     }
 }

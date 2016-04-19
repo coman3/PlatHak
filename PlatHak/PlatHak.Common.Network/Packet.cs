@@ -45,35 +45,6 @@ namespace PlatHak.Common.Network
                 return default(T);
             }
         }
-
-        //public bool SendToServer(WebSocket client)
-        //{
-        //    try
-        //    {
-        //        var bytes = ToBytes();
-        //        client.Send(bytes, 0, bytes.Length);
-        //        return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        // Ignored
-        //        return false;
-        //    }
-        //}
-        //public bool SendToClient(WebSocketSession client)
-        //{
-        //    try
-        //    {
-        //        var bytes = ToBytes();
-        //        client.Send(bytes, 0, bytes.Length);
-        //        return true;
-        //    }
-        //    catch (Exception)
-        //    {
-        //        // Ignored
-        //        return false;
-        //    }
-        //}
         public override string ToString()
         {
             return "Packet: " + Id;
@@ -88,8 +59,9 @@ namespace PlatHak.Common.Network
                 stream.Flush();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex);
                 return false;
             }
             
@@ -104,15 +76,47 @@ namespace PlatHak.Common.Network
                     return ToStream(stream) ? stream.ToArray() : null;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return new byte[0];
+                Console.WriteLine(ex);
+                return null;
             }
         }
 
         public T Cast<T>() where T : Packet
         {
             return (T) this;
+        }
+        /// <summary>
+        /// Execute the function if the packet is of T type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action"></param>
+        /// <returns>
+        /// The result of the function if the packet is of T type, otherwise false
+        /// </returns>
+        public void DoIfIsType<T>(Action<T> action) where T : Packet
+        {
+            if (this is T)
+            {
+                action.Invoke(Cast<T>());
+            }
+        }
+        /// <summary>
+        /// Execute the function if the packet is of T type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="action"></param>
+        /// <returns>
+        /// The result of the function if the packet is of T type, otherwise false
+        /// </returns>
+        public bool DoIfIsType<T>(Func<T, bool> action) where T : Packet
+        {
+            if (this is T)
+            {
+                return action.Invoke(Cast<T>());
+            }
+            return false;
         }
     }
 }

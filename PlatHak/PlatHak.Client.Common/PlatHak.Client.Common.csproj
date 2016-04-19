@@ -72,6 +72,7 @@
     <Compile Include="Game3D.cs" />
     <Compile Include="GameTime.cs" />
     <Compile Include="Interfaces\DragItem.cs" />
+    <Compile Include="Interfaces\GameSurface.cs" />
     <Compile Include="Interfaces\IDragableSurfaceObjects.cs" />
     <Compile Include="Interfaces\IDrawSurface.cs" />
     <Compile Include="Interfaces\IInitializedSurface.cs" />
@@ -90,6 +91,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PlatHak.Client.Network\PlatHak.Client.Network.csproj">
+      <Project>{36ae90a6-ac21-4ef1-b920-6fc343e85f2f}</Project>
+      <Name>PlatHak.Client.Network</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlatHak.Common.Network\PlatHak.Common.Network.csproj">
       <Project>{d66bd451-2ea5-49e3-9f69-1d02a88dcf85}</Project>
       <Name>PlatHak.Common.Network</Name>

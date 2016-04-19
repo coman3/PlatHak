@@ -95,7 +95,6 @@ namespace PlatHak.Server.Network
             if (userClient == null) return; //Client is not within UserClients
 
             var packet = Packet.FromBytes(value);
-            Console.WriteLine(session.SessionID + ": " + packet);
             //Handle packet if we have already handled handshake and login (and the client is loaded)
             if (userClient.HandshakeFinished && userClient.LoginFinished && userClient.ClientLoaded)
             {

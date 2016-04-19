@@ -33,6 +33,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,8 +42,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WorldManager.cs" />
+    <Compile Include="Extentions\CancellationTokenExtensions.cs" />
+    <Compile Include="WorldGridChunk.cs" />
+    <Compile Include="ServerWorldManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WorldSaver.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlatHak.Common.Network\PlatHak.Common.Network.csproj">
@@ -54,9 +58,13 @@
       <Name>PlatHak.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlatHak.Server.Network\PlatHak.Server.Network.csproj">
-      <Project>{A56EE6F0-8840-419C-8190-0FEE322CB9E2}</Project>
+      <Project>{a56ee6f0-8840-419c-8190-0fee322cb9e2}</Project>
       <Name>PlatHak.Server.Network</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,13 +14,30 @@ namespace PlatHak.Client.Common.Interfaces
         private Vector2 MousePosistion { get; set; }
         private bool DrawingDragItem { get; set; }
         public bool Surface1Focused { get; set; }
-        public SplitSurface(RectangleF viewPort, Surface surface1, Surface surface2) : base(viewPort)
+
+        public SplitSurface(Surface surface1, Surface surface2, RectangleF viewPort, RenderTarget renderTarget, Factory factory, SharpDX.DirectWrite.Factory directWriteFactory) : base(viewPort, renderTarget, factory, directWriteFactory)
         {
             Surface1 = surface1;
             Surface2 = surface2;
             HookSurfaceDragEvents(surface1, surface2);
-
         }
+
+        public void SetHalf(bool vertical = true)
+        {
+            if (vertical)
+            {
+                var halfSize = new SizeF(ViewPort.Width / 2f, ViewPort.Height);
+                Surface1.ViewPort = new RectangleF(ViewPort.Posistion, halfSize);
+                Surface2.ViewPort = new RectangleF(ViewPort.TopCenter, halfSize);
+            }
+            else
+            {
+                var halfSize = new SizeF(ViewPort.Width, ViewPort.Height / 2f);
+                Surface1.ViewPort = new RectangleF(ViewPort.Posistion, halfSize);
+                Surface2.ViewPort = new RectangleF(ViewPort.LeftCenter, halfSize);
+            }
+        }
+
         #region Drag Event Management
         private void HookSurfaceDragEvents(Surface surface1, Surface surface2)
         {
@@ -130,5 +147,7 @@ namespace PlatHak.Client.Common.Interfaces
                 ((IPacketReciverSurface)Surface2)?.OnPacketRecived(packet);
             }
         }
+
+
     }
 }

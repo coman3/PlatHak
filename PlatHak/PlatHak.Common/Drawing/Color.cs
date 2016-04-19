@@ -1,7 +1,6 @@
 ﻿using System;
-using SharpDX.Mathematics.Interop;
 
-namespace PlatHak.Common
+namespace PlatHak.Common.Drawing
 {
     [Serializable]
     public struct Color

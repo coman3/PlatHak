@@ -60,17 +60,16 @@ namespace PlatHack.Game.Surfaces.Menus
                 new SolidColorBrush(target, SharpDX.Color.Black), new SolidColorBrush(target, SharpDX.Color.White)));
             base.OnInitialize(target, factory, factoryDr);
         }
-
-        public MainMenu(RectangleF viewPort) : base(viewPort)
-        {
-        }
-
         public event DragableSurfaceObjectsDelegates.OnStartDrag OnStartDrag;
         public event DragableSurfaceObjectsDelegates.OnDrop OnDrop;
         public event DragableSurfaceObjectsDelegates.OnCancelDrag OnCancelDrag;
         public void OnDropItem(Vector2 posistion, DragItem item)
         {
             
+        }
+
+        public MainMenu(RectangleF viewPort, RenderTarget renderTarget, Factory factory, SharpDX.DirectWrite.Factory directWriteFactory) : base(viewPort, renderTarget, factory, directWriteFactory)
+        {
         }
     }
 }

@@ -5,20 +5,20 @@ using PlatHak.Common.Maths;
 namespace PlatHak.Common.World
 {
     [Serializable]
-    public class WorldGrid : IDisposable
+    public class Chunk : IDisposable
     {
         public Rectangle Bounds { get; set; }
-        public GridItem[,] Items { get; private set; }
+        public Block[,] Items { get; private set; }
         public Size ItemSize { get; set; }
 
-        public WorldGrid(VectorInt2 chunkPos, WorldConfig config)
+        public Chunk(VectorInt2 chunkPos, WorldConfig config)
         {
             Bounds = new Rectangle(chunkPos, config.ChunkSize);
             ItemSize = config.ItemSize;
-            Items = new GridItem[Bounds.Width, Bounds.Height];
+            Items = new Block[Bounds.Width, Bounds.Height];
         }
 
-        public T AddGridItem<T>(int x, int y, T gridItem) where T : GridItem
+        public T AddGridItem<T>(int x, int y, T gridItem) where T : Block
         {
             gridItem.Bounds = new Rectangle(x, y, ItemSize.Width, ItemSize.Height);
             if (Items[x, y] != null)
@@ -39,9 +39,10 @@ namespace PlatHak.Common.World
 
         public void Dispose()
         {
+            if(Items == null) return;
             foreach (var gridItem in Items)
             {
-                gridItem.Dispose();
+                gridItem?.Dispose();
             }
             Items = null;
         }

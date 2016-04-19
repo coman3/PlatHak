@@ -4,10 +4,10 @@ using PlatHak.Common.Maths;
 namespace PlatHak.Common.World
 {
     [Serializable]
-    public abstract class GridItem : IDisposable
+    public abstract class Block : IDisposable
     {
         /// <summary>
-        /// The location within the <see cref="WorldGrid"/> and the <see cref="Size"/> of the block (in pixels)
+        /// The location within the <see cref="Chunk"/> and the <see cref="Size"/> of the block (in pixels)
         /// </summary>
         public Rectangle Bounds { get; set; }
 
@@ -15,7 +15,7 @@ namespace PlatHak.Common.World
     }
 
     [Serializable]
-    public class BlockGridItem : GridItem
+    public class BlockBlock : Block
     {
         public bool IsSolid { get; set; }
         public override void Dispose()

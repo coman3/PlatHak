@@ -1,6 +1,6 @@
 ﻿using PlatHak.Client.Common;
+using PlatHak.Client.Network;
 using PlatHak.Common;
-using PlayHak.Client.Network;
 using SharpDX.Mathematics.Interop;
 
 namespace PlatHack.Game
@@ -23,7 +23,7 @@ namespace PlatHack.Game
             {
                 ServerAddress =  server,
                 Username = username,
-                PasswordHash = password.ToMd5()
+                PasswordHash = password
             });
             MyGame.Run(Configuration);
             

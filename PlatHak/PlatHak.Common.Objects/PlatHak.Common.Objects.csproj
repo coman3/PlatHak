@@ -44,7 +44,6 @@
     <Compile Include="DotObject.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="LineObject.cs" />
-    <Compile Include="PlayerObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

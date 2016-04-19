@@ -1,6 +1,6 @@
 using PlatHak.Common.Network;
 
-namespace PlayHak.Client.Network
+namespace PlatHak.Client.Network
 {
     public static class WebSocketClientDelgates
     {

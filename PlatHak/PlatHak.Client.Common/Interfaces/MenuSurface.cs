@@ -9,10 +9,7 @@ namespace PlatHak.Client.Common.Interfaces
     public abstract class MenuSurface : Surface, IInputSurface, IPacketReciverSurface
     {
         public Vector2 MousePosistion { get; set; }
-        protected MenuSurface(RectangleF viewPort) : base(viewPort)
-        {
-            FinishConstruct();
-        }
+        
         private void FinishConstruct()
         {
             Construct();
@@ -36,6 +33,11 @@ namespace PlatHak.Client.Common.Interfaces
                 var init = drawSurface as IInitializedSurface;
                 init?.OnInitialize(target, factory, factoryDr);
             }
+        }
+
+        protected MenuSurface(RectangleF viewPort, RenderTarget renderTarget, Factory factory, SharpDX.DirectWrite.Factory directWriteFactory) : base(viewPort, renderTarget, factory, directWriteFactory)
+        {
+            FinishConstruct();
         }
     }
 }

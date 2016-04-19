@@ -6,6 +6,7 @@ namespace PlatHak.Common.Maths
     [Serializable]
     public struct VectorInt2 : IEquatable<VectorInt2>, IComparable<VectorInt2>
     {
+        public static readonly VectorInt2 Negative = new VectorInt2(-1, -1);
         public static readonly VectorInt2 Zero = new VectorInt2(0, 0);
         public static readonly VectorInt2 One = new VectorInt2(1, 1);
         public static readonly VectorInt2 Up = new VectorInt2(0, 1);
@@ -16,6 +17,7 @@ namespace PlatHak.Common.Maths
         public int X { get; set; }
         public int Y { get; set; }
         public RawVector2 RawVectorInt2 => new RawVector2(X, Y);
+        public Vector2 Vector2 => new Vector2(X, Y);
 
         public VectorInt2(int x, int y)
         {
@@ -23,6 +25,10 @@ namespace PlatHak.Common.Maths
             Y = y;
         }
 
+        public int Distance(VectorInt2 point2)
+        {
+            return (int) Math.Sqrt(Math.Pow(X - point2.X, 2) + Math.Pow(Y - point2.Y, 2));
+        }
         #region Operators
 
         public static bool operator ==(VectorInt2 one, VectorInt2 two)
@@ -59,10 +65,28 @@ namespace PlatHak.Common.Maths
         {
             return new VectorInt2(one.X*two.X, one.Y*two.Y);
         }
+        public static VectorInt2 operator *(VectorInt2 one, Size two)
+        {
+            return new VectorInt2(one.X * two.Width, one.Y * two.Height);
+        }
 
+        public static VectorInt2 operator /(VectorInt2 one, Size two)
+        {
+            return new VectorInt2(one.X/two.Width, one.Y/two.Height);
+        }
         public static VectorInt2 operator /(VectorInt2 one, VectorInt2 two)
         {
-            return new VectorInt2(one.X/two.X, one.Y/two.Y);
+            return new VectorInt2(one.X / two.X, one.Y / two.Y);
+        }
+
+        public static VectorInt2 operator +(VectorInt2 one, int two)
+        {
+            return new VectorInt2(one.X + two, one.Y + two);
+        }
+
+        public static VectorInt2 operator -(VectorInt2 one, int two)
+        {
+            return new VectorInt2(one.X - two, one.Y - two);
         }
 
         #endregion

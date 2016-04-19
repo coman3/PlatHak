@@ -2,7 +2,7 @@
 using PlatHak.Common.Network;
 using WebSocket4Net;
 
-namespace PlayHak.Client.Network
+namespace PlatHak.Client.Network
 {
     public sealed class WebSocketClient
     {

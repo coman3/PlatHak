@@ -1,18 +1,22 @@
 ﻿using System;
+using Newtonsoft.Json;
 using SharpDX;
 using SharpDX.Mathematics.Interop;
 
 namespace PlatHak.Common.Maths
 {
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public struct Rectangle
     {
         public int X => Posistion.X;
         public int Y => Posistion.Y;
+        [JsonProperty]
         public VectorInt2 Posistion { get; set; }
 
         public int Width => Size.Width;
         public int Height => Size.Height;
+        [JsonProperty]
         public Size Size { get; set; }
 
         public int Top => Y;

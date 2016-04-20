@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using PlatHak.Common.Maths;
 using PlatHak.Common.World;
 
@@ -53,9 +54,11 @@ namespace PlatHak.Server.Common
             {
                 using (var gzipStream = new GZipStream(fileStream, CompressionLevel.Fastest, false))
                 {
-                    BinaryFormatter.Serialize(gzipStream, grid);
-                    gzipStream.Close();
-                    fileStream.Close();
+                    using (var sw = new StreamWriter(gzipStream))
+                    {
+                        var result = JsonConvert.SerializeObject(grid);
+                        sw.WriteLine(result);
+                    }
                 }
 
             }
@@ -68,38 +71,45 @@ namespace PlatHak.Server.Common
         }
         public void LoadChunkCluster(VectorInt2 chuckClusterPos)
         {
-            var chunk = LoadCluster(chuckClusterPos);
-            if (chunk == null)
+            var cluster = LoadCluster(chuckClusterPos);
+            if (cluster == null)
                 throw new InvalidOperationException("Cluster was not loaded!");
-            foreach (var worldGrid in chunk.Chunks)
+            foreach (var worldGrid in cluster.Chunks)
             {
                 World.Chunks[worldGrid.Bounds.X, worldGrid.Bounds.Y] = worldGrid;
             }
         }
+
         private ChunkCluster LoadCluster(VectorInt2 pos)
         {
             var file = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Chunks",
                 $"Chunk_{pos.X}_{pos.Y}.chd");
-            if(!File.Exists(file)) throw new FileLoadException("File Not Found: " + file + ".\nTry Regenerating the world.");
-            using (var decompressedStream = new MemoryStream())
+            if (!File.Exists(file))
+                throw new FileLoadException("File Not Found: " + file + ".\nTry Regenerating the world.");
+            using (var fileStream = File.OpenRead(file))
+            using (var gZipStream = new GZipStream(fileStream, CompressionMode.Decompress))
             {
-                using (var fileStream = File.OpenRead(file))
-                using (var gZipStream = new GZipStream(fileStream, CompressionMode.Decompress))
+                using (var streamReader = new StreamReader(gZipStream))
                 {
-                    gZipStream.CopyTo(decompressedStream);
-                    gZipStream.Close();
-                    fileStream.Close();
-                }
-                using (var serializationStream = new MemoryStream(decompressedStream.ToArray()))
-                {
-                    decompressedStream.Close();
                     Console.WriteLine($"Loading Cluster X: {pos.X} Y: {pos.Y}...");
-                    var stopWatch = Stopwatch.StartNew();
-                    var result = (ChunkCluster) BinaryFormatter.Deserialize(serializationStream);
-                    stopWatch.Stop();
-                    Console.WriteLine($"Loaded Cluster X: {pos.X} Y: {pos.Y}. Took: {stopWatch.Elapsed.TotalSeconds} secconds");
 
+                    try
+                    {
+
+                    
+                    var json = streamReader.ReadToEnd();
+                    var stopWatch = Stopwatch.StartNew();
+                    var result = JsonConvert.DeserializeObject<ChunkCluster>(json);
+                    stopWatch.Stop();
+                    Console.WriteLine(
+                        $"Loaded Cluster X: {pos.X} Y: {pos.Y}. Took: {stopWatch.Elapsed.TotalSeconds} secconds");
                     return result;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex);
+                        throw;
+                    }
                 }
             }
         }

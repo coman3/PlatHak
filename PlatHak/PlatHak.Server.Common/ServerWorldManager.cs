@@ -1,4 +1,4 @@
-﻿#define MultiThread
+﻿//#define MultiThread
 
 using System;
 using System.Collections.Generic;
@@ -201,9 +201,9 @@ namespace PlatHak.Server.Common
                 Parallel.For(0, WorldSaver.Size.Height, new ParallelOptions { MaxDegreeOfParallelism = 2 }, sy =>
                 {
 #else
-            for (int sx = 0; sx < worldSaver.Size.Width; sx++)
+            for (int sx = 0; sx < WorldSaver.Size.Width; sx++)
             {
-                for (int sy = 0; sy < worldSaver.Size.Height; sy++)
+                for (int sy = 0; sy < WorldSaver.Size.Height; sy++)
                 {
 #endif
 

@@ -1,9 +1,11 @@
 ﻿using System;
+using Newtonsoft.Json;
 using SharpDX.Mathematics.Interop;
 
 namespace PlatHak.Common.Maths
 {
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public struct VectorInt2 : IEquatable<VectorInt2>, IComparable<VectorInt2>
     {
         public static readonly VectorInt2 Negative = new VectorInt2(-1, -1);
@@ -13,8 +15,9 @@ namespace PlatHak.Common.Maths
         public static readonly VectorInt2 Down = new VectorInt2(0, -1);
         public static readonly VectorInt2 Left = new VectorInt2(-1, 0);
         public static readonly VectorInt2 Right = new VectorInt2(1, 0);
-
+        [JsonProperty]
         public int X { get; set; }
+        [JsonProperty]
         public int Y { get; set; }
         public RawVector2 RawVectorInt2 => new RawVector2(X, Y);
         public Vector2 Vector2 => new Vector2(X, Y);

@@ -18,6 +18,10 @@ namespace PlatHak.Server.Common
         }
         public bool Full => false;
 
+        public ChunkCluster()
+        {
+            
+        }
         public ChunkCluster(Size size)
         {
             Chunks = new Chunk[size.Width, size.Height];

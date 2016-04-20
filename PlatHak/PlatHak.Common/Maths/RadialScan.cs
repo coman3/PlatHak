@@ -7,9 +7,9 @@ namespace PlatHak.Common.Maths
     {
         public static void AllPoints(VectorInt2 centerPos, int radius, Action<int, int> action)
         {
-            for (int x = centerPos.X - radius; x < centerPos.X + radius; x++)
+            for (int x = Math.Max(0,  centerPos.X - radius); x < centerPos.X + radius; x++)
             {
-                for (int y = centerPos.Y - radius; y < centerPos.Y + radius; y++)
+                for (int y = Math.Max(0, centerPos.Y- radius); y < centerPos.Y + radius; y++)
                 {
                     if(!IsPointWithinCircle(centerPos, radius, new VectorInt2(x, y))) continue;
                     action.Invoke(x, y);
@@ -19,9 +19,9 @@ namespace PlatHak.Common.Maths
 
         public static void AllPointsParrell(VectorInt2 centerPos, int radius, Action<int, int> action)
         {
-            Parallel.For(centerPos.X - radius, centerPos.X + radius, x =>
+            Parallel.For(Math.Max(0, centerPos.X - radius), centerPos.X + radius, x =>
             {
-                Parallel.For(centerPos.Y - radius, centerPos.Y + radius, y =>
+                Parallel.For(Math.Max(0, centerPos.Y - radius), centerPos.Y + radius, y =>
                 {
                     if (!IsPointWithinCircle(centerPos, radius, new VectorInt2(x, y))) return;
                     action.Invoke(x, y);

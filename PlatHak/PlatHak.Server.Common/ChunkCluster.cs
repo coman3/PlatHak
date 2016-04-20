@@ -1,14 +1,19 @@
 ﻿using System;
+using Newtonsoft.Json;
 using PlatHak.Common.Maths;
 using PlatHak.Common.World;
 
 namespace PlatHak.Server.Common
 {
     [Serializable]
+    [JsonObject(MemberSerialization.OptIn)]
     public class ChunkCluster : IDisposable
     {
+        [JsonProperty]
         public Chunk[,] Chunks { get; set; }
+        [JsonProperty]
         public VectorInt2 LocalPosistion { get; set; }
+        [JsonProperty]
         public Rectangle WorldPosistion { get; set; }
 
         public Chunk this[int x, int y]
@@ -16,6 +21,7 @@ namespace PlatHak.Server.Common
             get { return Chunks[x, y]; }
             set { Chunks[x, y] = value; }
         }
+        
         public bool Full => false;
 
         public ChunkCluster()

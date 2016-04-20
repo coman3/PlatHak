@@ -91,7 +91,7 @@ namespace PlatHak.Server.Common
             {
                 using (var streamReader = new StreamReader(gZipStream))
                 {
-                    Console.WriteLine($"Loading Cluster X: {pos.X} Y: {pos.Y}...");
+                    Console.WriteLine($"Loading Cluster {pos}...");
 
                     try
                     {
@@ -99,10 +99,11 @@ namespace PlatHak.Server.Common
                     
                     var json = streamReader.ReadToEnd();
                     var stopWatch = Stopwatch.StartNew();
+                    
                     var result = JsonConvert.DeserializeObject<ChunkCluster>(json);
                     stopWatch.Stop();
                     Console.WriteLine(
-                        $"Loaded Cluster X: {pos.X} Y: {pos.Y}. Took: {stopWatch.Elapsed.TotalSeconds} secconds");
+                        $"Loaded Cluster {pos}. Took: {stopWatch.Elapsed.TotalSeconds} secconds");
                     return result;
                     }
                     catch (Exception ex)

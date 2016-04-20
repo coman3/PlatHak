@@ -1,4 +1,4 @@
-﻿//#define MultiThread
+﻿#define MultiThread
 
 using System;
 using System.Collections.Generic;
@@ -40,7 +40,7 @@ namespace PlatHak.Server.Common
             Server.OnClientLoaded += Server_OnClientLoaded;
             Server.OnUpdate += Server_OnUpdate;
 
-            SpawnChunkInformRadius = 10;
+            SpawnChunkInformRadius = 1;
             RequestedChunks = new Dictionary<UserClient, List<VectorInt2>>();
             LoadingClusters = new Queue<VectorInt2>();
             _chunkManagerCancellationToken = new CancellationToken();
@@ -81,7 +81,7 @@ namespace PlatHak.Server.Common
                 var random = new Random();
                 session.Player = new Player
                 {
-                    Posistion = new VectorInt2(870400, 240640),
+                    Posistion = new VectorInt2(1044, 1500),
                     Username =  session.Username
                 };
                 World.Players.Add(session.Player);
@@ -280,9 +280,9 @@ namespace PlatHak.Server.Common
                         for (int cy = 0; cy < World.WorldConfig.ChunkSize.Height; cy++)
                         {
                             if (blockdata[x, y])
-                                grids[x, y].AddGridItem(cx, cy, new BlockBlock
+                                grids[x, y].AddGridItem(cx, cy, new Block
                                 {
-                                    IsSolid = cx == 0 || cy == 0 || cx == World.WorldConfig.ChunkSize.Width || cy == World.WorldConfig.ChunkSize.Height,
+                                    //IsSolid = cx == 0 || cy == 0 || cx == World.WorldConfig.ChunkSize.Width || cy == World.WorldConfig.ChunkSize.Height,
                                 });
                         }
                     }

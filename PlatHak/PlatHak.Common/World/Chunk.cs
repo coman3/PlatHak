@@ -8,7 +8,7 @@ namespace PlatHak.Common.World
     public class Chunk : IDisposable
     {
         public Rectangle Bounds { get; set; }
-        public Block[,] Items { get; private set; }
+        public Block[,] Items { get; set; }
         public Size ItemSize { get; set; }
 
         public Chunk(VectorInt2 chunkPos, WorldConfig config)

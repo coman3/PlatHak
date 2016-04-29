@@ -1,0 +1,44 @@
+﻿Main Idea:
+	- Fast passed RPG shooter
+		- Kill things
+			- Gain loot
+			- Gain Exp
+			- Gain Gold
+			- Level up items
+		- Craft items
+			- Use items gained from killing thins
+		- Explore
+			- Move to different contries
+				- Pay ex item / gold to catch boaat / plane / bus to next country
+		- Defeat massive waves
+	- Multiplayer COOP
+
+
+Flow:
+	- Login to account
+	- Join Server with friends 
+	- Select Class
+		- Mage / Ranged
+		- Warrior / Melee
+		- Archer / Ranged
+		- Hybrid / Tank
+	- Enter world all toegther
+	- Collect items (Lowest Level)
+		- Staff
+		- Sword
+			- Dual
+			- Single
+		- Bow and Arrow
+		- Shield
+	- Explore together
+	- Kill Random spawning monsters
+		- Drop loot
+		- Level up
+	- Travel to other islands (contries)
+	- Do actions to spawn easter eggs
+	- Craft more powerfull items with loot
+	- Kill main boss
+	- GG WP
+
+
+

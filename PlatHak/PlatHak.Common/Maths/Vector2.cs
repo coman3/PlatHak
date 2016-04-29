@@ -53,6 +53,16 @@ namespace PlatHak.Common.Maths
             return one.X < two.X && one.Y < two.Y;
         }
 
+        public static bool operator <=(Vector2 one, Vector2 two)
+        {
+            return one.X <= two.X && one.Y <= two.Y;
+        }
+
+        public static bool operator >=(Vector2 one, Vector2 two)
+        {
+            return one.X >= two.X && one.Y >= two.Y;
+        }
+
         public static Vector2 operator +(Vector2 one, Vector2 two)
         {
             return new Vector2(one.X + two.X, one.Y + two.Y);

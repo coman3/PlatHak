@@ -85,6 +85,7 @@ namespace PlatHak.Server.Common
                     Username =  session.Username
                 };
                 World.Players.Add(session.Player);
+                //Server.Broadcast(new PlayerPacket(session.Player));
             }
         }
 
@@ -135,7 +136,7 @@ namespace PlatHak.Server.Common
             packet.DoIfIsType<MoveRequest>(request =>
             {
                 var multiplyer = request.State ? 1 : 0;
-                var speed = 128;
+                var speed = World.WorldConfig.ItemSize.Width / 4;
                 switch (request.MoveType)
                 {
                     case MoveType.Right:

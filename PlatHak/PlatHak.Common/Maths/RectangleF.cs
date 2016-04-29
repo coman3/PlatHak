@@ -43,6 +43,12 @@ namespace PlatHak.Common.Maths
 
         }
 
+        public bool Contains(RectangleF rectangle)
+        {
+            return Contains(rectangle.TopRight) || Contains(rectangle.TopLeft) || Contains(rectangle.BottomRight) ||
+                   Contains(rectangle.BottomLeft);
+        }
+
         public bool Contains(Vector2 point, float margin = 0)
         {
             var top = Top - margin;

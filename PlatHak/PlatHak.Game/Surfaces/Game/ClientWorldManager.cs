@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Timers;
 using PlatHak.Client.Common;
 using PlatHak.Client.Common.Interfaces;
 using PlatHak.Client.Network;
@@ -9,7 +10,7 @@ using PlatHak.Common.World;
 
 namespace PlatHack.Game.Surfaces.Game
 {
-    public class ClientWorldManager :  IUpdatedSurface
+    public class ClientWorldManager : ISurface
     {
         public World World { get; set; }
         public WorldDrawer Drawer { get; set; }
@@ -19,12 +20,16 @@ namespace PlatHack.Game.Surfaces.Game
         public bool Loaded => World != null && Drawer != null && Player != null;
         public int ChunkLoadRadius { get; set; }
         public List<VectorInt2> RequestedChunks { get; set; }
+        private readonly Timer _updateTimer;
         public ClientWorldManager(WebSocketClient client)
         {
             Client = client;
             Client.OnPacketRecived += Client_OnPacketRecived;
-            ChunkLoadRadius = 3;
+            ChunkLoadRadius = 4;
             RequestedChunks = new List<VectorInt2>();
+            _updateTimer = new Timer(1000 / 60d); //60 times a second
+            _updateTimer.Elapsed += (sender, _) => OnUpdate();
+            _updateTimer.Start();
         }
 
         private void Client_OnPacketRecived(PacketEventArgs<Packet> args)
@@ -55,33 +60,31 @@ namespace PlatHack.Game.Surfaces.Game
 
         }
 
-        public void OnUpdate(GameTime time)
+        public void OnUpdate()
         {
-            if(!Loaded) return;
+            if (!Loaded) return;
 
             var pos = Player.GetNextPosistion(World.GlobalCoordinatesSize);
             var chunk = World.GetChunkCordsFromPosition(pos);
             var chunkItem = World.Chunks[chunk.X, chunk.Y];
-            if (CurrentChunkIn != chunkItem)
-            {
 
-                RadialScan.AllPoints(chunk, ChunkLoadRadius, (x, y) =>
+
+            RadialScan.AllPoints(chunk, ChunkLoadRadius, (x, y) =>
+            {
+                if (World.Chunks[x, y] == null && !RequestedChunks.Any(c => c.X == x && c.Y == y))
                 {
-                    if (World.Chunks[x, y] == null && !RequestedChunks.Any(c=> c.X == x && c.Y == y))
-                    {
-                        RequestedChunks.Add(new VectorInt2(x, y));
-                        Client.Send(new ChunkRequestPacket { ChunkPosistion = new VectorInt2(x, y) });
-                    }
-                });
-                CurrentChunkIn = chunkItem;
-            }
+                    RequestedChunks.Add(new VectorInt2(x, y));
+                    Client.Send(new ChunkRequestPacket {ChunkPosistion = new VectorInt2(x, y)});
+                }
+            });
+            CurrentChunkIn = chunkItem;
             Player.UpdatePosistion(World.GlobalCoordinatesSize);
             foreach (var player in World.Players)
             {
-                
+
                 player.UpdatePosistion(World.GlobalCoordinatesSize);
             }
-            
+
         }
     }
 }

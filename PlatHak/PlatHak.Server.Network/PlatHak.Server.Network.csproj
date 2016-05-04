@@ -82,6 +82,10 @@
       <Project>{D66BD451-2EA5-49E3-9F69-1D02A88DCF85}</Project>
       <Name>PlatHak.Common.Network</Name>
     </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Common.Objects\PlatHak.Common.Objects.csproj">
+      <Project>{0FB98057-FFC1-4DE0-89BE-C5505C141955}</Project>
+      <Name>PlatHak.Common.Objects</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
       <Project>{91F15F8B-A8EA-455C-8889-6BA78852F8E7}</Project>
       <Name>PlatHak.Common</Name>

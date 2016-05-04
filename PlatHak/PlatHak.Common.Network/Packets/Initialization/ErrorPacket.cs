@@ -2,11 +2,14 @@
 
 namespace PlatHak.Common.Network
 {
+    /// <summary>
+    /// Contains info about a server error that occured
+    /// </summary>
     [Serializable]
     public class ErrorPacket : Packet
     {
         public ConnectionException Exception { get; set; }
-        public ErrorPacket(ConnectionException exception) : base(PacketId.Error)
+        public ErrorPacket(ConnectionException exception)
         {
             Exception = exception;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json.Bson;
 using PlatHak.Common.Maths;
 using PlatHak.Common.Network;
+using PlatHak.Common.Objects;
 using PlatHak.Common.World;
 using SuperSocket.SocketBase;
 using SuperWebSocket;

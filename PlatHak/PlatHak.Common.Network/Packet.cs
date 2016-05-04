@@ -14,11 +14,6 @@ namespace PlatHak.Common.Network
     [Serializable]
     public abstract class Packet : IPacket
     {
-        [NonSerialized] public PacketId Id;
-        protected Packet(PacketId id)
-        {
-            Id = id;
-        }
         public static T FromBytes<T>(byte[] data) where T : Packet
         {
             using (var stream = new MemoryStream(data))
@@ -47,7 +42,7 @@ namespace PlatHak.Common.Network
         }
         public override string ToString()
         {
-            return "Packet: " + Id;
+            return GetType().Name;
         }
 
         protected virtual bool ToStream(Stream stream)

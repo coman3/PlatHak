@@ -5,6 +5,7 @@ using PlatHak.Client.Common.Interfaces;
 using PlatHak.Client.Network;
 using PlatHak.Common.Maths;
 using PlatHak.Common.Network;
+using PlatHak.Common.Objects;
 using PlatHak.Common.World;
 
 namespace PlatHack.Game.Surfaces.Game
@@ -36,33 +37,16 @@ namespace PlatHack.Game.Surfaces.Game
             {
                 World.SetChunk(chunkPacket.Chunk);
             });
-            packet.DoIfIsType<PlayerMovePacket>(movePacket =>
-            {
-                if (Player.Username == movePacket.Username)
-                {
-                    Player.Velocity = movePacket.NewVelocity;
-                    //Player.Posistion = movePacket.ServerPosistion;
-                }
-                else
-                {
-                    var player = World.Players.FirstOrDefault(x => x.Username == movePacket.Username);
-                    if (player == null) return;
-                    player.Velocity =
-                        movePacket.NewVelocity;
-                    player.Posistion = movePacket.ServerPosistion;
-                }
-            });
-
         }
 
         public void OnUpdate(GameTime time)
         {
             if(!Loaded) return;
 
-            var pos = Player.GetNextPosistion(World.GlobalCoordinatesSize);
+            var pos = Player.GetNextPosition();
             var chunk = World.GetChunkCordsFromPosition(pos);
             var chunkItem = World.Chunks[chunk.X, chunk.Y];
-            if (CurrentChunkIn != chunkItem)
+            //if (CurrentChunkIn != chunkItem)
             {
 
                 RadialScan.AllPoints(chunk, ChunkLoadRadius, (x, y) =>
@@ -75,11 +59,10 @@ namespace PlatHack.Game.Surfaces.Game
                 });
                 CurrentChunkIn = chunkItem;
             }
-            Player.UpdatePosistion(World.GlobalCoordinatesSize);
-            foreach (var player in World.Players)
+            foreach (var entity in World.Entities)
             {
                 
-                player.UpdatePosistion(World.GlobalCoordinatesSize);
+                entity.UpdatePosition();
             }
             
         }

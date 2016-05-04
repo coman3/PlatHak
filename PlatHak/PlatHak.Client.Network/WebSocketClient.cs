@@ -66,7 +66,7 @@ namespace PlatHak.Client.Network
                     OnHandshakeFinished?.Invoke(new PacketEventArgs<HandshakePacket>(webSocket,
                         packet.Cast<HandshakePacket>()));
 
-                    SendToServer(webSocket, new LoginPacket(_config.Username, _config.PasswordHash));
+                    SendToServer(webSocket, new LoginPacket(_config.Username));
 
                 }
                 else

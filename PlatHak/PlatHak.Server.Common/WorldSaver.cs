@@ -20,7 +20,6 @@ namespace PlatHak.Server.Common
 
         private World World { get; set; }
         private WorldConfig Config { get; }
-        private BinaryFormatter BinaryFormatter { get; set; }
         
         public WorldSaver(World world, Size chunkPerFile)
         {
@@ -28,7 +27,6 @@ namespace PlatHak.Server.Common
             Config = world.WorldConfig;
             ChunksPerFile = chunkPerFile;
             Size = new Size(Config.WorldSize.Width / chunkPerFile.Width, Config.WorldSize.Height / chunkPerFile.Height);
-            BinaryFormatter = new BinaryFormatter();
         }
 
         public void Save(int sx, int sy, ChunkCluster grids)

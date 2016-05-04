@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using PlatHak.Common.Maths;
 using PlatHak.Common.Network;
+using PlatHak.Common.Objects;
 using PlatHak.Common.World;
 using PlatHak.Server.Common.Extentions;
 using PlatHak.Server.Network;
@@ -40,7 +41,7 @@ namespace PlatHak.Server.Common
             Server.OnClientLoaded += Server_OnClientLoaded;
             Server.OnUpdate += Server_OnUpdate;
 
-            SpawnChunkInformRadius = 1;
+            SpawnChunkInformRadius = 4;
             RequestedChunks = new Dictionary<UserClient, List<VectorInt2>>();
             LoadingClusters = new Queue<VectorInt2>();
             _chunkManagerCancellationToken = new CancellationToken();
@@ -59,9 +60,9 @@ namespace PlatHak.Server.Common
         private void Server_OnClientLoaded(UserClient client)
         {
             Console.WriteLine($"{client.SessionId} ({client.Username}) game has loaded. Sending world...");
-            client.Send(new WorldPacket(World.WorldConfig));
-            client.Send(new PlayerPacket(client.Player));
-            var chunkIn = World.GetChunkCordsFromPosition(client.Player.Posistion);
+            client.Send(new WorldConfigPacket(World.WorldConfig));
+            client.Send(new CreateEntityPacket(client.Player));
+            var chunkIn = World.GetChunkCordsFromPosition(client.Player.Position);
             lock (RequestedChunks)
             {
 
@@ -81,10 +82,10 @@ namespace PlatHak.Server.Common
                 var random = new Random();
                 session.Player = new Player
                 {
-                    Posistion = new VectorInt2(1044, 1500),
+                    Position = new VectorInt2(1044, 1500),
                     Username =  session.Username
                 };
-                World.Players.Add(session.Player);
+                World.Entities.Add(session.Player);
             }
         }
 
@@ -132,27 +133,6 @@ namespace PlatHak.Server.Common
 
         private void Server_OnPacketReceived(UserClient client, Packet packet)
         {
-            packet.DoIfIsType<MoveRequest>(request =>
-            {
-                var multiplyer = request.State ? 1 : 0;
-                var speed = 128;
-                switch (request.MoveType)
-                {
-                    case MoveType.Right:
-                        client.Player.Velocity = new VectorInt2(speed * multiplyer, client.Player.Velocity.Y);
-                        break;
-                    case MoveType.Left:
-                        client.Player.Velocity = new VectorInt2(-speed * multiplyer, client.Player.Velocity.Y);
-                        break;
-                    case MoveType.Down:
-                        client.Player.Velocity = new VectorInt2(client.Player.Velocity.X, speed * multiplyer);
-                        break;
-                    case MoveType.Up:
-                        client.Player.Velocity = new VectorInt2(client.Player.Velocity.X, -speed * multiplyer);
-                        break;
-                }
-                Server.Broadcast(new PlayerMovePacket(client.Player.Username, client.Player.Velocity));
-            });
             packet.DoIfIsType<ChunkRequestPacket>(requestPacket =>
             {
                 lock (RequestedChunks)
@@ -171,15 +151,6 @@ namespace PlatHak.Server.Common
             return World.Chunks[pos.X, pos.Y];
         }
 
-        public void UpdatePlayerPosistion(Player player, VectorInt2 newPos)
-        {
-            if (World.Players.Contains(player))
-            {
-                World.Players[World.Players.IndexOf(player)].Posistion = newPos;
-                Server.Broadcast(new PlayerMovePacket(player.Username, newPos));
-            }
-        }
-
         #region World Loading
 
         public void Load(Bitmap blockBitmap)
@@ -196,9 +167,9 @@ namespace PlatHak.Server.Common
             #region LoopInit
 
 #if MultiThread
-            Parallel.For(0, WorldSaver.Size.Width, new ParallelOptions { MaxDegreeOfParallelism = 2 }, sx =>
+            Parallel.For(0, WorldSaver.Size.Width, sx =>
             {
-                Parallel.For(0, WorldSaver.Size.Height, new ParallelOptions { MaxDegreeOfParallelism = 2 }, sy =>
+                Parallel.For(0, WorldSaver.Size.Height, sy =>
                 {
 #else
             for (int sx = 0; sx < WorldSaver.Size.Width; sx++)
@@ -208,7 +179,6 @@ namespace PlatHak.Server.Common
 #endif
 
                     #endregion
-
                     count++;
                     var timeTaken = LoopMethod(blockBitmap, sx, sy);
                     totalTime += timeTaken;
@@ -222,8 +192,7 @@ namespace PlatHak.Server.Common
                     var timeLeft = TimeSpan.FromSeconds((total - count) * timespan.TotalSeconds);
                     Console.Write($"Estimated Time Left: {timeLeft.ToString(@"hh\:mm\:ss\:fffffff")}    ");
                     Console.SetCursorPosition(0, 0);
-
-                    #region LoopEnd
+            #region LoopEnd
 
 #if MultiThread
                 });
@@ -280,10 +249,7 @@ namespace PlatHak.Server.Common
                         for (int cy = 0; cy < World.WorldConfig.ChunkSize.Height; cy++)
                         {
                             if (blockdata[x, y])
-                                grids[x, y].AddGridItem(cx, cy, new Block
-                                {
-                                    //IsSolid = cx == 0 || cy == 0 || cx == World.WorldConfig.ChunkSize.Width || cy == World.WorldConfig.ChunkSize.Height,
-                                });
+                                grids[x, y].AddGridItem(cx, cy, new Block());
                         }
                     }
                 }

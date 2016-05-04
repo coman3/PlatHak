@@ -19,13 +19,19 @@ namespace PlatHak.Common.Maths
         public int X { get; set; }
         [JsonProperty]
         public int Y { get; set; }
-        public RawVector2 RawVectorInt2 => new RawVector2(X, Y);
-        public Vector2 Vector2 => new Vector2(X, Y);
-
         public VectorInt2(int x, int y)
         {
             X = x;
             Y = y;
+        }
+
+        public RawVector2 ToRawVector2()
+        {
+            return new RawVector2(X, Y);
+        }
+        public Vector2 ToVector2()
+        {
+            return new Vector2(X, Y);
         }
 
         public int Distance(VectorInt2 point2)
@@ -62,6 +68,10 @@ namespace PlatHak.Common.Maths
         public static VectorInt2 operator -(VectorInt2 one, VectorInt2 two)
         {
             return new VectorInt2(one.X - two.X, one.Y - two.Y);
+        }
+        public static VectorInt2 operator -(VectorInt2 one)
+        {
+            return new VectorInt2(-one.X, -one.Y);
         }
 
         public static VectorInt2 operator *(VectorInt2 one, VectorInt2 two)

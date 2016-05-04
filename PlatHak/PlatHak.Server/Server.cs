@@ -49,7 +49,7 @@ namespace PlatHak.Server
             var stopwatch = Stopwatch.StartNew();
 
             var bitmap = Properties.Resources.map;
-            ServerWorldManager = new ServerWorldManager(SocketServer, new World(new WorldConfig(new Size(bitmap.Width, bitmap.Height), new Size(16, 16), new Size(32, 32))));
+            ServerWorldManager = new ServerWorldManager(SocketServer, new World(new WorldConfig(new Size(bitmap.Width, bitmap.Height), new Size(16, 16), new Size(4, 4), TimeSpan.FromMilliseconds(1000f / 60))));
             ServerWorldManager.Load(bitmap);
 
             stopwatch.Stop();

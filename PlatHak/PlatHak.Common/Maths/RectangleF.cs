@@ -42,7 +42,26 @@ namespace PlatHak.Common.Maths
             Size = size;
 
         }
-
+        /// <summary>
+        /// Checks if the current rectangle contains all 4 corners of the specifyed rectangle
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <returns>True if all corners are within the bounds of the current rectangle</returns>
+        public bool Contains(RectangleF rectangle)
+        {
+            return Contains(rectangle.TopLeft) && Contains(rectangle.BottomRight) &&
+                   Contains(rectangle.TopRight) && Contains(rectangle.BottomLeft);
+        }
+        /// <summary>
+        /// Checks if the current rectangle contains any corner of the specifyed rectangle
+        /// </summary>
+        /// <param name="rectangle"></param>
+        /// <returns>True if a corner is within the bounds of the current rectangle</returns>
+        public bool ContainsCorner(RectangleF rectangle)
+        {
+            return Contains(rectangle.TopLeft) || Contains(rectangle.BottomRight) ||
+                   Contains(rectangle.TopRight) || Contains(rectangle.BottomLeft);
+        }
         public bool Contains(Vector2 point, float margin = 0)
         {
             var top = Top - margin;

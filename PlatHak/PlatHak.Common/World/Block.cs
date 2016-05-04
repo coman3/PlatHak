@@ -6,6 +6,7 @@ namespace PlatHak.Common.World
     [Serializable]
     public class Block : IDisposable
     {
+        public VectorInt2 DrawOffset { get; set; }
         /// <summary>
         /// The location within the <see cref="Chunk"/> and the <see cref="Size"/> of the block (in pixels)
         /// </summary>

@@ -1,26 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using PlatHak.Common.Maths;
-using ProtoBuf;
 
 namespace PlatHak.Common.World
 {
     [Serializable]
     public class World
     {
-        public List<Player> Players { get; set; }
+        public List<Entity> Entities { get; set; }
         public WorldConfig WorldConfig { get; set; }
         public Chunk[,] Chunks { get; set; }
-        public Size GlobalCoordinatesSize { get; set; }
+
+        
 
         public World(WorldConfig config)
         {
-            Players = new List<Player>();
+            Entities = new List<Entity>();
             WorldConfig = config;
             Chunks = new Chunk[WorldConfig.WorldSize.Width, WorldConfig.WorldSize.Height];
-            GlobalCoordinatesSize =
-                new Size(WorldConfig.WorldSize.Width*WorldConfig.ChunkSize.Width*WorldConfig.ItemSize.Width,
-                    WorldConfig.WorldSize.Height*WorldConfig.ChunkSize.Height*WorldConfig.ItemSize.Height);
         }
 
         public Chunk SetChunk(Chunk chunk)
@@ -34,9 +31,9 @@ namespace PlatHak.Common.World
         } 
         public VectorInt2 GetChunkCordsFromPosition(VectorInt2 posistion)
         {
-            if (posistion.X > 0 && GlobalCoordinatesSize.Width > posistion.X)
+            if (posistion.X > 0 && WorldConfig.GlobalCoordinatesSize.Width > posistion.X)
             {
-                if (posistion.Y > 0 && GlobalCoordinatesSize.Height > posistion.Y)
+                if (posistion.Y > 0 && WorldConfig.GlobalCoordinatesSize.Height > posistion.Y)
                 {
                     var chunkPixelWidth = WorldConfig.ChunkSize.Width * WorldConfig.ItemSize.Width;
                     var chunkPixelHeight = WorldConfig.ChunkSize.Height * WorldConfig.ItemSize.Height;
@@ -74,33 +71,6 @@ namespace PlatHak.Common.World
             if (chunk == null) return null;
             var block = GetBlockCordsFromPosistion(posistion);
             return chunk.Items[block.X, block.Y];
-        }
-    }
-    [Serializable]
-    public struct WorldConfig
-    {
-        /// <summary>
-        /// The size of the world, in chunks
-        /// </summary>
-        [ProtoMember(1)]
-        public Size WorldSize;
-
-        /// <summary>
-        /// The size of each chunk, in GridItems.
-        /// </summary>
-        [ProtoMember(2)]
-        public Size ChunkSize;
-        /// <summary>
-        /// The size of each GridItem (in pixels). 
-        /// </summary>
-        [ProtoMember(3)]
-        public Size ItemSize;
-
-        public WorldConfig(Size worldSize, Size chunkSize, Size itemSize)
-        {
-            WorldSize = worldSize;
-            ChunkSize = chunkSize;
-            ItemSize = itemSize;
         }
     }
 }

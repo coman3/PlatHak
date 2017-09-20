@@ -5,7 +5,7 @@ namespace PlatHak.Common.Network
     /// <summary>
     /// Contains infomation of the world, for the client.
     /// </summary>
-    [Serializable]
+    
     public class WorldConfigPacket : Packet
     {
         /// <summary>

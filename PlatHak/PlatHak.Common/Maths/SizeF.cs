@@ -1,9 +1,9 @@
 ﻿using System;
-using SharpDX;
+using System.Runtime.Serialization;
 
 namespace PlatHak.Common.Maths
 {
-    [Serializable]
+    
     public struct SizeF
     {
 

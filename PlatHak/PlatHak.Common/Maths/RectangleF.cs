@@ -1,10 +1,9 @@
 ﻿using System;
-using SharpDX;
-using SharpDX.Mathematics.Interop;
+using System.Runtime.Serialization;
 
 namespace PlatHak.Common.Maths
 {
-    [Serializable]
+    
     public struct RectangleF
     {
 
@@ -33,8 +32,6 @@ namespace PlatHak.Common.Maths
 
         public Vector2 Center => new Vector2(X + Width / 2f, Y + Height / 2f);
 
-
-        public RawRectangleF RawRectangleF => new RawRectangleF(Left, Top, Right, Bottom);
         public RectangleF(float x, float y, float width, float height) : this(new Vector2(x, y), new SizeF(width, height)) { }
         public RectangleF(Vector2 posistion, SizeF size) : this()
         {

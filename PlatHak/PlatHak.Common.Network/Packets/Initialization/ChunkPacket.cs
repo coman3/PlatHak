@@ -6,7 +6,6 @@ namespace PlatHak.Common.Network
     /// <summary>
     /// Contains chunk data from the server
     /// </summary>
-    [Serializable]
     public class ChunkPacket : Packet
     {
         public Chunk Chunk { get; set; }

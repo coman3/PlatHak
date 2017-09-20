@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using SuperWebSocket;
+using System.Runtime.Serialization;
+using Newtonsoft.Json;
 using WebSocket4Net;
 
 namespace PlatHak.Common.Network
@@ -11,7 +11,7 @@ namespace PlatHak.Common.Network
         byte[] ToBytes();
     }
 
-    [Serializable]
+    
     public abstract class Packet : IPacket
     {
         public static T FromBytes<T>(byte[] data) where T : Packet
@@ -29,10 +29,10 @@ namespace PlatHak.Common.Network
 
         private static T FromStream<T>(Stream stream) where T : Packet
         {
-            var formater = new BinaryFormatter();
+            var formater = JsonSerializer.Create();
             try
             {
-                return (T)formater.Deserialize(stream);
+                return (T)formater.Deserialize(new JsonTextReader(new StreamReader(stream)));
             }
             catch (Exception ex)
             {
@@ -47,10 +47,10 @@ namespace PlatHak.Common.Network
 
         protected virtual bool ToStream(Stream stream)
         {
-            var formater = new BinaryFormatter();
+            var formater = JsonSerializer.Create();
             try
             {
-                formater.Serialize(stream, this);
+                formater.Serialize(new JsonTextWriter(new StreamWriter(stream)), this);
                 stream.Flush();
                 return true;
             }

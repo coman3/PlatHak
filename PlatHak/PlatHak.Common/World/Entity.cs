@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Runtime.Serialization;
 using PlatHak.Common.Maths;
 
 namespace PlatHak.Common.World
 {
-    [Serializable]
+    
     public class Entity
     {
+        [DataMember]
         public Guid NetworkId { get; set; }
-        public VectorInt2 Position { get; set; }
-        public VectorInt2 Velocity { get; set; }
-        [NonSerialized] private WorldConfig _config;
+        [DataMember]
+        public VectorLong2 Position { get; set; }
+        [DataMember]
+        public VectorLong2 Velocity { get; set; }
+        private WorldConfig _config;
 
         public Entity()
         {
@@ -20,23 +24,23 @@ namespace PlatHak.Common.World
             _config = config;
         }
 
-        public VectorInt2 GetNextPosition()
+        public VectorLong2 GetNextPosition()
         {
             return GetNextPosition(_config.GlobalCoordinatesSize);
         }
-        public VectorInt2 GetNextPosition(Size worldMaxSize)
+        public VectorLong2 GetNextPosition(Size worldMaxSize)
         {
             var newPos = Position + Velocity;
-            var worldRect = new Rectangle(new VectorInt2(0, 0), worldMaxSize);
+            var worldRect = new Rectangle(new VectorLong2(0, 0), worldMaxSize);
             return !worldRect.Contains(newPos) ? Position : newPos;
         }
 
-        public VectorInt2 UpdatePosition()
+        public VectorLong2 UpdatePosition()
         {
             return Position = GetNextPosition();
         }
 
-        public VectorInt2 UpdatePosition(Size worldMaxSize)
+        public VectorLong2 UpdatePosition(Size worldMaxSize)
         {
             return Position = GetNextPosition(worldMaxSize);
         }

@@ -6,19 +6,14 @@ namespace PlatHak.Server.Common.Extentions
 {
     internal static class CancellationTokenExtensions
     {
-        public static bool WaitCancellationRequested(
-            this CancellationToken token,
-            TimeSpan timeout)
+        public static bool WaitCancellationRequested(this CancellationToken token, TimeSpan timeout)
         {
             return token.WaitHandle.WaitOne(timeout);
         }
     }
     internal static class Repeat
     {
-        public static Task Interval(
-            TimeSpan pollInterval,
-            Action action,
-            CancellationToken token)
+        public static Task Interval(TimeSpan pollInterval, Action action, CancellationToken token)
         {
             return Task.Factory.StartNew(
                 () =>

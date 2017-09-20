@@ -23,11 +23,11 @@ namespace PlatHak.Server.Network
         public ClientConfig ClientConfig { get; set; }
 
         private WebSocketSession Session { get; set; }
-        public List<VectorInt2> SentChunks { get; set; }
+        public List<VectorLong2> SentChunks { get; set; }
         protected UserClient(WebSocketSession session)
         {
             Session = session;
-            SentChunks = new List<VectorInt2>();
+            SentChunks = new List<VectorLong2>();
         }
 
         public void Send(Packet packet)

@@ -1,76 +1,104 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using PlatHak.Common.Maths;
 
 namespace PlatHak.Common.World
 {
-    [Serializable]
+    
     public class World
     {
         public List<Entity> Entities { get; set; }
         public WorldConfig WorldConfig { get; set; }
-        public Chunk[,] Chunks { get; set; }
-
-        
+        public Dictionary<VectorLong2, Block> Blocks { get; set; }
 
         public World(WorldConfig config)
         {
             Entities = new List<Entity>();
             WorldConfig = config;
-            Chunks = new Chunk[WorldConfig.WorldSize.Width, WorldConfig.WorldSize.Height];
+            Blocks = new Dictionary<VectorLong2, Block>(Convert.ToInt32(WorldConfig.WorldSize.Width * WorldConfig.WorldSize.Height));
         }
 
-        public Chunk SetChunk(Chunk chunk)
+
+        public Block SetBlock(Block block)
         {
-            return SetChunk(chunk.Bounds.Posistion, chunk);
-        }
-        public Chunk SetChunk(VectorInt2 posistion, Chunk chunk)
-        {
-            Chunks[posistion.X, posistion.Y] = chunk;
-            return chunk;
-        } 
-        public VectorInt2 GetChunkCordsFromPosition(VectorInt2 posistion)
-        {
-            if (posistion.X > 0 && WorldConfig.GlobalCoordinatesSize.Width > posistion.X)
-            {
-                if (posistion.Y > 0 && WorldConfig.GlobalCoordinatesSize.Height > posistion.Y)
-                {
-                    var chunkPixelWidth = WorldConfig.ChunkSize.Width * WorldConfig.ItemSize.Width;
-                    var chunkPixelHeight = WorldConfig.ChunkSize.Height * WorldConfig.ItemSize.Height;
-                    var chunk = new VectorInt2(posistion.X / chunkPixelWidth, posistion.Y / chunkPixelHeight);
-                    return chunk;
-                }
-            }
-            throw new ArgumentOutOfRangeException(nameof(posistion));
+            return SetBlock(block.Bounds.Posistion, block);
         }
 
-        public Chunk GetChunkFromPosistion(VectorInt2 posistion)
+        private Block SetBlock(VectorLong2 localPosition, Block block)
         {
-            var chunk = GetChunkCordsFromPosition(posistion);
-            return Chunks[chunk.X, chunk.Y];
-
-        }
-        /// <summary>
-        /// Get the posistion of the block from a global posistion
-        /// </summary>
-        /// <param name="posistion"></param>
-        /// <returns>
-        /// the posistion of the block witin its chunk
-        /// </returns>
-        public VectorInt2 GetBlockCordsFromPosistion(VectorInt2 posistion)
-        {
-            var chunk = GetChunkCordsFromPosition(posistion);
-            var block = new VectorInt2(posistion.X/WorldConfig.ItemSize.Width - WorldConfig.ChunkSize.Width * chunk.X,
-                posistion.Y/WorldConfig.ItemSize.Height - WorldConfig.ChunkSize.Height * chunk.Y);
+            Blocks[localPosition] = block;
             return block;
         }
 
-        public Block GetBlockFromPosistion(VectorInt2 posistion)
+        public Block GetBlock(VectorLong2 globalPosistion, bool createIfNull = true)
         {
-            var chunk = GetChunkFromPosistion(posistion);
-            if (chunk == null) return null;
-            var block = GetBlockCordsFromPosistion(posistion);
-            return chunk.Items[block.X, block.Y];
+            var blockPos = WorldConfig.GetBlockLocalPosistion(globalPosistion);
+            var globalBlockPosistion = WorldConfig.GetBlockGlobalPosistion(blockPos);
+            if (Blocks.ContainsKey(blockPos))
+                return Blocks[blockPos];
+            if (createIfNull)
+                return Blocks[blockPos] = new Block(globalBlockPosistion, WorldConfig);
+
+            return null;
         }
+        
+
+        public Cluster SetCluster(Cluster cluster)
+        {
+            return SetCluster(cluster.Bounds.Posistion, cluster);
+        }
+
+
+        private Cluster SetCluster(VectorLong2 position, Cluster cluster)
+        {
+            var block = GetBlock(position);
+            var localClusterPosistion = WorldConfig.GetClusterLocalPosistion(position);
+
+            block.Clusters[localClusterPosistion] = cluster;
+            return cluster;
+        }
+
+        public Cluster GetCluster(VectorLong2 globalPosistion, bool createIfNull = true)
+        {
+            var block = GetBlock(globalPosistion);
+
+            var localClusterPosistion = WorldConfig.GetClusterLocalPosistion(globalPosistion);
+            if (block.Clusters.ContainsKey(localClusterPosistion))
+                return block.Clusters[localClusterPosistion];
+
+            if (createIfNull)
+                return block.Clusters[localClusterPosistion] = new Cluster(globalPosistion, WorldConfig);
+
+            return null;
+        }
+
+        //public Chunk SetChunk(Chunk chunk)
+        //{
+        //    return SetChunk(chunk.Bounds.Posistion, chunk);
+        //}
+
+
+        private Chunk SetChunk(VectorLong2 position, Chunk chunk)
+        {
+            var cluster = GetCluster(position);
+            var localChunkPosistion = WorldConfig.GetChunkLocalPosistion(position);
+            cluster.Chunks[localChunkPosistion.X, localChunkPosistion.Y] = chunk;
+            return chunk;
+        }
+
+        public Chunk GetChunk(VectorLong2 globalPosistion, bool createIfNull = true)
+        {
+            var cluster = GetCluster(globalPosistion);
+            var localChunkPosistion = WorldConfig.GetChunkLocalPosistion(globalPosistion);
+
+            if (createIfNull && cluster.Chunks[localChunkPosistion.X, localChunkPosistion.Y] == null)
+                return cluster.Chunks[localChunkPosistion.X, localChunkPosistion.Y] = new Chunk(
+                    WorldConfig.GetChunkGlobalPosistion(WorldConfig.GetBlockLocalPosistion(globalPosistion),
+                        localChunkPosistion, WorldConfig.GetChunkLocalPosistion(globalPosistion)), WorldConfig);
+
+            return cluster.Chunks[localChunkPosistion.X, localChunkPosistion.Y];
+        }
+
     }
 }

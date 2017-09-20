@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using PlatHak.Common.Drawing;
 
 namespace PlatHak.Common.World
@@ -15,12 +16,12 @@ namespace PlatHak.Common.World
 
         public abstract void LoadContent();
     }
-    [Serializable]
+    
     public abstract class Content
     {
         public Guid Id { get; set; }
     }
-    [Serializable]
+    
     public abstract class Content<T>
     {
         

@@ -5,14 +5,14 @@ using PlatHak.Common.World;
 
 namespace PlatHak.Server.Common
 {
-    [Serializable]
+    
     [JsonObject(MemberSerialization.OptIn)]
     public class ChunkCluster : IDisposable
     {
         [JsonProperty]
         public Chunk[,] Chunks { get; set; }
         [JsonProperty]
-        public VectorInt2 LocalPosistion { get; set; }
+        public VectorLong2 LocalPosistion { get; set; }
         [JsonProperty]
         public Rectangle WorldPosistion { get; set; }
 
@@ -33,7 +33,7 @@ namespace PlatHak.Server.Common
             Chunks = new Chunk[size.Width, size.Height];
         }
 
-        public ChunkCluster(Chunk[,] chunks, VectorInt2 localPosistion, Rectangle worldPosistion)
+        public ChunkCluster(Chunk[,] chunks, VectorLong2 localPosistion, Rectangle worldPosistion)
         {
             Chunks = chunks;
             LocalPosistion = localPosistion;

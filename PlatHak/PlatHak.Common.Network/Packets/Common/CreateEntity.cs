@@ -3,8 +3,7 @@ using PlatHak.Common.World;
 
 namespace PlatHak.Common.Network
 {
-    [Serializable]
-    public class CreateEntityPacket : Packet
+   public class CreateEntityPacket : Packet
     {
         public Entity Entity { get; set; }
 

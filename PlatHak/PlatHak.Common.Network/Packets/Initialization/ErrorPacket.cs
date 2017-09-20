@@ -5,7 +5,7 @@ namespace PlatHak.Common.Network
     /// <summary>
     /// Contains info about a server error that occured
     /// </summary>
-    [Serializable]
+    
     public class ErrorPacket : Packet
     {
         public ConnectionException Exception { get; set; }
@@ -15,7 +15,7 @@ namespace PlatHak.Common.Network
         }
     }
     
-    [Serializable]
+    
     public class ConnectionException
     {
         public ErrorType Type { get; set; }

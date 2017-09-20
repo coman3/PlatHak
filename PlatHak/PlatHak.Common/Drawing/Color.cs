@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace PlatHak.Common.Drawing
 {
-    [Serializable]
+    
     public struct Color
     {
         public byte R { get; set; }
@@ -16,15 +17,6 @@ namespace PlatHak.Common.Drawing
             G = g;
             B = b;
             A = alpha;
-        }
-
-        public static Color From(System.Drawing.Color color)
-        {
-            return new Color(color.R, color.G, color.B, color.A);
-        }
-        public SharpDX.Color ToSharpDxColor()
-        {
-            return new SharpDX.Color(R, G, B, A);
         }
     }
 }

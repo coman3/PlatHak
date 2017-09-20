@@ -1,6 +1,4 @@
 ﻿using System;
-using SharpDX;
-using SharpDX.Mathematics.Interop;
 
 namespace PlatHak.Common.Maths
 {
@@ -10,8 +8,7 @@ namespace PlatHak.Common.Maths
 
         public Vector2 Anchor { get; set; }
         public float Degrees { get; set; }
-
-        public Matrix3x2 Matrix3X2 => Matrix3x2.Rotation(Radians, Anchor.RawVector2);
+        
         public float Radians => ConvertToRadians(Degrees);
 
         public Rotation(Vector2 anchor, float degrees)

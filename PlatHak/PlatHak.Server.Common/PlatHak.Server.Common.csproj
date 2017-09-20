@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PlatHak.Server.Common</RootNamespace>
     <AssemblyName>PlatHak.Server.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,14 +31,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Geo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Geo.0.14.1\lib\portable-net4+sl5+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\Geo.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Runtime.Serialization.Primitives, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.Serialization.Primitives.4.3.0\lib\net46\System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -48,6 +55,9 @@
   <ItemGroup>
     <Compile Include="Extentions\CancellationTokenExtensions.cs" />
     <Compile Include="ChunkCluster.cs" />
+    <Compile Include="Models\ClientDictionary.cs" />
+    <Compile Include="NewServerWorldManager.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ServerWorldManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorldSaver.cs" />
@@ -68,6 +78,10 @@
     <ProjectReference Include="..\PlatHak.Server.Network\PlatHak.Server.Network.csproj">
       <Project>{a56ee6f0-8840-419c-8190-0fee322cb9e2}</Project>
       <Name>PlatHak.Server.Network</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Server.WorldData\PlatHak.Server.WorldData.csproj">
+      <Project>{0658ae17-c9b5-4b24-88cc-abe3c4fecaa5}</Project>
+      <Name>PlatHak.Server.WorldData</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

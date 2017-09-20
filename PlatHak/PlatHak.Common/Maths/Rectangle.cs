@@ -1,52 +1,56 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using SharpDX;
-using SharpDX.Mathematics.Interop;
+using PlatHak.Common.Interfaces;
 
 namespace PlatHak.Common.Maths
 {
-    [Serializable]
+    
     [JsonObject(MemberSerialization.OptIn)]
-    public struct Rectangle
+    public class Rectangle : ISerialize
     {
-        public int X => Posistion.X;
-        public int Y => Posistion.Y;
+        public long X => Posistion.X;
+        public long Y => Posistion.Y;
         [JsonProperty]
-        public VectorInt2 Posistion { get; set; }
+        public VectorLong2 Posistion { get; set; }
 
-        public int Width => Size.Width;
-        public int Height => Size.Height;
+        public long Width => Size.Width;
+        public long Height => Size.Height;
         [JsonProperty]
         public Size Size { get; set; }
 
-        public int Top => Y;
-        public int Bottom => Y + Height;
-        public int Left => X;
-        public int Right => X + Width;
+        public long Top => Y;
+        public long Bottom => Y + Height;
+        public long Left => X;
+        public long Right => X + Width;
 
-        public VectorInt2 TopLeft => Posistion;
-        public VectorInt2 TopRight => new VectorInt2(Right, Top);
-        public VectorInt2 BottomLeft => new VectorInt2(Left, Bottom);
-        public VectorInt2 BottomRight => new VectorInt2(Right, Bottom);
+        public VectorLong2 TopLeft => Posistion;
+        public VectorLong2 TopRight => new VectorLong2(Right, Top);
+        public VectorLong2 BottomLeft => new VectorLong2(Left, Bottom);
+        public VectorLong2 BottomRight => new VectorLong2(Right, Bottom);
 
-        public VectorInt2 TopCenter  => new VectorInt2(Center.X, Top);
-        public VectorInt2 BottomCenter  => new VectorInt2(Center.X, Bottom);
-        public VectorInt2 LeftCenter  => new VectorInt2(Left, Center.Y);
-        public VectorInt2 RightCenter  => new VectorInt2(Right, Center.Y);
+        public VectorLong2 TopCenter  => new VectorLong2(Center.X, Top);
+        public VectorLong2 BottomCenter  => new VectorLong2(Center.X, Bottom);
+        public VectorLong2 LeftCenter  => new VectorLong2(Left, Center.Y);
+        public VectorLong2 RightCenter  => new VectorLong2(Right, Center.Y);
 
-        public VectorInt2 Center => new VectorInt2(X + Width / 2, Y + Height / 2);
+        public VectorLong2 Center => new VectorLong2(X + Width / 2, Y + Height / 2);
 
-
-        public RawRectangleF RawRectangleF => new RawRectangleF(Left, Top, Right, Bottom);
-        public Rectangle(int x, int y, int width, int height) : this(new VectorInt2(x, y), new Size(width, height)) { }
-        public Rectangle(VectorInt2 posistion, Size size) : this()
+        public Rectangle(long x, long y, long width, long height) : this(new VectorLong2(x, y), new Size(width, height)) { }
+        public Rectangle(VectorLong2 posistion, Size size)
         {
             Posistion = posistion;
             Size = size;
 
         }
 
-        public bool Contains(VectorInt2 point, int margin = 0)
+        public Rectangle(Stream stream)
+        {
+            FromStream(stream);
+        }
+
+        public bool Contains(VectorLong2 point, int margin = 0)
         {
             var top = Top - margin;
             var bottom = Bottom + margin;
@@ -55,5 +59,16 @@ namespace PlatHak.Common.Maths
             return point.X > left && point.X < right && point.Y > top && point.Y < bottom;
         }
 
+        public void ToStream(Stream stream)
+        {
+            Posistion.ToStream(stream);
+            Size.ToStream(stream);
+        }
+
+        public void FromStream(Stream stream)
+        {
+            Posistion = new VectorLong2(stream);
+            Size = new Size(stream);
+        }
     }
 }

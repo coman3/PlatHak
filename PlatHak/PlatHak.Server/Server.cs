@@ -25,7 +25,7 @@ namespace PlatHak.Server
     public class Server
     {
         public WebSocketServer SocketServer { get; set; }
-        public ServerWorldManager ServerWorldManager { get; set; }
+        public NewServerWorldManager ServerWorldManager { get; set; }
         public Server(string[] args)
         {
             SocketServer = new WebSocketServer(new ServerConfig
@@ -44,16 +44,11 @@ namespace PlatHak.Server
         }
 
       
-        private void Server_OnSetup(WebSocketServerEventArgs args)
+        private async void Server_OnSetup(WebSocketServerEventArgs args)
         {
-            var stopwatch = Stopwatch.StartNew();
-
-            var bitmap = Properties.Resources.map;
-            ServerWorldManager = new ServerWorldManager(SocketServer, new World(new WorldConfig(new Size(bitmap.Width, bitmap.Height), new Size(16, 16), new Size(4, 4), TimeSpan.FromMilliseconds(1000f / 60))));
-            ServerWorldManager.Load(bitmap);
-
-            stopwatch.Stop();
-            Console.WriteLine($"Loaded world in {stopwatch.Elapsed.TotalSeconds}!");
+            ServerWorldManager = new NewServerWorldManager(SocketServer, new World(WorldConfig.Default),
+                new WorldManagerConfig(1, Path.Combine(Environment.CurrentDirectory, "WorldTileData")));
+            await ServerWorldManager.Initialize();
         }
     }
 }

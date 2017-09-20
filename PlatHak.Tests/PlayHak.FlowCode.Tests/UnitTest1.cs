@@ -27,10 +27,21 @@ namespace PlayHak.FlowCode.Tests
                         {
                             new PropertyItem(AccessLevel.Public, FlowItems.String, "TestString")
                         }
-                    }
+                    },
+                    new ClassItem(AccessLevel.Public, "User")
+                    {
+                        Items = new List<FlowItem>
+                        {
+                            new PropertyItem(AccessLevel.Public, FlowItems.Guid, "Id"),
+                            new PropertyItem(AccessLevel.Public, FlowItems.String, "Name"),
+                            new PropertyItem(AccessLevel.Public, FlowItems.String, "Email"),
+                            new PropertyItem(AccessLevel.Public, FlowItems.String, "Password"),
+                        }
+                    },
                 }
             });
             Debug.WriteLine(flowCodeBuilder);
         }
     }
 }
+

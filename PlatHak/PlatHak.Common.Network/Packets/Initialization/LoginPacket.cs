@@ -6,7 +6,7 @@ namespace PlatHak.Common.Network
     /// A Request to login from the client to the server.
     /// Currently the password is ignored, but username still needed to give the player a username.
     /// </summary>
-    [Serializable]
+    
     public class LoginPacket : Packet
     {
         public string Username { get; set; }

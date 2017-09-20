@@ -2,7 +2,7 @@
 
 namespace PlatHak.Common.Network
 {
-    [Serializable]
+    
     public enum PacketId : byte
     {
         Handshake,

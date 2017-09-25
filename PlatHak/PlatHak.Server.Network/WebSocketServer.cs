@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using PlatHak.Common.Network;
-using PlatHak.Server.Sockets.Messaging;
 using Sockets.Plugin;
 using Sockets.Plugin.Abstractions;
 
@@ -105,9 +104,9 @@ namespace PlatHak.Server.Network
                 return;
             }
             //Handle handshake
-            if (!userClient.HandshakeFinished && packet is HandshakePacket)
+            if (!userClient.HandshakeFinished && packet is HandshakeRequestPacket)
             {
-                userClient.HandleHandshake(packet.Cast<HandshakePacket>());
+                userClient.HandleHandshake(packet.Cast<HandshakeRequestPacket>());
                 return;
             }
             

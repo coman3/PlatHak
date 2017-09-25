@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
 
-namespace PlatHak.Server.Sockets.Messaging
+namespace PlatHak.Common.Network.Sockets.Messaging
 {
     public class MergableSubject<T> : IDisposable
     {

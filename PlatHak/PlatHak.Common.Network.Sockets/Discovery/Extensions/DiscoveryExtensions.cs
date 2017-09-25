@@ -1,6 +1,6 @@
-﻿using PlatHak.Server.Sockets.Discovery.ServiceDefinition;
+﻿using PlatHak.Common.Network.Sockets.Discovery.ServiceDefinition;
 
-namespace PlatHak.Server.Sockets.Discovery.Extensions
+namespace PlatHak.Common.Network.Sockets.Discovery.Extensions
 {
     public static class DiscoveryExtensions
     {

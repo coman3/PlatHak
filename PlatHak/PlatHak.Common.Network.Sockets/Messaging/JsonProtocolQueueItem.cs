@@ -1,7 +1,7 @@
 using System.Reactive;
 using System.Threading.Tasks;
 
-namespace PlatHak.Server.Sockets.Messaging
+namespace PlatHak.Common.Network.Sockets.Messaging
 {
     internal class JsonProtocolQueueItem<TMessage>
     {

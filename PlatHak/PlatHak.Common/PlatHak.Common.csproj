@@ -38,6 +38,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing\Color.cs" />
+    <Compile Include="Enums\Device.cs" />
+    <Compile Include="Helpers\Base64.cs" />
     <Compile Include="Interfaces\ISerializable.cs" />
     <Compile Include="Maths\BoundingBox.cs" />
     <Compile Include="Maths\RadialScan.cs" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PlatHak.Server.Sockets.Discovery.ServiceDefinition
+namespace PlatHak.Common.Network.Sockets.Discovery.ServiceDefinition
 {
     /// <summary>
     ///     Provides Funcs for DiscoveryRequest and Reponse methods that allow inline definition of service discovery protocols

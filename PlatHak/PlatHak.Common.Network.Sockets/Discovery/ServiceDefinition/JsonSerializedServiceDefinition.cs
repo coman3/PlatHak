@@ -1,8 +1,8 @@
 ﻿using System.Text;
 using Newtonsoft.Json;
-using PlatHak.Server.Sockets.Extensions;
+using PlatHak.Common.Network.Sockets.Extensions;
 
-namespace PlatHak.Server.Sockets.Discovery.ServiceDefinition
+namespace PlatHak.Common.Network.Sockets.Discovery.ServiceDefinition
 {
     /// <summary>
     ///     Abstract implementation of `IServiceDefinition` that allows typed discovery and response formats, with JSON.NET

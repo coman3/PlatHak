@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace PlatHak.Server.Sockets.Extensions
+namespace PlatHak.Common.Network.Sockets.Extensions
 {
     public static class SocketReadingExtensions
     {

@@ -20,7 +20,7 @@ namespace PlatHak.Client.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            var g = new PlatHakGame(new AndroidInputManager());
+            var g = new PlatHakGame(new AndroidPlatformManager());
             View vw = (View)g.Services.GetService(typeof(View));
             vw.SystemUiVisibility = (StatusBarVisibility)SystemUiFlags.HideNavigation | (StatusBarVisibility)SystemUiFlags.ImmersiveSticky;
             vw.SetOnSystemUiVisibilityChangeListener(new MyUiVisibilityChangeListener(vw));

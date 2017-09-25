@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
+using PlatHak.Client.Common.Interfaces;
 using PlatHak.Client.Common.Managers;
 using PlatHak.Client.Network;
 
@@ -15,9 +16,9 @@ namespace PlatHak.Client.Game
     {
         public WebSocketClient Client { get; set; }
 
-        public PlatHakGame(InputManager inputManager) : base(inputManager)
+        public PlatHakGame(IPlatformManager platformManager) : base(platformManager)
         {
-            Client = new WebSocketClient(new WebSocketClientConfig { ServerAddress = "127.0.0.1", Port = 3344 });
+            Client = new WebSocketClient(new WebSocketClientConfig { ServerAddress = "192.168.0.17", Port = 3344 });
         }
         protected override void Initialize()
         {

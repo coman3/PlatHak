@@ -42,9 +42,15 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Managers\DesktopPlatformManager.cs" />
     <Compile Include="Managers\WindowsInputManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -115,6 +121,10 @@
     <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlatHak.Client.Common\PlatHak.Client.Common.csproj">
@@ -124,6 +134,10 @@
     <ProjectReference Include="..\PlatHak.Client.Game\PlatHak.Client.Game.csproj">
       <Project>{976d7191-ee8d-43cc-bb0e-a7e51ec3d4e3}</Project>
       <Name>PlatHak.Client.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
+      <Project>{D76C6619-AA3B-4A5D-A4EC-158D47A4470A}</Project>
+      <Name>PlatHak.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

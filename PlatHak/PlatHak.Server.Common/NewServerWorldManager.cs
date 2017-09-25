@@ -97,13 +97,7 @@ namespace PlatHak.Server.Common
 
         private void Server_OnPacketReceived(UserClient client, Packet packet)
         {
-            packet.DoIfIsType<ChunkRequestPacket>(requestPacket =>
-            {
-                lock (RequestedChunks)
-                {
-                    RequestedChunks[client].Add(requestPacket.ChunkPosistion);
-                }
-            });
+            
         }
 
         public async Task Initialize()

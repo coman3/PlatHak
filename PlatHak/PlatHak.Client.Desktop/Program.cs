@@ -16,7 +16,7 @@ namespace PlatHak.Client.Desktop
         [STAThread]
         static void Main()
         {
-            using (var game = new PlatHakGame(new WindowsInputManager()))
+            using (var game = new PlatHakGame(new DesktopPlatformManager()))
                 game.Run();
         }
     }

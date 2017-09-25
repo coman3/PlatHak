@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reflection;
-using PlatHak.Server.Sockets.Messaging;
 using PlatHak.Common.Network;
+using PlatHak.Common.Network.Sockets.Messaging;
 using Sockets.Plugin;
 
 namespace PlatHak.Client.Network
@@ -52,20 +52,20 @@ namespace PlatHak.Client.Network
             {
                 Welcomed = true;
                 OnConnect?.Invoke(new WebSocketEventArgs(_session));
-                Send(new HandshakePacket());
+                Send(new HandshakeRequestPacket(_config.ViewPort));
                 return;
             }
 
             if (!Welcomed) return;
 
             //Login / Handshake handling
-            if (!HandshakeFinished && packet is HandshakePacket)
+            if (!HandshakeFinished && packet is HandshakeResponcePacket)
             {
-                var handShakePacket = packet.Cast<HandshakePacket>();
-                if (handShakePacket.Processed)
+                var handShakePacket = packet.Cast<HandshakeResponcePacket>();
+                if (handShakePacket.Valid)
                 {
                     HandshakeFinished = true;
-                    OnHandshakeFinished?.Invoke(new PacketEventArgs<HandshakePacket>(session, handShakePacket));
+                    OnHandshakeFinished?.Invoke(new PacketEventArgs<HandshakeResponcePacket>(session, handShakePacket));
 
                     Send(new LoginPacket(_config.Username));
 

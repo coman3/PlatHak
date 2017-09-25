@@ -1,8 +1,8 @@
 ﻿using System;
-using PlatHak.Server.Sockets.Discovery.ServiceDefinition;
+using PlatHak.Common.Network.Sockets.Discovery.ServiceDefinition;
 using Sockets.Plugin;
 
-namespace PlatHak.Server.Sockets.Discovery.Base
+namespace PlatHak.Common.Network.Sockets.Discovery.Base
 {
     /// <summary>
     ///     Abstract base class for ServicePublisher and ServiceDiscoverer.

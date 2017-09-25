@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using PlatHak.Common.Maths;
 using PlatHak.Common.Network;
+using PlatHak.Common.Network.Sockets.Messaging;
 using PlatHak.Common.Objects;
 using PlatHak.Common.World;
-using PlatHak.Server.Sockets.Messaging;
 using Sockets.Plugin.Abstractions;
 
 namespace PlatHak.Server.Network
@@ -20,7 +20,6 @@ namespace PlatHak.Server.Network
         public string Username { get; set; }
         public Player Player { get; set; }
         public ClientConfig ClientConfig { get; set; }
-
         public JsonProtocolTaskMessenger<Packet> Session { get; set; }
         public List<VectorLong2> SentChunks { get; set; }
         protected UserClient(ITcpSocketClient session)
@@ -51,7 +50,7 @@ namespace PlatHak.Server.Network
         /// What does the server do when the user sends a handshake?
         /// </summary>
         /// <param name="packet">the handshake packet received</param>
-        public abstract void HandleHandshake(HandshakePacket packet);
+        public abstract void HandleHandshake(HandshakeRequestPacket packet);
 
         /// <summary>
         /// What does the server do when the user wishes to login?
@@ -69,11 +68,11 @@ namespace PlatHak.Server.Network
 
     public class ClientConfig
     {
-        public Size WindowSize { get; set; }
+        public Rectangle ViewPort { get; set; }
 
-        public ClientConfig(Size windowSize)
+        public ClientConfig(Rectangle viewPort)
         {
-            WindowSize = windowSize;
+            ViewPort = viewPort;
         }
     }
 }

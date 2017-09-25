@@ -11,12 +11,10 @@ namespace PlatHak.Server.Network
 
         }
 
-        public override void HandleHandshake(HandshakePacket packet)
+        public override void HandleHandshake(HandshakeRequestPacket packet)
         {
-            packet.Processed = true;
-            packet.ClientId = SessionId;
-            HandshakeFinished = true;
-            Send(packet);
+           HandshakeFinished = true;
+           Send(new HandshakeResponcePacket{ Valid = true, TimeValidated = DateTime.UtcNow });
         }
 
         public override void HandleLogin(LoginPacket packet)
@@ -32,4 +30,6 @@ namespace PlatHak.Server.Network
             return false;
         }
     }
+
+
 }

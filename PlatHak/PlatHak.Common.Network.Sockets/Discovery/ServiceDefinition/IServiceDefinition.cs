@@ -1,4 +1,4 @@
-﻿namespace PlatHak.Server.Sockets.Discovery.ServiceDefinition
+﻿namespace PlatHak.Common.Network.Sockets.Discovery.ServiceDefinition
 {
     public interface IServiceDefinition
     {

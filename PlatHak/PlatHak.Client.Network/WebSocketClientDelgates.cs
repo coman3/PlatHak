@@ -9,7 +9,7 @@ namespace PlatHak.Client.Network
 
         public delegate void OnError(WebSocketErrorEventArgs args);
 
-        public delegate void OnHandshakeFinished(PacketEventArgs<HandshakePacket> args);
+        public delegate void OnHandshakeFinished(PacketEventArgs<HandshakeResponcePacket> args);
         public delegate void OnPacketRecived(PacketEventArgs<Packet> args);
 
 

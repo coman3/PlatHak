@@ -1,20 +1,17 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Linq;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PlatHak.Server.Sockets.Extensions;
+using PlatHak.Common.Network.Sockets.Extensions;
 using Sockets.Plugin.Abstractions;
 using Splat;
 
-namespace PlatHak.Server.Sockets.Messaging
+namespace PlatHak.Common.Network.Sockets.Messaging
 {
     public class ObservableQueue<T> : Queue<T>, INotifyCollectionChanged
     {

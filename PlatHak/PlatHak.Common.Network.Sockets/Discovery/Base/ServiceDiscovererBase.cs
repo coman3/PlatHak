@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using PlatHak.Server.Sockets.Discovery.ServiceDefinition;
+using PlatHak.Common.Network.Sockets.Discovery.ServiceDefinition;
 using Sockets.Plugin;
 using Sockets.Plugin.Abstractions;
 
-namespace PlatHak.Server.Sockets.Discovery.Base
+namespace PlatHak.Common.Network.Sockets.Discovery.Base
 {
     /// <summary>
     ///     Abstract base class of ServiceDiscoverer. Contains the low-level discovery flow control.

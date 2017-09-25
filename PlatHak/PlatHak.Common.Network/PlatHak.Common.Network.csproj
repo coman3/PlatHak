@@ -47,8 +47,6 @@
     <Compile Include="Packet.cs" />
     <Compile Include="PacketId.cs" />
     <Compile Include="Packets\Common\CreateEntity.cs" />
-    <Compile Include="Packets\Initialization\ChunkPacket.cs" />
-    <Compile Include="Packets\Initialization\ChunkRequestPacket.cs" />
     <Compile Include="Packets\Initialization\ErrorPacket.cs" />
     <Compile Include="Packets\Initialization\HandshakePacket.cs" />
     <Compile Include="Packets\Initialization\LoginPacket.cs" />

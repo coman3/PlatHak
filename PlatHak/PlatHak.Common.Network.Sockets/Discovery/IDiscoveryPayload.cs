@@ -1,4 +1,4 @@
-﻿namespace PlatHak.Server.Sockets.Discovery
+﻿namespace PlatHak.Common.Network.Sockets.Discovery
 {
     public interface IDiscoveryPayload
     {

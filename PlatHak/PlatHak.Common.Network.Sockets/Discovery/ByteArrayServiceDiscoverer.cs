@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using PlatHak.Server.Sockets.Discovery.Base;
-using PlatHak.Server.Sockets.Discovery.ServiceDefinition;
+using PlatHak.Common.Network.Sockets.Discovery.Base;
+using PlatHak.Common.Network.Sockets.Discovery.ServiceDefinition;
 using Sockets.Plugin.Abstractions;
 
-namespace PlatHak.Server.Sockets.Discovery
+namespace PlatHak.Common.Network.Sockets.Discovery
 {
     public class ByteArrayServiceDiscoverer : ServiceDiscovererBase<IServiceDefinition>
     {

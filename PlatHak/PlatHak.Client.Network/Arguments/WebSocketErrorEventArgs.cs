@@ -1,6 +1,6 @@
 ﻿using System;
 using PlatHak.Common.Network;
-using PlatHak.Server.Sockets.Messaging;
+using PlatHak.Common.Network.Sockets.Messaging;
 
 namespace PlatHak.Client.Network
 {

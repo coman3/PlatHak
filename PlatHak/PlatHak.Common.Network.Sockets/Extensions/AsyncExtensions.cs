@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace PlatHak.Server.Sockets.Extensions
+namespace PlatHak.Common.Network.Sockets.Extensions
 {
     // I don't remember where this is taken/adapted from. 
     public static class AsyncExtensions

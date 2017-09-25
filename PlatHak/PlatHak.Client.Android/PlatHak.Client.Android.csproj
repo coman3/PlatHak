@@ -46,9 +46,19 @@
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\netstandard1.3\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="OpenTK-1.0" />
+    <Reference Include="Plugin.Settings, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.0.1\lib\MonoAndroid10\Plugin.Settings.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.Settings.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugins.Settings.3.0.1\lib\MonoAndroid10\Plugin.Settings.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="Sockets.Plugin, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\MonoAndroid10\Sockets.Plugin.dll</HintPath>
     </Reference>
@@ -57,6 +67,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="MonoGame.Framework">
@@ -65,6 +77,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activity1.cs" />
+    <Compile Include="Managers\AndroidPlatformManager.cs" />
+    <Compile Include="Properties\Settings.cs" />
     <Compile Include="VirtualGamePad.cs" />
     <Compile Include="Managers\AndroidInputManager.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -105,6 +119,10 @@
     <ProjectReference Include="..\PlatHak.Client.Game\PlatHak.Client.Game.csproj">
       <Project>{976d7191-ee8d-43cc-bb0e-a7e51ec3d4e3}</Project>
       <Name>PlatHak.Client.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
+      <Project>{D76C6619-AA3B-4A5D-A4EC-158D47A4470A}</Project>
+      <Name>PlatHak.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

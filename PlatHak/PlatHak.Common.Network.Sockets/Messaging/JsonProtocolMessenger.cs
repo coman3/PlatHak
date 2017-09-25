@@ -7,11 +7,11 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PlatHak.Server.Sockets.Extensions;
+using PlatHak.Common.Network.Sockets.Extensions;
 using Sockets.Plugin.Abstractions;
 using Splat;
 
-namespace PlatHak.Server.Sockets.Messaging
+namespace PlatHak.Common.Network.Sockets.Messaging
 {
     public class MessengerDisconnectedEventArgs : EventArgs
     {

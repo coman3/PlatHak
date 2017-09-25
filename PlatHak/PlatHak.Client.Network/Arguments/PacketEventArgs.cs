@@ -1,5 +1,6 @@
 ﻿using PlatHak.Common.Network;
-using PlatHak.Server.Sockets.Messaging;
+using PlatHak.Common.Network.Sockets.Messaging;
+
 namespace PlatHak.Client.Network
 {
     public class PacketEventArgs<T> : WebSocketEventArgs where T : Packet 

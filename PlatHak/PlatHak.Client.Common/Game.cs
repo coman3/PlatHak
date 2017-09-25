@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using MonoGame.Extended.BitmapFonts;
 using PlatHak.Client.Common.EventArgs;
+using PlatHak.Client.Common.Interfaces;
 using PlatHak.Client.Common.Managers;
 
 namespace PlatHak.Client.Common
@@ -19,18 +20,18 @@ namespace PlatHak.Client.Common
         public EventManager EventManager { get; set; }
 
         public Camera2D Camera2D { get; set; }
-        public InputManager InputManager { get; set; }
+        public IPlatformManager PlatformManager { get; set; }
 
         public static SpriteFont DefaultFont { get; private set; }
 
         readonly GraphicsDeviceManager _graphics;
         SpriteBatch _spriteBatch;
 
-        protected Game(InputManager inputManager)
+        protected Game(IPlatformManager platformManager)
         {
             EventManager = new EventManager(this);
-            InputManager = inputManager;
-            EventManager.AddElement(inputManager);
+            PlatformManager = platformManager;
+            EventManager.AddElement(PlatformManager.InputManager);
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }

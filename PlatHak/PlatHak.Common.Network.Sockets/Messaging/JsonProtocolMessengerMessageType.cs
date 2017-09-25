@@ -1,4 +1,4 @@
-namespace PlatHak.Server.Sockets.Messaging
+namespace PlatHak.Common.Network.Sockets.Messaging
 {
     public enum JsonProtocolMessengerMessageType : byte
     {

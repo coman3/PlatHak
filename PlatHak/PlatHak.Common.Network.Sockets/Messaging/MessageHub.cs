@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Sockets.Plugin;
 using Splat;
 
-namespace PlatHak.Server.Sockets.Messaging
+namespace PlatHak.Common.Network.Sockets.Messaging
 {
     public class MessageHub<TProxy, TMessage> : IEnableLogger
         where TProxy : IProxy, new()

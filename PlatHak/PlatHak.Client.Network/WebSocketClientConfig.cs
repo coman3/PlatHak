@@ -1,3 +1,5 @@
+using PlatHak.Common.Maths;
+
 namespace PlatHak.Client.Network
 {
     public struct WebSocketClientConfig
@@ -6,5 +8,6 @@ namespace PlatHak.Client.Network
         public int Port { get; set; }
         public string Username { get; set; }
         public string PasswordHash { get; set; }
+        public Rectangle ViewPort { get; set; }
     }
 }

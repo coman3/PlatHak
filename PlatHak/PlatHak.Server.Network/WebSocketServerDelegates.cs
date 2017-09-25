@@ -1,5 +1,5 @@
 using PlatHak.Common.Network;
-using SuperWebSocket;
+using Sockets.Plugin.Abstractions;
 
 namespace PlatHak.Server.Network
 {
@@ -10,7 +10,7 @@ namespace PlatHak.Server.Network
 
         public delegate void OnUpdate();
         public delegate void OnLogOutput(string message);
-        public delegate UserClient OnClientConnect(WebSocketSession session);
+        public delegate UserClient OnClientConnect(ITcpSocketClient session);
         public delegate void OnClientLoginHandshakeSuccess(UserClient session);
         public delegate void OnClientLoaded(UserClient session);
 

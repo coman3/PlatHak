@@ -64,15 +64,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\PlatHak.Common.Network\PlatHak.Common.Network.csproj">
-      <Project>{d66bd451-2ea5-49e3-9f69-1d02a88dcf85}</Project>
+      <Project>{e3f89901-0ee4-4f58-bdf7-b7f8d1e31aeb}</Project>
       <Name>PlatHak.Common.Network</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlatHak.Common.Objects\PlatHak.Common.Objects.csproj">
-      <Project>{0FB98057-FFC1-4DE0-89BE-C5505C141955}</Project>
+      <Project>{e527aef7-2ca8-4a9a-94cf-fc20d80c9d2a}</Project>
       <Name>PlatHak.Common.Objects</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
-      <Project>{91F15F8B-A8EA-455C-8889-6BA78852F8E7}</Project>
+      <Project>{d76c6619-aa3b-4a5d-a4ec-158d47a4470a}</Project>
       <Name>PlatHak.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\PlatHak.Server.Network\PlatHak.Server.Network.csproj">

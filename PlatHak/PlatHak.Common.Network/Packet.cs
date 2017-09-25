@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
-using WebSocket4Net;
 
 namespace PlatHak.Common.Network
 {
@@ -36,7 +36,7 @@ namespace PlatHak.Common.Network
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Debug.WriteLine(ex);
                 return default(T);
             }
         }
@@ -56,7 +56,7 @@ namespace PlatHak.Common.Network
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Debug.WriteLine(ex);
                 return false;
             }
             
@@ -73,7 +73,7 @@ namespace PlatHak.Common.Network
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex);
+                Debug.WriteLine(ex);
                 return null;
             }
         }

@@ -1,17 +1,77 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E3F89901-0EE4-4F58-BDF7-B7F8D1E31AEB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>PlatHak.Common.Network</RootNamespace>
+    <AssemblyName>PlatHak.Common.Network</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
-    <PackageReference Include="System.Runtime.Serialization.Primitives" Version="4.3.0" />
-    <PackageReference Include="WebSocket4Net" Version="0.15.0" />
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <ProjectReference Include="..\PlatHak.Common.Objects\PlatHak.Common.Objects.csproj">
+      <Project>{e527aef7-2ca8-4a9a-94cf-fc20d80c9d2a}</Project>
+      <Name>PlatHak.Common.Objects</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
+      <Project>{d76c6619-aa3b-4a5d-a4ec-158d47a4470a}</Project>
+      <Name>PlatHak.Common</Name>
+    </ProjectReference>
   </ItemGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj" />
+    <Compile Include="Packet.cs" />
+    <Compile Include="PacketId.cs" />
+    <Compile Include="Packets\Common\CreateEntity.cs" />
+    <Compile Include="Packets\Initialization\ChunkPacket.cs" />
+    <Compile Include="Packets\Initialization\ChunkRequestPacket.cs" />
+    <Compile Include="Packets\Initialization\ErrorPacket.cs" />
+    <Compile Include="Packets\Initialization\HandshakePacket.cs" />
+    <Compile Include="Packets\Initialization\LoginPacket.cs" />
+    <Compile Include="Packets\Initialization\WelcomePacket.cs" />
+    <Compile Include="Packets\Initialization\WorldConfigPacket.cs" />
+    <Compile Include="Packets\Ongoing\CommandPacket.cs" />
+    <Compile Include="Packets\Ongoing\EventPacket.cs" />
+    <Compile Include="Packets\UpdatePacket.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Sockets.Plugin, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Sockets.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="Sockets.Plugin.Abstractions, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Sockets.Plugin.Abstractions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

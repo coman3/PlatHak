@@ -1,12 +1,11 @@
 ﻿using PlatHak.Common.Network;
-using WebSocket4Net;
-
+using PlatHak.Server.Sockets.Messaging;
 namespace PlatHak.Client.Network
 {
     public class PacketEventArgs<T> : WebSocketEventArgs where T : Packet 
     {
         public T Packet { get; }
-        public PacketEventArgs(WebSocket socket, T packet) : base(socket)
+        public PacketEventArgs(JsonProtocolTaskMessenger<Packet> session, T packet) : base(session)
         {
             Packet = packet;
         }

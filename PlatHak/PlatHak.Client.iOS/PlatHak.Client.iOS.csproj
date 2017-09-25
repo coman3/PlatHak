@@ -102,6 +102,12 @@
     <CodesignKey>iPhone Distribution</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Sockets.Plugin, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\Xamarin.iOS10\Sockets.Plugin.dll</HintPath>
+    </Reference>
+    <Reference Include="Sockets.Plugin.Abstractions, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\rda.SocketsForPCL.2.0.2\lib\Xamarin.iOS10\Sockets.Plugin.Abstractions.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -111,22 +117,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <MonoGameContentReference Include="Content\Content.mgcb" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Default.png" />
     <BundleResource Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PlatHak.Client.Common\PlatHak.Client.Common.csproj">
+      <Project>{b6f1d2ee-33c2-48e2-aaee-cb108e12c992}</Project>
+      <Name>PlatHak.Client.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PlatHak.Client.Game\PlatHak.Client.Game.csproj">
-      <Project>{38a04127-bc66-4a60-a641-3ad19452f92b}</Project>
+      <Project>{976d7191-ee8d-43cc-bb0e-a7e51ec3d4e3}</Project>
       <Name>PlatHak.Client.Game</Name>
     </ProjectReference>
   </ItemGroup>

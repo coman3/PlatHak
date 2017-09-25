@@ -112,24 +112,59 @@ namespace PlatHak.Server.Common
 
             Console.WriteLine("Loading World Data...");
             await WorldDataManager.LoadFile();
-
             Console.WriteLine("Preloading Melbourne VIC, Australia");
-            //await WorldDataManager.Preload(WorldDataManager.Citys.MelbourneAustralia);
 
-            //var image = await WorldDataManager.Load(WorldDataManager.Citys.MelbourneAustralia);
+            Console.WriteLine("Loading World...");
+            WorldSaver.LoadWorld(ManagerConfig.WorldSavePath);
+            Console.WriteLine("World Loaded. (Total Blocks: {0})", World.Blocks.Count);
 
-            //var cluster = await WorldSaver.LoadCluster(image);
+            Console.WriteLine("Seeing what world tiles we need...");
+            var requiredWorldDataTles =
+                WorldDataManager.GetRequiredDataTiles(WorldDataManager.Citys.MelbourneAustralia);
+            var unloadedWorldDataTiles = new List<WorldDataTile>();
+            foreach (var tile in requiredWorldDataTles)
+            {
+                var globalPos =
+                    World.WorldConfig.GetGlobalPosistionFromLatLon(new Vector2((float) tile.CenterLatitudedec,
+                        (float) tile.CenterLongitudedec));
+                var blockPos = World.WorldConfig.GetBlockLocalPosistion(globalPos);
+                if (!World.Blocks.ContainsKey(blockPos))
+                {
+                    unloadedWorldDataTiles.Add(tile);
+                }
+            }
+            Console.WriteLine("Need a total of {0} world tiles.", unloadedWorldDataTiles.Count);
 
-            //foreach (var clust in cluster)
-            //{
-            //    World.SetCluster(clust);
-            //}
+            if (unloadedWorldDataTiles.Count > 0)
+            {
+                Console.WriteLine("Downloading World Data...");
+                await WorldDataManager.DownloadWorldData(unloadedWorldDataTiles.ToArray());
+                Console.WriteLine("Downloaded files needed.");
 
-            WorldSaver.SaveWorld(Path.Combine(Environment.CurrentDirectory, "Chunks"));
-            WorldSaver.LoadWorld(Path.Combine(Environment.CurrentDirectory, "Chunks"));
-            Console.WriteLine(World.Blocks?.Count);
+                Console.WriteLine("Loading Terrain...");
+                var images = await WorldDataManager.Generate(unloadedWorldDataTiles.ToArray());
+                Console.WriteLine("Genrating Terrain...");
+                var cluster = await WorldSaver.LoadCluster(images);
+                Console.WriteLine("Terrain Generated.");
+                foreach (var clust in cluster)
+                {
+                    World.SetCluster(clust);
+                }
+
+                Console.WriteLine("Saving World...");
+                //TODO: Save only changed...?
+                WorldSaver.SaveWorld(ManagerConfig.WorldSavePath);
+                Console.WriteLine("World Saved..");
+            }
+            else
+            {
+                Console.WriteLine("Terrain Already Generated. Skiping..");
+            }
+
+
+            Console.WriteLine("Total Blocks Loaded: {0}", World.Blocks?.Count);
             stopWatch.Stop();
-            Console.WriteLine($"Finished Initializing. (Took: {stopWatch.Elapsed})");
+            Console.WriteLine($"Finished Initializing World. Took: {stopWatch.Elapsed}s");
         }
     }
 
@@ -137,11 +172,13 @@ namespace PlatHak.Server.Common
     {
         public int SpawnInformChunkRaduis { get; set; }
         public string WorldDataPath { get; set; }
+        public string WorldSavePath { get; set; }
 
-        public WorldManagerConfig(int spawnInformChunkRaduis, string worldDataPath)
+        public WorldManagerConfig(int spawnInformChunkRaduis, string worldDataPath, string worldSavePath)
         {
             SpawnInformChunkRaduis = spawnInformChunkRaduis;
             WorldDataPath = worldDataPath;
+            WorldSavePath = worldSavePath;
         }
     }
 }

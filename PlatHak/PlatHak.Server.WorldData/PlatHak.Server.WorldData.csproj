@@ -65,9 +65,15 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Data\ASTER_GLOBAL_DEM_DE_206008.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PlatHak.Common\PlatHak.Common.csproj">
+      <Project>{D76C6619-AA3B-4A5D-A4EC-158D47A4470A}</Project>
+      <Name>PlatHak.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

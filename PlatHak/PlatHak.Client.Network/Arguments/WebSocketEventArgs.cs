@@ -1,14 +1,16 @@
 ﻿using System;
+using PlatHak.Common.Network;
+using PlatHak.Server.Sockets.Messaging;
 
 namespace PlatHak.Client.Network
 {
     public class WebSocketEventArgs : EventArgs
     {
-        public WebSocket4Net.WebSocket Socket { get; }
+        public JsonProtocolTaskMessenger<Packet> Session { get; }
 
-        public WebSocketEventArgs(WebSocket4Net.WebSocket socket)
+        public WebSocketEventArgs(JsonProtocolTaskMessenger<Packet> session)
         {
-            Socket = socket;
+            Session = session;
         }
          
     }

@@ -12,6 +12,7 @@ using Geo;
 using Newtonsoft.Json;
 using PlatHak.Common.Maths;
 using PlatHak.Common.World;
+using PlatHak.Server.WorldData;
 using Size = PlatHak.Common.Maths.Size;
 
 namespace PlatHak.Server.Common
@@ -26,29 +27,26 @@ namespace PlatHak.Server.Common
             World = world;
         }
 
-        public async Task<Cluster[]> LoadCluster(Dictionary<Coordinate, Bitmap> image)
+        public async Task<Cluster[]> LoadCluster(Dictionary<WorldDataTile, Bitmap> image)
         {
             return await Task.Run(() =>
             {
                 var clusters = new List<Cluster>();
                 Parallel.ForEach(image, bitmap =>
-                //foreach (var bitmap in image)
                 {
                     clusters.Add(LoadCluster(bitmap.Key, bitmap.Value));
-                    //}
                 });
 
                 return clusters.ToArray();
             });
         }
-        public Cluster LoadCluster(Coordinate cord, Bitmap image)
+        public Cluster LoadCluster(WorldDataTile tile, Bitmap image)
         {
             var clusterTileSize = WorldConfig.ClusterSize * WorldConfig.ChunkSize;
             if (clusterTileSize.Width != image.Width || clusterTileSize.Height != image.Height)
                 return null;
 
-            var globalPosistion =
-                WorldConfig.GetGlobalPosistionFromLatLon(new Vector2((float)cord.Latitude, (float)cord.Longitude));
+            var globalPosistion = WorldConfig.GetGlobalPosistionFromLatLon(new Vector2((float)tile.CenterLatitudedec, (float)tile.CenterLongitudedec));
             var localBlockPosistion = WorldConfig.GetBlockLocalPosistion(globalPosistion);
             var localClusterPosistion = WorldConfig.GetClusterLocalPosistion(globalPosistion);
 

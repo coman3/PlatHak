@@ -4,7 +4,7 @@ using Geo.Geometries;
 
 namespace PlatHak.Server.WorldData
 {
-    public class WorldDataTile
+    public struct WorldDataTile
     {
         public string EntityId;
         public string Agency;
@@ -44,8 +44,6 @@ namespace PlatHak.Server.WorldData
         public double SeCornerLongdec;
         public double SwCornerLatdec;
         public double SwCornerLongdec;
-
-        public bool Loaded { get; set; }
 
         public Polygon Polygon =>
             new Polygon(new Coordinate(NwCornerLatdec, NwCornerLongdec), new Coordinate(NeCornerLatdec, NeCornerLongdec),

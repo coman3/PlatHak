@@ -1,12 +1,12 @@
 ﻿using System;
 using PlatHak.Common.Network;
-using SuperWebSocket;
+using Sockets.Plugin.Abstractions;
 
 namespace PlatHak.Server.Network
 {
     public class BasicUserClient : UserClient
     {
-        public BasicUserClient(WebSocketSession session) : base(session)
+        public BasicUserClient(ITcpSocketClient session) : base(session)
         {
 
         }
@@ -14,7 +14,7 @@ namespace PlatHak.Server.Network
         public override void HandleHandshake(HandshakePacket packet)
         {
             packet.Processed = true;
-            packet.ClientId = Guid.Parse(SessionId);
+            packet.ClientId = SessionId;
             HandshakeFinished = true;
             Send(packet);
         }

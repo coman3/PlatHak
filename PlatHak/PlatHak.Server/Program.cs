@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using PlatHak.Common.World;
 using PlatHak.Server.Network;
-using SuperSocket.SocketBase.Config;
 
 namespace PlatHak.Server
 {

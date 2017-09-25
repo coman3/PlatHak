@@ -5,7 +5,7 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{38A04127-BC66-4A60-A641-3AD19452F92B}</ProjectGuid>
+    <ProjectGuid>{976D7191-EE8D-43CC-BB0E-A7E51EC3D4E3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>PlatHak.Client.Game</RootNamespace>
     <AssemblyName>PlatHak.Client.Game</AssemblyName>
@@ -33,22 +33,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\PlatHak.Client.Common\PlatHak.Client.Common.csproj">
+      <Project>{b6f1d2ee-33c2-48e2-aaee-cb108e12c992}</Project>
+      <Name>PlatHak.Client.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlatHak.Client.Network\PlatHak.Client.Network.csproj">
+      <Project>{81ad3f51-0faf-4fef-be81-987544bf826f}</Project>
+      <Name>PlatHak.Client.Network</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Extended, Version=0.6.568.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Extended.0.6.568\lib\portable-net45+win8+wpa81\MonoGame.Extended.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\PlatHak.Client.Common\PlatHak.Client.Common.csproj">
-      <Project>{09d11d0c-e00f-4365-b0eb-92c151dd1c48}</Project>
-      <Name>PlatHak.Client.Common</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

@@ -1,12 +1,13 @@
 ﻿using System;
+using Sockets.Plugin;
 
 namespace PlatHak.Server.Network
 {
     public class WebSocketServerEventArgs : EventArgs
     {
-        public SuperWebSocket.WebSocketServer Server { get; private set; }
+        public TcpSocketListener Server { get; private set; }
 
-        public WebSocketServerEventArgs(SuperWebSocket.WebSocketServer server)
+        public WebSocketServerEventArgs(TcpSocketListener server)
         {
             Server = server;
         }

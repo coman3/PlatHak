@@ -11,17 +11,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using PlatHak.Common;
 using PlatHak.Common.Maths;
-using PlatHak.Common.Network;
 using PlatHak.Common.World;
 using PlatHak.Server.Common;
 using PlatHak.Server.Network;
-using SuperSocket.SocketBase.Config;
 using Color = System.Drawing.Color;
 using Size = PlatHak.Common.Maths.Size;
 
 namespace PlatHak.Server
 {
-    //178.32.217.118
     public class Server
     {
         public WebSocketServer SocketServer { get; set; }
@@ -32,6 +29,7 @@ namespace PlatHak.Server
             {
                 Port = 3344
             });
+            SocketServer.OnLogOutput += Console.WriteLine;
             SocketServer.OnSetup += Server_OnSetup;
             SocketServer.OnClientLoginHandshakeSuccess += SocketServer_OnClientLoginHandshakeSuccess;
             SocketServer.Start();
@@ -44,11 +42,12 @@ namespace PlatHak.Server
         }
 
       
-        private async void Server_OnSetup(WebSocketServerEventArgs args)
+        private void Server_OnSetup(WebSocketServerEventArgs args)
         {
             ServerWorldManager = new NewServerWorldManager(SocketServer, new World(WorldConfig.Default),
-                new WorldManagerConfig(1, Path.Combine(Environment.CurrentDirectory, "WorldTileData")));
-            await ServerWorldManager.Initialize();
+                new WorldManagerConfig(1, Path.Combine(Environment.CurrentDirectory, "WorldTileData"),
+                    Path.Combine(Environment.CurrentDirectory, "Chunks")));
+            Task.Run(ServerWorldManager.Initialize);
         }
     }
 }

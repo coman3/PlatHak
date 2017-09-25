@@ -1,12 +1,13 @@
 ﻿using System;
-using WebSocket4Net;
+using PlatHak.Common.Network;
+using PlatHak.Server.Sockets.Messaging;
 
 namespace PlatHak.Client.Network
 {
     public class WebSocketErrorEventArgs : WebSocketEventArgs
     {
         public Exception Exception { get; }
-        public WebSocketErrorEventArgs(WebSocket socket, Exception ex) : base(socket)
+        public WebSocketErrorEventArgs(JsonProtocolTaskMessenger<Packet> session, Exception ex) : base(session)
         {
             Exception = ex;
         }

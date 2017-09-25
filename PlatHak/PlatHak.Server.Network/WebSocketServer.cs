@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Timers;
 using PlatHak.Common.Network;
-using SuperSocket.SocketBase.Config;
-using SuperWebSocket;
+using PlatHak.Server.Sockets.Messaging;
+using Sockets.Plugin;
+using Sockets.Plugin.Abstractions;
 
 namespace PlatHak.Server.Network
 {
     public class WebSocketServer
     {
-        private readonly IServerConfig _config;
-        private readonly SuperWebSocket.WebSocketServer _socketServer;
+        private readonly ServerConfig _config;
+        private readonly TcpSocketListener _socketListener;
         private readonly Timer _updateTimer;
         public List<UserClient> UserClients { get; set; }
         public event WebSocketServerDelegates.OnLogOutput OnLogOutput;
@@ -23,12 +25,12 @@ namespace PlatHak.Server.Network
         public event WebSocketServerDelegates.OnClientLoginHandshakeSuccess OnClientLoginHandshakeSuccess;
         public event WebSocketServerDelegates.OnClientLoaded OnClientLoaded;
 
-        public WebSocketServer(IServerConfig config)
+        public WebSocketServer(ServerConfig config)
         {
             _config = config;
             _updateTimer = new Timer(1000/60d); //60 times a second
-            _updateTimer.Elapsed += (sender, _) => OnUpdate?.Invoke();
-            _socketServer = new SuperWebSocket.WebSocketServer();
+            _updateTimer.Elapsed += (sender, args) => OnUpdate?.Invoke();
+            _socketListener = new TcpSocketListener();
         }
 
         private void Log(string message)
@@ -38,14 +40,9 @@ namespace PlatHak.Server.Network
 
         public void Start()
         {
-            if (_socketServer.Setup(_config))
-            {
-                ServerSetup();
-                if (_socketServer.Start())
-                {
-                    ServerStart();
-                }
-            }
+            ServerSetup();
+            _socketListener.StartListeningAsync(_config.Port, _config.Interface);
+            ServerStart();
         }
 
         public void Broadcast(Packet packet)
@@ -55,46 +52,49 @@ namespace PlatHak.Server.Network
                 userClient.Send(packet);
             }
         }
-
-        private UserClient GetUserClient(WebSocketSession session)
-        {
-            return UserClients.FirstOrDefault(x => x.SessionId == session.SessionID);
-        }
-
+        
         private void ServerSetup()
         {
             UserClients = new List<UserClient>();
             Log("Server Setup!");
-            _socketServer.NewDataReceived += _socketServer_NewDataReceived;
-            _socketServer.NewSessionConnected += _socketServer_NewSessionConnected;
-            OnSetup?.Invoke(new WebSocketServerEventArgs(_socketServer));
+            _socketListener.ConnectionReceived += SocketListenerOnConnectionReceived;
+            OnSetup?.Invoke(new WebSocketServerEventArgs(_socketListener));
 
+        }
+
+        private void SocketListenerOnConnectionReceived(object o, TcpSocketListenerConnectEventArgs tcpSocketListenerConnectEventArgs)
+        {
+            var client = tcpSocketListenerConnectEventArgs.SocketClient;
+
+            var userClient = OnClientConnect == null ? new BasicUserClient(client) : OnClientConnect.Invoke(client);
+            if (userClient != null)
+            {
+                UserClients.Add(userClient);
+                userClient.Session.MessageReceived += (sender, args) => _socketServer_NewDataReceived(userClient, args.Message);
+                Task.Run(async () =>
+                {
+                    await Task.Delay(150);
+                    userClient.Session.Send(new WelcomePacket("Hello!", Environment.Version));
+                });
+                
+                Log($"User Connected! User: {client.RemoteAddress}:{client.RemotePort} ({userClient.SessionId})");
+            }
+            else
+            {
+                Log($"Error connecting client: {client.RemoteAddress}:{client.RemotePort}");
+            }
         }
 
         private void ServerStart()
         {
-            OnStart?.Invoke(new WebSocketServerEventArgs(_socketServer));
+            OnStart?.Invoke(new WebSocketServerEventArgs(_socketListener));
             Log("Server Started! Listening on Port: " + _config.Port);
             _updateTimer.Start();
         }
 
-        private void _socketServer_NewSessionConnected(WebSocketSession session)
+        private void _socketServer_NewDataReceived(UserClient userClient, Packet packet)
         {
-            if (GetUserClient(session) != null) return; //Client already exists
-            var userClient = OnClientConnect == null ? new BasicUserClient(session) : OnClientConnect.Invoke(session);
-            if (userClient != null)
-            {
-                UserClients.Add(userClient);
-                Log("User Connected!");
-            }
-        }
-
-        private void _socketServer_NewDataReceived(WebSocketSession session, byte[] value)
-        {
-            var userClient = GetUserClient(session);
-            if (userClient == null) return; //Client is not within UserClients
-
-            var packet = Packet.FromBytes(value);
+            Log($"Message Recieved: {userClient.SessionId}. Type: {packet.GetType()}");
             //Handle packet if we have already handled handshake and login (and the client is loaded)
             if (userClient.HandshakeFinished && userClient.LoginFinished && userClient.ClientLoaded)
             {
@@ -127,11 +127,6 @@ namespace PlatHak.Server.Network
                     OnClientLoaded?.Invoke(userClient);
                 }
             }
-        }
-
-        private void HandlePacket(WebSocketSession session, Packet packet)
-        {
-
         }
     }
 }

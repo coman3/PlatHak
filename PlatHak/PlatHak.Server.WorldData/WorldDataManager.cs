@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Geo;
 using Geo.Geometries;
 using ICSharpCode.SharpZipLib.Zip;
+using PlatHak.Common.World;
 
 namespace PlatHak.Server.WorldData
 {
@@ -17,14 +18,13 @@ namespace PlatHak.Server.WorldData
     {
         private const string ConsolePrefix = "[WorldDataManager] ";
         private const string WorldDataTileUrl = @"https://earthexplorer.usgs.gov/download/4220/{0}/STANDARD/EE";
-        private const string Cookie = @"_gat_ee=1; _gat_lta=1; ee-system-notices=%5B%226021%22%5D; EROS_SSO_production_secure=eyJjcmVhdGVkIjoxNTA1ODgzOTczLCJ1cGRhdGVkIjoiMjAxNy0wOS0yMCAwMDowNjoxMiIsImlkIjoiTmdoNWk%2BK1ptOlFMYVwvV14iLCJzZWNyZXQiOiJXZC5xUEd1cmVIa2s%2FJVs6ODt%2BPC4tIiwiYXV0aFR5cGUiOiIiLCJhdXRoU2VydmljZSI6IkVST1MiLCJ2ZXJzaW9uIjoxLjEsInN0YXRlIjoiYjVjMGZhYjkxOTEwMmZjMDQ1MmI0MGJkMGRmY2QxYWMyYjIzM2NhNzY0NTVhNjFkODIyYWQ2NDZjYTBhY2U3NyJ9; EROS_SSO_production=eyJjcmVhdGVkIjoxNTA1ODgzOTczLCJ1cGRhdGVkIjoiMjAxNy0wOS0yMCAwMDowNjoxMiIsImlkIjoiTmdoNWk%2BK1ptOlFMYVwvV14iLCJzZWNyZXQiOiJXZC5xUEd1cmVIa2s%2FJVs6ODt%2BPC4tIiwiYXV0aFR5cGUiOiIiLCJhdXRoU2VydmljZSI6IkVST1MiLCJ2ZXJzaW9uIjoxLjEsInN0YXRlIjoiYjVjMGZhYjkxOTEwMmZjMDQ1MmI0MGJkMGRmY2QxYWMyYjIzM2NhNzY0NTVhNjFkODIyYWQ2NDZjYTBhY2U3NyJ9; PHPSESSID=2epjtuv9bq395k72ma1je43dt7; _ga=GA1.2.1595815959.1505690179; _gid=GA1.2.854775227.1505883956";
+        private const string Cookie = @"EROS_SSO_production_secure=eyJjcmVhdGVkIjoxNTA1ODgzOTczLCJ1cGRhdGVkIjoiMjAxNy0wOS0yMCAwMDowNjoxMiIsImlkIjoiTmdoNWk%2BK1ptOlFMYVwvV14iLCJzZWNyZXQiOiJXZC5xUEd1cmVIa2s%2FJVs6ODt%2BPC4tIiwiYXV0aFR5cGUiOiIiLCJhdXRoU2VydmljZSI6IkVST1MiLCJ2ZXJzaW9uIjoxLjEsInN0YXRlIjoiYjVjMGZhYjkxOTEwMmZjMDQ1MmI0MGJkMGRmY2QxYWMyYjIzM2NhNzY0NTVhNjFkODIyYWQ2NDZjYTBhY2U3NyJ9; EROS_SSO_production=eyJjcmVhdGVkIjoxNTA1ODgzOTczLCJ1cGRhdGVkIjoiMjAxNy0wOS0yMCAwMDowNjoxMiIsImlkIjoiTmdoNWk%2BK1ptOlFMYVwvV14iLCJzZWNyZXQiOiJXZC5xUEd1cmVIa2s%2FJVs6ODt%2BPC4tIiwiYXV0aFR5cGUiOiIiLCJhdXRoU2VydmljZSI6IkVST1MiLCJ2ZXJzaW9uIjoxLjEsInN0YXRlIjoiYjVjMGZhYjkxOTEwMmZjMDQ1MmI0MGJkMGRmY2QxYWMyYjIzM2NhNzY0NTVhNjFkODIyYWQ2NDZjYTBhY2U3NyJ9; PHPSESSID=5fmd6prf538gi4282dttndact3; _ga=GA1.2.1595815959.1505690179; _gid=GA1.2.1765924644.1506325231; _gat_ee=1; _gat_lta=1";
         
         public List<WorldDataTile> Tiles { get; set; }
 
         public string DataPath => Path.Combine(Environment.CurrentDirectory, "Data", "ASTER_GLOBAL_DEM_DE_206008.csv");
         public string WorldDataTilePath { get; set; }
         private HttpClient HttpClient { get; }
-
         public WorldDataManager(string worldDataTilePath)
         {
             if (!Directory.Exists(worldDataTilePath))
@@ -133,37 +133,43 @@ namespace PlatHak.Server.WorldData
             return false;
         }
 
-        public async Task<Dictionary<Coordinate, Bitmap>> Load(Polygon polygon)
+        public async Task<Dictionary<WorldDataTile, Bitmap>> Generate(WorldDataTile[] worldDataTiles)
         {
-            var images = new Dictionary<Coordinate, Bitmap>();
-            foreach (var outline in polygon.Shell.Coordinates)
+            var images = new Dictionary<WorldDataTile, Bitmap>();
+            foreach (var tile in worldDataTiles)
             {
-                var image = await Load(outline);
-                if (image != null) images.Add(outline, image);
+                try
+                {
+                    var image = await Generate(tile);
+                    if (image != null) images.Add(tile, image);
+                }
+                catch (FileLoadException)
+                {
+                    images.Add(tile, null);
+                }
             }
             return images;
         }
 
-        public async Task<Bitmap> Load(Coordinate cord)
+        public async Task<Bitmap> Generate(WorldDataTile tile)
         {
-            var tile = Tiles.FirstOrDefault(x => !x.Loaded && x.Polygon.GetBounds().Contains(cord));
-            if (tile == null)
-                return null;
             var exportedFilePath = Path.Combine(WorldDataTilePath, tile.EntityId + "_dem.tif");
             if (!File.Exists(exportedFilePath) && !await DownloadDataTile(tile))
-                return null;
-                tile.Loaded = true;
+                throw new FileLoadException("Failed to download and or find the world tile.");
+
             return new Bitmap(Image.FromFile(exportedFilePath));
         }
-        public async Task Preload(Polygon polygon)
+        public async Task DownloadWorldData(WorldDataTile[] tiles)
         {
-            var bounds = polygon.GetBounds();
-            var requiredTiles = Tiles.Where(x => x.Polygon.GetBounds().Intersects(bounds)).ToList();
-            foreach (var worldDataTile in requiredTiles)
+            foreach (var worldDataTile in tiles)
             {
                 await DownloadDataTile(worldDataTile);
             }
         }
-       
+
+        public WorldDataTile[] GetRequiredDataTiles(Polygon polygon)
+        {
+            return Tiles.Where(x => x.Polygon.GetBounds().Intersects(polygon.GetBounds())).ToArray();
+        }
     }
 }

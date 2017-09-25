@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Bson;
+using System.Reflection;
 using PlatHak.Common.Maths;
 using PlatHak.Common.Network;
 using PlatHak.Common.Objects;
 using PlatHak.Common.World;
-using SuperSocket.SocketBase;
-using SuperWebSocket;
+using PlatHak.Server.Sockets.Messaging;
+using Sockets.Plugin.Abstractions;
 
 namespace PlatHak.Server.Network
 {
@@ -16,34 +16,35 @@ namespace PlatHak.Server.Network
         public bool HandshakeFinished { get; set; }
         public bool ClientLoaded { get; set; }
 
-        public Guid Id => new Guid(SessionId);
-        public string SessionId => Session.SessionID;
+        public Guid SessionId = Guid.NewGuid();
         public string Username { get; set; }
         public Player Player { get; set; }
         public ClientConfig ClientConfig { get; set; }
 
-        private WebSocketSession Session { get; set; }
+        public JsonProtocolTaskMessenger<Packet> Session { get; set; }
         public List<VectorLong2> SentChunks { get; set; }
-        protected UserClient(WebSocketSession session)
+        protected UserClient(ITcpSocketClient session)
         {
-            Session = session;
+            Session = new JsonProtocolTaskMessenger<Packet>(session)
+            {
+                AdditionalTypeResolutionAssemblies = new List<Assembly>
+                {
+                    Assembly.Load(new AssemblyName(typeof(Packet).AssemblyQualifiedName?.Split(',')[1] ?? throw new ArgumentNullException(typeof(Packet).AssemblyQualifiedName)))
+                }
+            };
+            Session.StartExecuting();
             SentChunks = new List<VectorLong2>();
         }
 
         public void Send(Packet packet)
         {
-            var packetData = packet.ToBytes();
-            Session.Send(packetData, 0, packetData.Length);
+            Session.Send(packet);
         }
 
-        public void Send(byte[] packet)
+        public void Close()
         {
-            Session.Send(packet, 0, packet.Length);
-        }
-
-        public void Close(CloseReason reason = CloseReason.InternalError)
-        {
-            Session.Close(reason);
+            Session.StopExecuting();
+            Session.Disconnect(DisconnectionType.Graceful).Wait();
         }
 
         /// <summary>
@@ -51,11 +52,13 @@ namespace PlatHak.Server.Network
         /// </summary>
         /// <param name="packet">the handshake packet received</param>
         public abstract void HandleHandshake(HandshakePacket packet);
+
         /// <summary>
         /// What does the server do when the user wishes to login?
         /// </summary>
         /// <param name="packet">the login packet received</param>
         public abstract void HandleLogin(LoginPacket packet);
+
         /// <summary>
         /// What does the server do with this packet when it received?
         /// </summary>

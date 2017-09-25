@@ -1,5 +1,6 @@
 ﻿using System;
 using Foundation;
+using PlatHak.Client.Game;
 using UIKit;
 
 namespace PlatHak.Client.iOS
@@ -7,11 +8,11 @@ namespace PlatHak.Client.iOS
     [Register("AppDelegate")]
     class Program : UIApplicationDelegate
     {
-        private static Game1 game;
+        private static PlatHakGame game;
 
         internal static void RunGame()
         {
-            game = new Game1();
+            game = new PlatHakGame();
             game.Run();
         }
 
